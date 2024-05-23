@@ -1,0 +1,155 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.CourseOnline" parent="Base.Theme.CourseOnline">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/dark_grey</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/design_default_color_primary</item>
+        <item name="colorPrimaryDark">@color/design_default_color_primary_dark</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/dark_grey</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+    <style name="AppTheme1" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorPrimary">@android:color/holo_blue_bright</item>
+        <item name="colorPrimaryDark">@android:color/holo_blue_bright</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/dark_grey</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+    <style name="Base.Theme.CourseOnline" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/dark_grey</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+    <style name="custom_card_view_style">
+        <item name="cardBackgroundColor">@color/grey</item>
+        <item name="shapeAppearanceOverlay">@style/custom_card_view</item>
+    </style>
+    <style name="appBarColor">
+        <item name="android:background">@color/dark_grey</item>
+    </style>
+    <style name="bottomBar">
+        <item name="android:background">@color/dark_grey</item>
+        <item name="itemIconTint">@color/white</item>
+        <item name="itemTextColor">@color/white</item>
+    </style>
+    <style name="backGround2">
+        <item name="android:background">@color/grey</item>
+    </style>
+    <style name="heading">
+        <item name="android:background">@color/grey</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="backGround">
+        <item name="android:background">@color/dark_grey</item>
+    </style>
+    <style name="backGroundChild">
+        <item name="android:background">@color/grey</item>
+    </style>
+    <style name="Scrim">
+        <item name="contentScrim">@color/dark_grey</item>
+    </style>
+    <style name="settingBorder">
+        <item name="android:background">@drawable/setting_border_night</item>
+    </style>
+    <style name="textColorBlue">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="videoBackground">
+        <item name="android:background">@drawable/video_bg_night</item>
+    </style>
+    <style name="WindowAnimationTransition">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+    <style name="textColorAppBlue">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="textColorWhite">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="tabLayout">
+        <item name="android:background">@color/dark_grey</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabIconTint">@color/white</item>
+        <item name="tabIndicatorColor">@color/white</item>
+    </style>
+    <style name="iconColorAppbar">
+        <item name="android:backgroundTint">@color/dark_grey</item>
+        <item name="tint">@color/white</item>
+    </style>
+    <style name="iconColorGeneral">
+        <item name="android:backgroundTint">@color/grey</item>
+        <item name="tint">@color/white</item>
+    </style>
+    <style name="appBarCourse">
+        <item name="android:background">#50000000</item>
+        <item name="collapsedTitleTextColor">@color/white</item>
+        <item name="contentScrim">#50000000</item>
+        <item name="expandedTitleTextColor">@color/white</item>
+    </style>
+    <style name="appBarCategory">
+        <item name="android:background">@color/dark_grey</item>
+        <item name="collapsedTitleTextColor">@color/white</item>
+        <item name="contentScrim">@color/dark_grey</item>
+        <item name="expandedTitleTextColor">@color/white</item>
+    </style>
+    <style name="backLogin">
+        <item name="backgroundTint">@color/grey</item>
+        <item name="tint">@color/white</item>
+    </style>
+    <style name="textColor">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="textColorSmall">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="textColorBlack">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="button">
+        <item name="background">@drawable/btn_login_night</item>
+    </style>
+    <style name="custom_card_view" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">48dp</item>
+        <item name="cornerSizeTopLeft">48dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+    <style name="circleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+    <style name="appBarTextColor">
+        <item name="titleTextColor">@color/white</item>
+    </style>
+    <style name="roundedImageView" parent="">
+        <item name="cornerSize">12%</item>
+        <item name="color">@color/white</item>
+    </style>
+    <style name="BottomSheetDialogAnimation">
+        <item name="android:windowEnterTransition">@anim/slide_in_bottom</item>
+        <item name="android:windowExitTransition">@anim/slide_out_bottom</item>
+    </style>
+    <style name="backGroundState" parent="">
+        <item name="android:background">@drawable/bg_state_night</item>
+    </style>
+    <style name="backGroundComment" parent="">
+        <item name="android:background">@drawable/comment_bg_night</item>
+    </style>
+    <style name="boxBackgroundColor">
+        <item name="boxBackgroundColor">@color/dark_grey</item>
+    </style>
+</resources>

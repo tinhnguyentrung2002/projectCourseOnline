@@ -1,0 +1,39 @@
+<resources>
+    <string-array name="type_job">
+        <item>Học sinh</item>
+        <item>Sinh viên</item>
+        <item>Đi làm</item>
+    </string-array>
+    <string name="app_name">Course Online</string>
+    //Intro
+    <string name="txt_button_Next_intro">Khám phá</string>
+    <string name="txt_register_intro">Chưa có tài khoản, đăng kí tại đây</string>
+    <string name="txt_title_intro">Khám phá ngay các khoá học online</string>
+    //Login
+    <string name="btn_login">ĐĂNG NHẬP</string>
+    <string name="forgot_password">Quên mật khẩu</string>
+    <string name="enter_email">Nhập email</string>
+    <string name="enter_password">Nhập mật khẩu</string>
+    <string name="login_register_link_1">Chưa có tài khoản ? </string>
+    <string name="login_register_link_2"> Đăng ký ngay</string>
+    //Register
+    <string name="enter_username">Nhập tên người dùng</string>
+    <string name="enter_re_password">Nhập lại mật khẩu</string>
+    <string name="register_title">Nhập đầy đủ thông tin</string>
+    <string name="register_login_link">Đã có tài khoản, đăng nhập ngay</string>
+    <string name="signup_button">ĐĂNG KÝ</string>
+    //Choose job
+    <string name="register_job_title_1">CHỌN NHÓM ĐỐI TƯỢNG</string>
+    <string name="register_job_title_2">Chúng tôi sẽ đề xuất khoá học phù hợp với bạn</string>
+    <string name="register_job_txt_1_opt_1">BẠN LÀ HỌC SINH</string>
+    <string name="register_job_txt_2_opt_1">Dành cho học sinh cấp 1, 2, 3</string>
+    <string name="register_job_txt_1_opt_2">BẠN LÀ SINH VIÊN</string>
+    <string name="register_job_txt_2_opt_2">Dành cho Đại học, cao đẳng</string>
+    <string name="register_job_txt_1_opt_3">XIN VIỆC / ĐÃ ĐI LÀM</string>
+    <string name="register_job_txt_2_opt_3">Dành cho xin việc, cải thiện kỹ năng</string>
+    <string name="register_job_button">Tiếp theo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="payments_show_name">Successfully received payment data for %s!</string>
+</resources>

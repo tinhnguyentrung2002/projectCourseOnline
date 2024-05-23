@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/course_favourite"
+        android:title="Ghim"
+        app:showAsAction="always"
+        android:icon="@drawable/favourite_border"
+        android:tooltipText="Ghim"></item>
+    <item
+        android:id="@+id/course_rate"
+        android:title="Đánh giá khoá học"
+        android:tooltipText="Đánh giá"
+        ></item>
+<!--    <item-->
+<!--        android:id="@+id/course_mark"-->
+<!--        android:title="Đã hoàn thành"></item>-->
+</menu>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/logo2_new_foreground"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/logo2_new_foreground"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CourseOnline"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".Activity.Teacher.UploadTypeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Teacher.DetailCourseTeacherActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Learner.CategoryChildActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Teacher.UploadStep3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Teacher.UploadStep2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Teacher.UploadStep1Activity"
+            android:exported="false" />
+
+        <receiver android:name=".Class.Alarm" />
+
+        <activity
+            android:name=".Activity.Learner.AlarmActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Teacher.DashBoardTeacherActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Learner.CheckoutSuccessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Learner.CategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Learner.WebActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Learner.DashboardActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Learner.LearnActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Learner.See_All_Activity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Learner.CourseActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Learner.SettingsActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Learner.VideoActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"
+            android:supportsPictureInPicture="true"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.Learner.RegisterMainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Learner.RegisterJobActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.LoginActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.IntroActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:exported="true"
+            android:theme="@style/Theme.CourseOnline">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.wallet.api.enabled"
+            android:value="true" />
+    </application>
+
+</manifest>

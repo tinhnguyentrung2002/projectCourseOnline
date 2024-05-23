@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/success_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/backGround"
+    android:fitsSystemWindows="true"
+    android:fillViewport="true"
+    tools:context=".Activity.Learner.CheckoutSuccessActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/payment_success_description"
+            style="@style/textColorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thanh toán thành công.\n Bạn có thể tham gia khoá học ngay bây giờ."
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/success_image" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/payment_success_description">
+
+            <TextView
+                android:id="@+id/txtBillID"
+                style="@style/textColorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Bill ID: 12312321312"
+                android:textSize="16sp"
+                android:textStyle="italic"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="171dp" />
+
+            <TextView
+                android:id="@+id/txtName"
+                style="@style/textColorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Họ và tên : Nguyễn Trung Tính"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="171dp" />
+
+            <TextView
+                android:id="@+id/txtCID"
+                style="@style/textColorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Mã khoá học: asDSADDdsd111asasd"
+                android:textSize="20sp"
+
+                tools:layout_editor_absoluteX="22dp"
+                tools:layout_editor_absoluteY="212dp" />
+
+            <TextView
+                android:id="@+id/txtCourseTitle"
+                style="@style/textColorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Khoá học: Kỹ năng giao tiếp nơi công sở (Nguyễn Trung Vũ)"
+                android:textSize="20sp"
+                tools:layout_editor_absoluteX="22dp"
+                tools:layout_editor_absoluteY="256dp" />
+
+            <TextView
+                android:id="@+id/txtPrice"
+                style="@style/textColorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Số tiền đã thanh toán: 10.000.000đ"
+                android:textSize="20sp"
+                tools:layout_editor_absoluteX="22dp"
+                tools:layout_editor_absoluteY="301dp" />
+
+            <TextView
+                android:id="@+id/txtDate"
+                style="@style/textColorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="17/11/2023 09:37"
+                android:textSize="16sp"
+                android:textStyle="italic"
+                tools:layout_editor_absoluteX="22dp"
+                tools:layout_editor_absoluteY="336dp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/success_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="44dp"
+            android:src="@drawable/checked_large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgContact"
+            style="@style/iconColorGeneral"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/baseline_contact_support_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/buttonFinish" />
+
+        <TextView
+            android:id="@+id/txtContact"
+            style="@style/textColorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginBottom="20dp"
+            android:text="Liên hệ: 0123456789"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/buttonFinish"
+            app:layout_constraintHorizontal_bias="0.388"
+            app:layout_constraintStart_toEndOf="@+id/imgContact" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonFinish"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="68dp"
+            android:text="Trở lại khoá học"
+            android:textColor="@color/white"
+            style="@style/button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.488"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.core.widget.NestedScrollView>
