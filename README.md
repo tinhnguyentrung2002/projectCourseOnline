@@ -93,5 +93,5 @@
 ### Bảng 11: Bảng dữ liệu Checklike người dùng
 
 # Demo sản phẩm
-![demoApp](https://www.youtube.com/watch?v=pesfm5-z4FI)
+[![appDemo](https://img.youtube.com/vi/pesfm5-z4FI/0.jpg)](https://www.youtube.com/watch?v=pesfm5-z4FI)
 
