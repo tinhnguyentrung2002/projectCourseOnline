@@ -1,6 +1,6 @@
 # Mô tả cơ sở dữ liệu
 
-### Bảng 3.10: Bảng dữ liệu thể loại
+### Bảng 1: Bảng dữ liệu thể loại
 
 | STT | Tên trường      | Kiểu dữ liệu | Mô tả                                |
 |-----|-----------------|--------------|--------------------------------------|
@@ -9,7 +9,7 @@
 | 3   | Category_order  | int          | Thứ tự sắp xếp các thể loại trong danh mục |
 | 4   | Category_title  | String       | Tiêu đề các thể loại trong danh mục |
 
-### Bảng 3.11: Bảng dữ liệu thể loại con (categorieschild)
+### Bảng 2: Bảng dữ liệu thể loại con (categorieschild)
 
 | STT | Tên trường      | Kiểu dữ liệu | Mô tả                                |
 |-----|-----------------|--------------|--------------------------------------|
@@ -18,7 +18,7 @@
 | 3   | Category_order  | int          | Thứ tự sắp xếp các thể loại trong danh mục |
 | 4   | Category_title  | String       | Tiêu đề các thể loại trong danh mục |
 
-### Bảng 3.12: Bảng dữ liệu khóa học
+### Bảng 3: Bảng dữ liệu khóa học
 
 | STT | Tên trường          | Kiểu dữ liệu | Mô tả                                          |
 |-----|---------------------|--------------|------------------------------------------------|
@@ -28,7 +28,7 @@
 | 4   | Heading_description | String       | Mô tả chương trong khoá học                    |
 | 5   | Heading_order       | Number       | Thứ tự sắp xếp các chương trong khoá học      |
 
-### Bảng 3.13: Bảng dữ liệu chương trong khóa học
+### Bảng 4: Bảng dữ liệu chương trong khóa học
 
 | STT | Tên trường       | Kiểu dữ liệu | Mô tả                  |
 |-----|------------------|--------------|------------------------|
@@ -36,7 +36,7 @@
 | 2   | Category_id      | String       | ID thể loại cha       |
 | 3   | Category_child_id| String       | ID thể loại con       |
 
-### Bảng 3.14: Bảng dữ liệu phân loại khóa học
+### Bảng 5: Bảng dữ liệu phân loại khóa học
 
 | STT | Tên trường      | Kiểu dữ liệu | Mô tả                       |
 |-----|-----------------|--------------|-----------------------------|
@@ -50,7 +50,7 @@
 | 8   | User_avatar     | String       | Ảnh đại diện người bình luận|
 | 9   | User_name       | String       | Tên người bình luận         |
 
-### Bảng 3.15: Bảng dữ liệu bình luận trong khóa học
+### Bảng 6: Bảng dữ liệu bình luận trong khóa học
 
 | STT | Tên trường      | Kiểu dữ liệu | Mô tả             |
 |-----|-----------------|--------------|-------------------|
@@ -58,14 +58,14 @@
 | 2   | Video_Title     | String       | Tiêu đề video     |
 | 3   | Video_url       | String       | Link video        |
 
-### Bảng 3.16: Bảng dữ liệu video khóa học
+### Bảng 7: Bảng dữ liệu video khóa học
 
 | STT | Tên trường      | Kiểu dữ liệu | Mô tả             |
 |-----|-----------------|--------------|-------------------|
 | 1   | Document_title  | String       | Tiêu đề tài liệu  |
 | 2   | Document_url    | String       | Link tài liệu     |
 
-### Bảng 3.17: Bảng dữ liệu tài liệu khóa học
+### Bảng 8: Bảng dữ liệu tài liệu khóa học
 
 | STT | Tên trường      | Kiểu dữ liệu | Mô tả                   |
 |-----|-----------------|--------------|-------------------------|
@@ -76,21 +76,21 @@
 | 5   | User_avatar     | String       | Avatar người dùng       |
 | 6   | User_permission | String       | Quyền người dùng       |
 
-### Bảng 3.18: Bảng dữ liệu người dùng
+### Bảng 9: Bảng dữ liệu người dùng
 
 | STT | Tên trường      | Kiểu dữ liệu | Mô tả             |
 |-----|-----------------|--------------|-------------------|
 | 1   | User_uid        | String       | Id người dùng     |
 | 2   | Video_id        | String       | Id video khoá học |
 
-### Bảng 3.19: Bảng dữ liệu Checkvideo người dùng
+### Bảng 10: Bảng dữ liệu Checkvideo người dùng
 
 | STT | Tên trường      | Kiểu dữ liệu | Mô tả             |
 |-----|-----------------|--------------|-------------------|
 | 1   | Course_id       | String       | Id khoá học       |
 | 2   | Comment_id      | String       | Id bình luận      |
 
-### Bảng 3.20: Bảng dữ liệu Checklike người dùng
+### Bảng 11: Bảng dữ liệu Checklike người dùng
 
 # Demo sản phẩm
 
