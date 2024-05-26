@@ -1,4 +1,4 @@
-# Mô tả cơ sở dữ liệu
+# Mô tả cơ sở dữ liệu (Firebase)
 
 ### Bảng 1: Bảng dữ liệu thể loại
 
