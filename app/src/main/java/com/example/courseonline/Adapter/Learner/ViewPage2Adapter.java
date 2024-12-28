@@ -9,6 +9,7 @@ import com.example.courseonline.Fragment.Learner.DiscoverFragment;
 import com.example.courseonline.Fragment.Learner.HomeFragment;
 import com.example.courseonline.Fragment.Learner.LearningFragment;
 import com.example.courseonline.Fragment.Learner.ProfileFragment;
+import com.example.courseonline.Fragment.Learner.RankingFragment;
 
 public class ViewPage2Adapter extends FragmentStateAdapter {
     public ViewPage2Adapter(@NonNull FragmentActivity fragmentActivity) {
@@ -22,7 +23,8 @@ public class ViewPage2Adapter extends FragmentStateAdapter {
             case 0: return new HomeFragment();
             case 1: return new DiscoverFragment();
             case 2: return new LearningFragment();
-            case 3: return new ProfileFragment();
+            case 3: return new RankingFragment();
+            case 4: return new ProfileFragment();
             default: return new HomeFragment();
 
         }
@@ -30,6 +32,6 @@ public class ViewPage2Adapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 5;
     }
 }

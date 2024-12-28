@@ -1,6 +1,7 @@
 package com.example.courseonline.Adapter.Learner;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,20 +15,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.courseonline.Activity.Learner.CourseActivity;
 import com.example.courseonline.Activity.Teacher.DetailCourseTeacherActivity;
 import com.example.courseonline.Domain.CourseDisplayClass;
-import com.example.courseonline.Domain.TypeClass;
 import com.example.courseonline.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -36,17 +37,18 @@ import java.util.ArrayList;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> implements Filterable {
     ArrayList<CourseDisplayClass> items;
     ArrayList<CourseDisplayClass> itemsOld;
-    Activity context;
+    Context context;
     private int permission;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     SearchAdapter.onItemClickListener onItemClickListener;
     RecyclerView.RecycledViewPool viewPool;
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    public SearchAdapter(ArrayList<CourseDisplayClass> items, int permission){
+    public SearchAdapter(ArrayList<CourseDisplayClass> items, int permission, Context context){
         this.items = items;
         this.itemsOld = items;
         viewPool = new RecyclerView.RecycledViewPool();
         this.permission = permission;
+        this.context = context;
     }
     @NonNull
     @Override
@@ -67,39 +69,60 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String id = items.get(position).getCourse_id();
         if(permission == 1){
-            db = FirebaseFirestore.getInstance();
-            ArrayList<TypeClass> arrayTypeClass = new ArrayList<>();
-            TypeAdapter typeAdapter = new TypeAdapter(arrayTypeClass, 0);
+//            db = FirebaseFirestore.getInstance();
+//            ArrayList<TypeClass> arrayTypeClass = new ArrayList<>();
+//            TypeAdapter typeAdapter = new TypeAdapter(arrayTypeClass);
+//
+//            db.collection("Courses").document(id).collection("Type").addSnapshotListener(new EventListener<QuerySnapshot>() {
+//                @Override
+//                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//                    if(error != null)
+//                    {
+//
+//                        return;
+//                    }
+//                    arrayTypeClass.clear();
+//                    for (QueryDocumentSnapshot doc : value) {
+//                        if (doc.toObject(TypeClass.class) != null) {
+////                            if(doc.getString("category_child_id") == null)
+//                           // {
+//                                arrayTypeClass.add(doc.toObject(TypeClass.class));
+//                            //}
+//                        }
+//                    }
+//                    typeAdapter.notifyDataSetChanged();
+//                }
+//            });
+//            holder.recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
+//            holder.recyclerView.setAdapter(typeAdapter);
+//            holder.recyclerView.setHasFixedSize(true);
+//            holder.recyclerView.setItemViewCacheSize(20);
+//            holder.recyclerView.setRecycledViewPool(viewPool);
 
-            db.collection("Courses").document(id).collection("Type").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            RequestOptions options = new RequestOptions()
+                    .placeholder(R.drawable.default_image)
+                    .error(R.drawable.default_image)
+                    .centerInside();
+
+            Glide.with(holder.itemView.getContext())
+                    .load(items.get(position).getCourse_img())
+                    .apply(options)
+                    .into(holder.imgPic);
+            holder.txtTitle.setText(items.get(position).getCourse_title());
+            db.collection("Users").document(items.get(position).getCourse_owner_id()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
-                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                     if(error != null)
                     {
-
                         return;
                     }
-                    arrayTypeClass.clear();
-                    for (QueryDocumentSnapshot doc : value) {
-                        if (doc.toObject(TypeClass.class) != null) {
-                            if(doc.getString("category_child_id") == null)
-                            {
-                                arrayTypeClass.add(doc.toObject(TypeClass.class));
-                            }
-                        }
-                        typeAdapter.notifyDataSetChanged();
+                    if(value.exists())
+                    {
+                        holder.txtOwner.setText((value.getString("user_name")));
+
                     }
                 }
             });
-            holder.recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
-            holder.recyclerView.setAdapter(typeAdapter);
-            holder.recyclerView.setHasFixedSize(true);
-            holder.recyclerView.setItemViewCacheSize(20);
-            holder.recyclerView.setRecycledViewPool(viewPool);
-
-            Glide.with(holder.itemView.getContext()).load(items.get(position).getCourse_img()).centerInside().into(holder.imgPic);
-            holder.txtTitle.setText(items.get(position).getCourse_title());
-            holder.txtOwner.setText(items.get(position).getCourse_owner());
             holder.txtView.setText(changeValue(items.get(position).getCourse_member()));
             holder.txtRate.setText(String.valueOf(items.get(position).getCourse_rate()));
             holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
@@ -108,11 +131,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     Intent intent = new Intent(context, CourseActivity.class);
                     intent.putExtra("course_key", id);
                     context.startActivity(intent);
-                    context.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+//                    context.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 }
             });
         }else{
-            Glide.with(holder.itemView.getContext()).load(items.get(position).getCourse_img()).centerInside().into(holder.imgPicTeacher);
+            RequestOptions options = new RequestOptions()
+                    .placeholder(R.drawable.default_image)
+                    .error(R.drawable.default_image)
+                    .centerInside();
+
+            Glide.with(holder.itemView.getContext())
+                    .load(items.get(position).getCourse_img())
+                    .apply(options)
+                    .into(holder.imgPicTeacher);
             holder.txtTitleTeacher.setText(items.get(position).getCourse_title());
             holder.txtDateUpload.setText(sdf.format(items.get(position).getCourse_upload()));
             holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -121,13 +152,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     Intent intent = new Intent(context, DetailCourseTeacherActivity.class);
                     intent.putExtra("key_id", id);
                     context.startActivity(intent);
-                    context.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+//                    context.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 }
             });
         }
-
     }
-
+    public void release(){
+        context =null;
+    }
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -142,14 +174,25 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     {
                         if(permission == 1)
                         {
-                            if(courseDisplayClass.getCourse_title().toLowerCase().contains(strSearch.toLowerCase()) ||
-                                    courseDisplayClass.getCourse_owner().toLowerCase().contains(strSearch.toLowerCase())){
-                                arrayList.add(courseDisplayClass);
-                            }
-                        }else{
-                            if(courseDisplayClass.getCourse_title().toLowerCase().contains(strSearch.toLowerCase())) {
-                                arrayList.add(courseDisplayClass);
-                            }
+                            db.collection("Users").document(courseDisplayClass.getCourse_owner_id()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if(task.isComplete() && task.getResult().exists())
+                                    {
+                                        String course_owner = task.getResult().getString("user_name");
+                                        if(courseDisplayClass.getCourse_title().toLowerCase().contains(strSearch.toLowerCase()) ||
+                                                course_owner.toLowerCase().contains(strSearch.toLowerCase())){
+                                            arrayList.add(courseDisplayClass);
+                                        }
+                                    }else{
+                                        if(courseDisplayClass.getCourse_title().toLowerCase().contains(strSearch.toLowerCase())) {
+                                            arrayList.add(courseDisplayClass);
+                                        }
+
+                                    }
+                                }
+                            });
+
                         }
 
                     }
@@ -193,7 +236,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         TextView txtTitle, txtOwner, txtView, txtRate, txtTitleTeacher, txtDateUpload;
         ImageView imgPic, imgPicTeacher;
         ConstraintLayout constraintLayout;
-        RecyclerView recyclerView;
+      //  RecyclerView recyclerView;
         CardView cardView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -207,7 +250,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             txtDateUpload = itemView.findViewById(R.id.txtDateUpload);
             txtTitleTeacher = itemView.findViewById(R.id.txtTitleSearchTeacher);
             constraintLayout = itemView.findViewById(R.id.constraintVertical);
-            recyclerView = (RecyclerView) itemView.findViewById(R.id.recyclerTypes);
+          //  recyclerView = (RecyclerView) itemView.findViewById(R.id.recyclerTypes);
         }
     }
 }

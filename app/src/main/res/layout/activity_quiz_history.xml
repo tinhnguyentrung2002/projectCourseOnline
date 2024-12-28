@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    style="@style/backGround">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lịch sử làm bài"
+            android:layout_gravity="center_horizontal"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            style="@style/textColorBlack"
+            android:textAllCaps="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:id="@+id/quizName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bài: "
+            android:layout_gravity="start"
+            android:textSize="14sp"
+            style="@style/textColorBlack"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="4dp" />
+        <TextView
+            android:id="@+id/quizRequire"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yêu cầu: "
+            android:layout_gravity="start"
+            android:textSize="14sp"
+            style="@style/textColorBlack"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="15dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="5"
+            android:background="@color/blue_messenger"
+           >
+
+            <TextView
+                android:id="@+id/header_lan"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text=""
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp" />
+
+            <TextView
+                android:id="@+id/header_diem"
+                android:layout_width="63dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Điểm"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp" />
+            <TextView
+                android:id="@+id/header_thoigian"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Thời gian"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp" />
+
+            <TextView
+                android:id="@+id/header_ketqua"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Kết quả"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp" />
+        </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_trong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trống"
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        style="@style/textColorBlack"
+        android:visibility="gone"
+        android:layout_marginTop="20dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_back_history_quiz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quay lại"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:padding="12dp"
+        android:backgroundTint="@color/blue_messenger"
+        android:textColor="#FFFFFF" />
+</LinearLayout>

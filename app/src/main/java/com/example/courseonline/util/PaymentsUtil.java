@@ -11,7 +11,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public class PaymentsUtil {
 
@@ -89,7 +88,6 @@ public class PaymentsUtil {
     private static JSONObject getCardPaymentMethod() throws JSONException {
         JSONObject cardPaymentMethod = getBaseCardPaymentMethod();
         cardPaymentMethod.put("tokenizationSpecification", getGatewayTokenizationSpecification());
-
         return cardPaymentMethod;
     }
 
@@ -120,11 +118,12 @@ public class PaymentsUtil {
         transactionInfo.put("currencyCode", Constants.CURRENCY_CODE);
         transactionInfo.put("checkoutOption", "COMPLETE_IMMEDIATE_PURCHASE");
 
+
         return transactionInfo;
     }
 
     private static JSONObject getMerchantInfo() throws JSONException {
-        return new JSONObject().put("merchantName", "Example Merchant");
+        return new JSONObject().put("merchantName", "Online Course");
     }
 
     public static JSONObject getPaymentDataRequest(long priceCents) {
@@ -140,15 +139,15 @@ public class PaymentsUtil {
 
       /* An optional shipping address requirement is a top-level property of the PaymentDataRequest
       JSON object. */
-            paymentDataRequest.put("shippingAddressRequired", true);
-
-            JSONObject shippingAddressParameters = new JSONObject();
-            shippingAddressParameters.put("phoneNumberRequired", false);
-
-            JSONArray allowedCountryCodes = new JSONArray(Constants.SHIPPING_SUPPORTED_COUNTRIES);
-
-            shippingAddressParameters.put("allowedCountryCodes", allowedCountryCodes);
-            paymentDataRequest.put("shippingAddressParameters", shippingAddressParameters);
+//            paymentDataRequest.put("shippingAddressRequired", true);
+//
+//            JSONObject shippingAddressParameters = new JSONObject();
+//            shippingAddressParameters.put("phoneNumberRequired", false);
+//
+//            JSONArray allowedCountryCodes = new JSONArray(Constants.SHIPPING_SUPPORTED_COUNTRIES);
+//
+//            shippingAddressParameters.put("allowedCountryCodes", allowedCountryCodes);
+//            paymentDataRequest.put("shippingAddressParameters", shippingAddressParameters);
             return paymentDataRequest;
 
         } catch (JSONException e) {
@@ -162,10 +161,11 @@ public class PaymentsUtil {
      * @param cents value of the price in cents.
      */
     public static String centsToString(long cents) {
-        return new BigDecimal(cents)
-                .divide(CENTS_IN_A_UNIT, RoundingMode.HALF_EVEN)
-                .setScale(2, RoundingMode.HALF_EVEN)
-                .toString();
+//        return new BigDecimal(cents)
+//                .divide(CENTS_IN_A_UNIT, RoundingMode.HALF_EVEN)
+//                .setScale(2, RoundingMode.HALF_EVEN)
+//                .toString();
+        return Long.toString(cents);
     }
 }
 

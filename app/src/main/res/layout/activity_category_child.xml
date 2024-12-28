@@ -17,10 +17,10 @@
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="125dp"
+            android:layout_height="115dp"
             style="@style/appBarCategory"
             app:expandedTitleMarginStart="17dp"
-            app:expandedTitleTextAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+            app:expandedTitleTextAppearance="@style/TextAppearance.Material3.HeadlineMedium"
 
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:maxLines="3"
@@ -68,6 +68,27 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/txtNone14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="120dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="120dp"
+                    android:layout_marginBottom="120dp"
+                    android:text="Không có khóa học nào"
+                    style="@style/textColorBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.099">
+
+                </TextView>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerItemChild"

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/course_result"
+        android:title="Kết quả học tập"
+        android:tooltipText="Kết quả học tập"
+        android:iconTint="@color/white"
+        ></item>
+    <item
+        android:id="@+id/course_list_member"
+        android:title="Danh sách thành viên"
+        android:tooltipText="Danh sách thành viên"
+        android:iconTint="@color/white"
+        ></item>
+    <item
+        android:id="@+id/course_discussion"
+        android:title="Tham gia thảo luận"
+        android:tooltipText="Tham gia thảo luận"
+        android:icon="@drawable/chat_icon"
+        app:showAsAction="always"
+        ></item>
+    <item
+        android:id="@+id/course_leave"
+        android:title="Rời khỏi lớp"
+        android:tooltipText="Rời khỏi lớp"
+        ></item>
+</menu>

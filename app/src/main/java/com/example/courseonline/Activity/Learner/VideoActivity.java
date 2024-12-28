@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Rational;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,21 +23,26 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.util.ArrayList;
+
 public class VideoActivity extends AppCompatActivity {
 
     ImageView imgPip;
     YouTubePlayerView playerView;
+    RelativeLayout mainLayout;
     private String url_video;
+    private ArrayList<String> arrID = new ArrayList<>();
     private PictureInPictureParams.Builder piBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
-
         playerView = (YouTubePlayerView) findViewById(R.id.frameVideo);
         imgPip = (ImageView) findViewById(R.id.imgPip);
         url_video = getIntent().getStringExtra("url_id");
+        arrID = getIntent().getStringArrayListExtra("arrayID");
+
         getLifecycle().addObserver(playerView);
         playerView.getYouTubePlayerWhenReady(new YouTubePlayerCallback() {
             @Override
@@ -88,7 +94,7 @@ public class VideoActivity extends AppCompatActivity {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             piBuilder = new PictureInPictureParams.Builder();
         }
-
+        mainLayout = (RelativeLayout) findViewById(R.id.relativeLayoutVideo);
     }
 
     private void pictureInPicture(){

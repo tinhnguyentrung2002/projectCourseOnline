@@ -11,12 +11,19 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.courseonline.Activity.Learner.DiscussionBoxActivity;
 import com.example.courseonline.Activity.Learner.SettingsActivity;
 import com.example.courseonline.Activity.LoginActivity;
 import com.example.courseonline.Adapter.Teacher.ViewPage2TeacherAdapter;
+import com.example.courseonline.Domain.TopicClass;
 import com.example.courseonline.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -28,10 +35,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.squareup.picasso.Picasso;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -41,7 +49,8 @@ public class DashBoardTeacherActivity extends AppCompatActivity {
         ViewPager2 viewPager2;
         ShapeableImageView imgTeacher;
         BottomNavigationView bottomBar;
-        TextView txtToolBar;
+        AppCompatImageButton  btnQuestionBox;
+        TextView txtToolBar, txtUnreadCount;
         AppBarLayout appBarLayout;
         FloatingActionButton fab;
 
@@ -60,6 +69,15 @@ public class DashBoardTeacherActivity extends AppCompatActivity {
                     appBarLayout.setVisibility(View.VISIBLE);
                     txtToolBar.setText("Tổng quan");
                     imgTeacher.setVisibility(View.VISIBLE);
+                    btnQuestionBox.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(DashBoardTeacherActivity.this, DiscussionBoxActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        }
+                    });
+//                    getUnreadDiscussions();
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -83,7 +101,16 @@ public class DashBoardTeacherActivity extends AppCompatActivity {
                                                         if(error != null){
                                                             return;
                                                         }
-                                                        Picasso.get().load(value.getString("user_avatar")).resize(45,45).centerCrop().into(imgTeacher);
+                                                        RequestOptions options = new RequestOptions()
+                                                                .placeholder(R.drawable.user)
+                                                                .error(R.drawable.user)
+                                                                .centerInside();
+
+                                                        Glide.with(DashBoardTeacherActivity.this)
+                                                                .load(value.getString("user_avatar"))
+                                                                .apply(options)
+                                                                .into(imgTeacher);
+//                                                        Picasso.get().load(value.getString("user_avatar")).resize(45,45).centerCrop().into(imgTeacher);
                                                     }
                                                 });
                                             }
@@ -99,28 +126,44 @@ public class DashBoardTeacherActivity extends AppCompatActivity {
                                                         if(error != null){
                                                             return;
                                                         }
-                                                        Picasso.get().load(value.getString("user_avatar")).resize(45,45).centerCrop().into(imgTeacher);
+                                                        RequestOptions options = new RequestOptions()
+                                                                .placeholder(R.drawable.user)
+                                                                .error(R.drawable.user)
+                                                                .centerInside();
+
+                                                        Glide.with(DashBoardTeacherActivity.this)
+                                                                .load(value.getString("user_avatar"))
+                                                                .apply(options)
+                                                                .into(imgTeacher);
                                                     }
                                                 });
                                             }
                                             break;
-                                        case 2 :
-                                            bottomBar.getMenu().findItem(R.id.analytics_teacher).setChecked(true);
-                                            //appBarLayout.setVisibility(View.VISIBLE);
-                                            txtToolBar.setText("Khoá học đang học");
-                                            if(mAuth.getCurrentUser() != null)
-                                            {
-                                                db.collection("Users").document(mAuth.getCurrentUser().getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                                                    @Override
-                                                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                                        if(error != null){
-                                                            return;
-                                                        }
-                                                        Picasso.get().load(value.getString("user_avatar")).resize(45,45).centerCrop().into(imgTeacher);
-                                                    }
-                                                });
-                                            }
-                                            break;
+//                                        case 2 :
+//                                            bottomBar.getMenu().findItem(R.id.analytics_teacher).setChecked(true);
+//                                            //appBarLayout.setVisibility(View.VISIBLE);
+//                                            txtToolBar.setText("Khoá học đang học");
+//                                            if(mAuth.getCurrentUser() != null)
+//                                            {
+//                                                db.collection("Users").document(mAuth.getCurrentUser().getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+//                                                    @Override
+//                                                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+//                                                        if(error != null){
+//                                                            return;
+//                                                        }
+//                                                        RequestOptions options = new RequestOptions()
+//                                                                .placeholder(R.drawable.user)
+//                                                                .error(R.drawable.user)
+//                                                                .centerInside();
+//
+//                                                        Glide.with(DashBoardTeacherActivity.this)
+//                                                                .load(value.getString("user_avatar"))
+//                                                                .apply(options)
+//                                                                .into(imgTeacher);
+//                                                    }
+//                                                });
+//                                            }
+//                                            break;
                                         case 3:
                                             bottomBar.getMenu().findItem(R.id.profile_teacher).setChecked(true);
                                             //appBarLayout.setVisibility(View.VISIBLE);
@@ -138,7 +181,15 @@ public class DashBoardTeacherActivity extends AppCompatActivity {
                                         if(error != null){
                                             return;
                                         }
-                                        Picasso.get().load(value.getString("user_avatar")).resize(45,45).centerCrop().into(imgTeacher);
+                                        RequestOptions options = new RequestOptions()
+                                                .placeholder(R.drawable.user)
+                                                .error(R.drawable.user)
+                                                .centerInside();
+
+                                        Glide.with(DashBoardTeacherActivity.this)
+                                                .load(value.getString("user_avatar"))
+                                                .apply(options)
+                                                .into(imgTeacher);
                                     }
                                 });
                             }
@@ -167,39 +218,98 @@ public class DashBoardTeacherActivity extends AppCompatActivity {
                                     {
                                         viewPager2.setCurrentItem(1);
                                         txtToolBar.setText("Tìm kiếm");
-                                    }else if(item.getItemId() == R.id.analytics_teacher)
-                                    {
-                                        viewPager2.setCurrentItem(2);
-                                        txtToolBar.setText("Khoá học đang học");
-                                    }else{
+                                    }
+//                                    else if(item.getItemId() == R.id.analytics_teacher)
+//                                    {
+//                                        viewPager2.setCurrentItem(2);
+//                                        txtToolBar.setText("Khoá học đang học");
+//                                    }
+                                    else{
                                         viewPager2.setCurrentItem(3);
                                         txtToolBar.setText("Hồ sơ cá nhân");
                                     }
                                     return false;
                                 }
                             });
-                           fab.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                   Intent intent = new Intent(DashBoardTeacherActivity.this, UploadStep1Activity.class);
-                                   intent.putExtra("key_type","create");
-                                   overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                                   startActivity(intent);
-                                }
-                            });
+//                           fab.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View view) {
+//                                   Intent intent = new Intent(DashBoardTeacherActivity.this, UploadStep1Activity.class);
+//                                   intent.putExtra("key_type","create");
+//                                   overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+//                                   startActivity(intent);
+//                                }
+//                            });
                         }
+
                     });
                 }
             });
 
         }
+    private void getUnreadDiscussions(){
+        if(mAuth.getCurrentUser() != null)
+        {
+            db.collection("Discussions")
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot discussionsValue, @Nullable FirebaseFirestoreException error) {
+                            if (error != null) {
+                                return;
+                            }
+
+                            if (discussionsValue != null) {
+                                final int[] totalUnreadCount = {0};
+
+                                for (DocumentSnapshot discussionSnapshot : discussionsValue.getDocuments()) {
+                                    String discussionId = discussionSnapshot.getId();
+
+                                    db.collection("Discussions")
+                                            .document(discussionId)
+                                            .collection("Topics").whereEqualTo("topic_state", true)
+                                            .get()
+                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+                                                    if (task.isSuccessful() && task.getResult() != null) {
+                                                        int unreadCount = 0;
+
+                                                        for (DocumentSnapshot topicSnapshot : task.getResult().getDocuments()) {
+                                                            TopicClass topic = topicSnapshot.toObject(TopicClass.class);
+                                                            List<String> topicSeen = topic.getTopic_seen();
+                                                            if (topicSeen == null || !topicSeen.contains(mAuth.getCurrentUser().getUid())) {
+                                                                unreadCount++;
+                                                            }
+                                                        }
+
+                                                        totalUnreadCount[0] += unreadCount;
+
+                                                        if (discussionSnapshot.equals(discussionsValue.getDocuments().get(discussionsValue.size() - 1))) {
+                                                            if (totalUnreadCount[0] > 0) {
+                                                                txtUnreadCount.setVisibility(View.VISIBLE);
+                                                                txtUnreadCount.setText(String.valueOf(totalUnreadCount[0]));
+                                                            } else {
+                                                                txtUnreadCount.setVisibility(View.GONE);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                }
+                            }
+                        }
+                    });
+        }
+    }
         private void mapping(){
             viewPager2 = (ViewPager2) findViewById(R.id.viewpager2);
             bottomBar = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
             txtToolBar = (TextView) findViewById(R.id.txtToolbar);
             appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout);
-            fab = (FloatingActionButton) findViewById(R.id.fab);
+//            fab = (FloatingActionButton) findViewById(R.id.fab);
             imgTeacher = (ShapeableImageView) findViewById(R.id.imgTeacher);
+            btnQuestionBox = (AppCompatImageButton) findViewById(R.id.btnQuestionBoxTeacher);
+            txtUnreadCount = (TextView) findViewById(R.id.unreadCountDashboardTeacher);
 
         }
         private void userStatus(){

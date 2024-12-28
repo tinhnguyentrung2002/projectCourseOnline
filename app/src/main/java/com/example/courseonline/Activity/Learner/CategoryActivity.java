@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.courseonline.Adapter.Learner.CategoryDisplayAdapter;
 import com.example.courseonline.Adapter.Learner.CourseDisplayAdapter;
-import com.example.courseonline.Adapter.Learner.CourseDisplayVeriticalAdapter;
+import com.example.courseonline.Adapter.Learner.CourseDisplayVerticalAdapter;
 import com.example.courseonline.Class.LoadingAlert;
 import com.example.courseonline.Domain.CategoryDisplayClass;
 import com.example.courseonline.Domain.CourseDisplayClass;
@@ -25,6 +25,7 @@ import com.example.courseonline.R;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -33,11 +34,14 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class CategoryActivity extends AppCompatActivity {
-    private TextView  txtPopular1, txtFree3, txtRate2;
+    private TextView  txtPopular1, txtFree3, txtRate2, txtNone11, txtNone12, txtNone13;
     private FirebaseAuth mAuth;
     private Toast toast;
+    private int user_grade;
     private MaterialToolbar toolbar1;
     private ShapeableImageView back;
     private ArrayList<String> array = new ArrayList<String>();
@@ -46,7 +50,7 @@ public class CategoryActivity extends AppCompatActivity {
     private CoordinatorLayout coorType;
     private CategoryDisplayAdapter categoryAdapter;
     private CourseDisplayAdapter adapterRecycleView, adapterRecycleView1;
-    private CourseDisplayVeriticalAdapter adapterRecycleViewVertical;
+    private CourseDisplayVerticalAdapter adapterRecycleViewVertical;
     RecyclerView recyclerPopular1, recyclerTopRated2, recyclerFree3, recyclerTypeChild;
     ArrayList<CourseDisplayClass> arrayCourse = new ArrayList<>();
     ArrayList<CourseDisplayClass> arrayCourseRated = new ArrayList<>();
@@ -59,6 +63,21 @@ public class CategoryActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         mapping();
+        db.collection("Users").document(mAuth.getCurrentUser().getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error != null)
+                {
+                    return;
+                }
+                if(value !=null)
+                {
+                    if(value.getString("user_grade").compareTo("Lớp 10") == 0) user_grade = 10;
+                    else if(value.getString("user_grade").compareTo("Lớp 11") == 0) user_grade = 11;
+                    else user_grade = 12;
+                }
+            }
+        });
         type = getIntent().getStringExtra("category_title");
         categoryId = getIntent().getStringExtra("category_id");
         toolbar1.setTitle(type);
@@ -73,7 +92,7 @@ public class CategoryActivity extends AppCompatActivity {
                 alert.closeLoading();
             }
         }, 600);
-        loadData();
+        loadData(user_grade);
         recyclerTypeChild.setLayoutManager(new LinearLayoutManager(CategoryActivity.this,LinearLayoutManager.HORIZONTAL,false));
         recyclerTypeChild.setHasFixedSize(true);
         recyclerTypeChild.setItemViewCacheSize(20);
@@ -86,10 +105,10 @@ public class CategoryActivity extends AppCompatActivity {
         recyclerFree3.setLayoutManager(new LinearLayoutManager(CategoryActivity.this,LinearLayoutManager.HORIZONTAL,false));
         recyclerFree3.setHasFixedSize(true);
         recyclerFree3.setItemViewCacheSize(20);
-        categoryAdapter = new CategoryDisplayAdapter(arrayCategory);
-        adapterRecycleView = new CourseDisplayAdapter(arrayCourse);
-        adapterRecycleView1 = new CourseDisplayAdapter(arrayCourseFree);
-        adapterRecycleViewVertical = new CourseDisplayVeriticalAdapter(arrayCourseRated);
+        categoryAdapter = new CategoryDisplayAdapter(arrayCategory, false ,this);
+        adapterRecycleView = new CourseDisplayAdapter(arrayCourse, this);
+        adapterRecycleView1 = new CourseDisplayAdapter(arrayCourseFree, this);
+        adapterRecycleViewVertical = new CourseDisplayVerticalAdapter(arrayCourseRated, this);
         recyclerTypeChild.setAdapter(categoryAdapter);
         //categoryAdapter.setHasStableIds(true);
         recyclerPopular1.setAdapter(adapterRecycleView);
@@ -202,7 +221,7 @@ public class CategoryActivity extends AppCompatActivity {
         });
     }
 
-    private void loadData(){
+    private void loadData(int user_grade){
         if(mAuth.getCurrentUser() != null && categoryId!=null)
         {
             if(!categoryId.isEmpty())
@@ -215,21 +234,24 @@ public class CategoryActivity extends AppCompatActivity {
                             return;
                         }
                         arrayCategory.clear();
-                        for (QueryDocumentSnapshot doc : value) {
-                            if (doc.toObject(CategoryDisplayClass.class) != null) {
+                        if(value.size() != 0)
+                        {
+                            for (QueryDocumentSnapshot doc : value) {
                                 arrayCategory.add(doc.toObject(CategoryDisplayClass.class));
-
                             }
-                            categoryAdapter.notifyDataSetChanged();
                         }
+
+
+                        categoryAdapter.notifyDataSetChanged();
                     }
                 });
             }
-            db.collection("Courses").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            db.collection("Courses").whereEqualTo("course_type","course").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                     if(error != null)
                     {
+                       
                         return;
                     }
                     for (QueryDocumentSnapshot doc : value) {
@@ -248,58 +270,7 @@ public class CategoryActivity extends AppCompatActivity {
                                     }
                                     if(array.size() != 0)
                                     {
-                                        db.collection("Courses").whereEqualTo("course_state", true).whereIn("course_id", array).orderBy("course_member", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                                                if(error != null)
-                                                {
-                                                    return;
-                                                }
-                                                arrayCourse.clear();
-                                                for (QueryDocumentSnapshot doc : value) {
-                                                    if (doc.toObject(CourseDisplayClass.class) != null) {
-                                                        arrayCourse.add(doc.toObject(CourseDisplayClass.class));
-                                                    }
-                                                    adapterRecycleView.notifyDataSetChanged();
-                                                }
-
-                                            }
-                                        });
-                                        db.collection("Courses").whereEqualTo("course_state", true).whereIn("course_id", array).orderBy("course_rate").limit(5).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                                                if(error != null)
-                                                {
-                                                    return;
-                                                }
-                                                arrayCourseRated.clear();
-                                                for (QueryDocumentSnapshot doc : value) {
-                                                    if (doc.toObject(CourseDisplayClass.class) != null) {
-                                                        arrayCourseRated.add(doc.toObject(CourseDisplayClass.class));
-                                                    }
-                                                    adapterRecycleViewVertical.notifyDataSetChanged();
-                                                }
-
-
-                                            }
-                                        });
-                                        db.collection("Courses").whereEqualTo("course_state", true).whereIn("course_id", array).whereEqualTo("course_price", 0).orderBy("course_member", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                                                if(error != null)
-                                                {
-                                                    return;
-                                                }
-                                                arrayCourseFree.clear();
-                                                for (QueryDocumentSnapshot doc : value) {
-                                                    if (doc.toObject(CourseDisplayClass.class) != null) {
-                                                        arrayCourseFree.add(doc.toObject(CourseDisplayClass.class));
-                                                    }
-                                                    adapterRecycleView1.notifyDataSetChanged();
-                                                }
-
-                                            }
-                                        });
+                                        loadDataByGrade(array,user_grade);
                                     }
 
 
@@ -312,6 +283,244 @@ public class CategoryActivity extends AppCompatActivity {
 
         }
     }
+    public void loadDataByGrade(ArrayList<String> array,int user_grade){
+        if(user_grade == 10)
+        {
+            db.collection("Courses").whereEqualTo("course_type","course").whereEqualTo("course_state", true).whereIn("course_id", array).orderBy("course_grade", Query.Direction.ASCENDING).orderBy("course_member", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if(error != null)
+                    {
+                       
+                        return;
+                    }
+                    arrayCourse.clear();
+                    if(value.size() !=0)
+                    {
+                        txtNone11.setVisibility(View.GONE);
+                        for (QueryDocumentSnapshot doc : value) {
+                            arrayCourse.add(doc.toObject(CourseDisplayClass.class));
+                        }
+                    }else{
+                        txtNone11.setVisibility(View.VISIBLE);
+                    }
+
+                    adapterRecycleView.notifyDataSetChanged();
+
+                }
+            });
+            db.collection("Courses").whereEqualTo("course_type","course").whereEqualTo("course_state", true).whereIn("course_id", array).orderBy("course_grade", Query.Direction.ASCENDING).orderBy("course_rate").limit(5).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if(error != null)
+                    {
+                       
+                        return;
+                    }
+                    arrayCourseRated.clear();
+                    if(value.size() != 0)
+                    {
+                        txtNone12.setVisibility(View.GONE);
+                        for (QueryDocumentSnapshot doc : value) {
+                            arrayCourseRated.add(doc.toObject(CourseDisplayClass.class));
+                        }
+                    }else{
+                        txtNone12.setVisibility(View.VISIBLE);
+                    }
+                    adapterRecycleViewVertical.notifyDataSetChanged();
+
+
+                }
+            });
+            db.collection("Courses").whereEqualTo("course_type","course").whereEqualTo("course_state", true).whereIn("course_id", array).orderBy("course_grade", Query.Direction.ASCENDING).whereEqualTo("course_price", 0).orderBy("course_member", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if(error != null)
+                    {
+                       
+                        return;
+                    }
+                    arrayCourseFree.clear();
+                    if(value.size() != 0)
+                    {
+                        txtNone13.setVisibility(View.GONE);
+                        for (QueryDocumentSnapshot doc : value) {
+                            arrayCourseFree.add(doc.toObject(CourseDisplayClass.class));
+
+                        }
+                    }else {
+                        txtNone13.setVisibility(View.VISIBLE);
+                    }
+
+                    adapterRecycleView1.notifyDataSetChanged();
+
+                }
+            });
+        }else if(user_grade == 12){
+            db.collection("Courses").whereEqualTo("course_type","course").whereEqualTo("course_state", true).whereIn("course_id", array).orderBy("course_grade", Query.Direction.DESCENDING).orderBy("course_member", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if(error != null)
+                    {
+                       
+                        return;
+                    }
+                    arrayCourse.clear();
+                    if(value.size() != 0)
+                    {
+                        txtNone11.setVisibility(View.GONE);
+                        for (QueryDocumentSnapshot doc : value) {
+                            arrayCourse.add(doc.toObject(CourseDisplayClass.class));
+                        }
+                    }else{
+                        txtNone11.setVisibility(View.VISIBLE);
+                    }
+
+                    adapterRecycleView.notifyDataSetChanged();
+
+                }
+            });
+            db.collection("Courses").whereEqualTo("course_type","course").whereEqualTo("course_state", true).whereIn("course_id", array).orderBy("course_grade", Query.Direction.DESCENDING).orderBy("course_rate").limit(5).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if(error != null)
+                    {
+                       
+                        return;
+                    }
+                    arrayCourseRated.clear();
+                    if(value.size() != 0)
+                    {
+                        txtNone12.setVisibility(View.GONE);
+                        for (QueryDocumentSnapshot doc : value) {
+                            arrayCourseRated.add(doc.toObject(CourseDisplayClass.class));
+                        }
+                    }else{
+                        txtNone12.setVisibility(View.VISIBLE);
+                    }
+                    adapterRecycleViewVertical.notifyDataSetChanged();
+
+
+                }
+            });
+            db.collection("Courses").whereEqualTo("course_type","course").whereEqualTo("course_state", true).whereIn("course_id", array).orderBy("course_grade", Query.Direction.DESCENDING).whereEqualTo("course_price", 0).orderBy("course_member", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if(error != null)
+                    {
+                       
+                        return;
+                    }
+                    arrayCourseFree.clear();
+                    if(value.size() != 0)
+                    {
+                        txtNone13.setVisibility(View.GONE);
+                        for (QueryDocumentSnapshot doc : value) {
+                            arrayCourseFree.add(doc.toObject(CourseDisplayClass.class));
+
+                        }
+                    }else {
+                        txtNone13.setVisibility(View.VISIBLE);
+                    }
+                    adapterRecycleView1.notifyDataSetChanged();
+
+                }
+            });
+        }else{
+            db.collection("Courses").whereEqualTo("course_type","course").whereEqualTo("course_state", true).whereIn("course_id", array).orderBy("course_grade", Query.Direction.DESCENDING).orderBy("course_member", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if(error != null)
+                    {
+                       
+                        return;
+                    }
+                    arrayCourse.clear();
+                    if(value.size() !=0)
+                    {
+                        txtNone11.setVisibility(View.GONE);
+                        for (QueryDocumentSnapshot doc : value) {
+                            arrayCourse.add(doc.toObject(CourseDisplayClass.class));
+                        }
+                    }else{
+                        txtNone11.setVisibility(View.VISIBLE);
+                    }
+                    Collections.sort(arrayCourse, new Comparator<CourseDisplayClass>() {
+                        @Override
+                        public int compare(CourseDisplayClass o1, CourseDisplayClass o2) {
+                            if (o1.getCourse_grade() == 11) return -1;
+                            if (o2.getCourse_grade() == 11) return 1;
+                            return Integer.compare(o1.getCourse_grade(), o2.getCourse_grade());
+                        }
+                    });
+                    adapterRecycleView.notifyDataSetChanged();
+
+                }
+            });
+            db.collection("Courses").whereEqualTo("course_type","course").whereEqualTo("course_state", true).whereIn("course_id", array).orderBy("course_grade", Query.Direction.DESCENDING).orderBy("course_rate").limit(5).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if(error != null)
+                    {
+                       
+                        return;
+                    }
+                    arrayCourseRated.clear();
+                    if(value.size() != 0)
+                    {
+                        txtNone12.setVisibility(View.GONE);
+                        for (QueryDocumentSnapshot doc : value) {
+                            arrayCourseRated.add(doc.toObject(CourseDisplayClass.class));
+                        }
+                    }else{
+                        txtNone12.setVisibility(View.VISIBLE);
+                    }
+                    Collections.sort(arrayCourseRated, new Comparator<CourseDisplayClass>() {
+                        @Override
+                        public int compare(CourseDisplayClass o1, CourseDisplayClass o2) {
+                            if (o1.getCourse_grade() == 11) return -1;
+                            if (o2.getCourse_grade() == 11) return 1;
+                            return Integer.compare(o1.getCourse_grade(), o2.getCourse_grade());
+                        }
+                    });
+                    adapterRecycleViewVertical.notifyDataSetChanged();
+
+
+                }
+            });
+            db.collection("Courses").whereEqualTo("course_type","course").whereEqualTo("course_state", true).whereIn("course_id", array).orderBy("course_grade", Query.Direction.DESCENDING).whereEqualTo("course_price", 0).orderBy("course_member", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if(error != null)
+                    {
+                       
+                        return;
+                    }
+                    arrayCourseFree.clear();
+                    if(value.size() != 0)
+                    {
+                        txtNone13.setVisibility(View.GONE);
+                        for (QueryDocumentSnapshot doc : value) {
+                            arrayCourseFree.add(doc.toObject(CourseDisplayClass.class));
+
+                        }
+                    }else {
+                        txtNone13.setVisibility(View.VISIBLE);
+                    }
+                    Collections.sort(arrayCourseFree, new Comparator<CourseDisplayClass>() {
+                        @Override
+                        public int compare(CourseDisplayClass o1, CourseDisplayClass o2) {
+                            if (o1.getCourse_grade() == 11) return -1;
+                            if (o2.getCourse_grade() == 11) return 1;
+                            return Integer.compare(o1.getCourse_grade(), o2.getCourse_grade());
+                        }
+                    });
+                    adapterRecycleView1.notifyDataSetChanged();
+
+                }
+            });
+        }
+    }
 
     private void mapping(){
         recyclerPopular1 = (RecyclerView) findViewById(R.id.recyclerPopular1);
@@ -322,6 +531,9 @@ public class CategoryActivity extends AppCompatActivity {
         txtPopular1 = (TextView) findViewById(R.id.txtPopular1);
         txtRate2 = (TextView) findViewById(R.id.txtTopRate2);
         txtFree3 = (TextView) findViewById(R.id.txtFree3);
+        txtNone11 = (TextView) findViewById(R.id.txtNone11);
+        txtNone12 = (TextView) findViewById(R.id.txtNone12);
+        txtNone13 = (TextView) findViewById(R.id.txtNone13);
         toolbar1 = (MaterialToolbar) findViewById(R.id.toolbar1);
         back = (ShapeableImageView) findViewById(R.id.backAction);
 
@@ -335,4 +547,14 @@ public class CategoryActivity extends AppCompatActivity {
         toast.show();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(categoryAdapter != null){
+            categoryAdapter.release();
+        }
+        if(adapterRecycleView != null) adapterRecycleView.release();
+        if(adapterRecycleView1 != null) adapterRecycleView1.release();
+        if(adapterRecycleViewVertical != null) adapterRecycleViewVertical.release();
+    }
 }

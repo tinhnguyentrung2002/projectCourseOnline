@@ -57,7 +57,9 @@ public class AllCourseFragment extends Fragment {
         recyclerInventory.setLayoutManager(new GridLayoutManager(getActivity(),2));
         recyclerInventory.setHasFixedSize(true);
         recyclerInventory.setItemViewCacheSize(20);
-        loadData();
+        if (savedInstanceState == null) {
+            loadData();
+        }
         recyclerInventory.setAdapter(adapterRecycleView);
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,9 +72,9 @@ public class AllCourseFragment extends Fragment {
     }
     private void loadData(){
         recyclerInventory.setVisibility(View.VISIBLE);
-        adapterRecycleView = new AllCourseAdapter(arrayInventory);
+        adapterRecycleView = new AllCourseAdapter(arrayInventory, getContext());
         if(mAuth.getCurrentUser() != null) {
-            db.collection("Users").document(mAuth.getCurrentUser().getUid()).collection("cart").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            db.collection("Users").document(mAuth.getCurrentUser().getUid()).collection("OwnCourses").whereEqualTo("own_course_item_type", "course").addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                     arrayID.clear();
@@ -81,8 +83,8 @@ public class AllCourseFragment extends Fragment {
                         return;
                     }
                     for (QueryDocumentSnapshot doc : value) {
-                        if (doc.get("cart_item_id") != null) {
-                            arrayID.add(doc.get("cart_item_id").toString());
+                        if (doc.get("own_course_item_id") != null) {
+                            arrayID.add(doc.get("own_course_item_id").toString());
                         }
                     }
 
@@ -103,8 +105,9 @@ public class AllCourseFragment extends Fragment {
                                     if (doc.toObject(CourseDisplayClass.class) != null) {
                                         arrayInventory.add(doc.toObject(CourseDisplayClass.class));
                                     }
-                                    adapterRecycleView.notifyDataSetChanged();
+
                                 }
+                                adapterRecycleView.notifyDataSetChanged();
 
                             }
                         });
@@ -155,5 +158,11 @@ public class AllCourseFragment extends Fragment {
             recyclerInventory.setPadding(10,0,0,0);
             recyclerInventory.setAdapter(adapterRecycleView);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(adapterRecycleView != null) adapterRecycleView.release();
     }
 }

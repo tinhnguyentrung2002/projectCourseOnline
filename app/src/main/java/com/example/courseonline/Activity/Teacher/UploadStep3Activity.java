@@ -37,6 +37,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -72,6 +73,7 @@ public class UploadStep3Activity extends AppCompatActivity {
     private static final String KEY_VIDEO_ID = "video_id";
     private static final String KEY_VIDEO_URL = "video_url";
     private static final String KEY_VIDEO_TITLE = "video_title";
+    private static final String KEY_VIDEO_UPLOAD_DATE= "video_upload_date";
     private static final String KEY_DOCUMENT_TITLE= "document_title";
     private static final String KEY_DOCUMENT_URL= "document_url";
     private static final String KEY_DOCUMENT_ID= "document_id";
@@ -147,6 +149,7 @@ public class UploadStep3Activity extends AppCompatActivity {
                     }else{
                         map.put(KEY_VIDEO_URL,"");
                     }
+                    map.put(KEY_VIDEO_UPLOAD_DATE, FieldValue.serverTimestamp());
                     reference.set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

@@ -29,9 +29,8 @@ public class Constants {
             "PAN_ONLY",
             "CRYPTOGRAM_3DS");
 
-    public static final String COUNTRY_CODE = "US";
-
-    public static final String CURRENCY_CODE = "USD";
+    public static final String COUNTRY_CODE = "VN"; // Mã quốc gia cho Việt Nam
+    public static final String CURRENCY_CODE = "VND"; // Mã tiền tệ cho Việt Nam
 
     public static final List<String> SHIPPING_SUPPORTED_COUNTRIES = Arrays.asList("US", "GB");
 

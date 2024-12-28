@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    style="@style/backGroundComment"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
@@ -14,45 +15,56 @@
         android:layout_height="18dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/app_theme"
         android:src="@drawable/three_dots"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></ImageView>
-
-    <ImageView
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/grey"></ImageView>
+    <LinearLayout
         android:id="@+id/btnLike"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
-        android:src="@drawable/like"
+        android:padding="10dp"
+        style="@style/backGroundComment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtCommentContent"
         app:layout_constraintVertical_bias="1.0">
+        <ImageView
+            android:id="@+id/imgLike"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/like"
+            app:tint="@color/blue"></ImageView>
 
-    </ImageView>
+        <TextView
+            android:id="@+id/txtLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Hữu ích (100)"
+            android:layout_marginTop="1dp"
+            android:textColor="@color/blue"
+            android:textSize="12sp"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/btnLike"
+            app:layout_constraintStart_toEndOf="@+id/btnLike"
+            app:layout_constraintTop_toTopOf="@+id/btnLike">
 
-    <TextView
-        android:id="@+id/txtLike"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:text="100"
-        app:layout_constraintBottom_toBottomOf="@+id/btnLike"
-        app:layout_constraintStart_toEndOf="@+id/btnLike"
-        app:layout_constraintTop_toTopOf="@+id/btnLike">
+        </TextView>
+    </LinearLayout>
 
-    </TextView>
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgUser"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_margin="10dp"
-        android:layout_marginStart="8dp"
-        android:padding="5dp"
+        android:padding="4dp"
         android:scaleType="centerCrop"
         android:src="@drawable/profile"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -60,31 +72,46 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.026"
         app:shapeAppearanceOverlay="@style/circleImageView"
-        app:strokeColor="@color/dark_grey"
-        app:strokeWidth="2dp" />
+        app:strokeColor="@color/mint"
+        app:strokeWidth="1dp" />
 
 
-
-    <TextView
-        android:id="@+id/txtUserName"
+    <LinearLayout
+        android:id="@+id/userNameAndLevel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="TextView"
-        android:textColor="@color/dark_grey"
-        android:textSize="16sp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/imgUser"
         app:layout_constraintStart_toEndOf="@+id/imgUser"
-        app:layout_constraintTop_toTopOf="@+id/imgUser" />
+        app:layout_constraintTop_toTopOf="@+id/imgUser" >
+        <TextView
+            android:id="@+id/txtUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="TextView"
+            style="@style/textColorBlack"
+            android:textSize="14sp"
+        />
+        <ImageView
+            android:id="@+id/comment_user_level"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="1dp"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/level_1"/>
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/txtUpload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="10/12/2024"
-        android:textColor="@color/dark_grey"
-        android:textSize="13sp"
+        android:text="9/12/2024"
+        style="@style/textColorBlack"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/ratingUser"
         app:layout_constraintStart_toEndOf="@+id/ratingUser"
         app:layout_constraintTop_toTopOf="@+id/ratingUser"
@@ -96,38 +123,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:rating="5"
         android:stepSize="0.1"
         android:theme="@style/ratingBar"
         app:layout_constraintStart_toStartOf="@+id/imgUser"
         app:layout_constraintTop_toBottomOf="@+id/imgUser"></androidx.appcompat.widget.AppCompatRatingBar>
 
-    <io.github.glailton.expandabletextview.ExpandableTextView
+    <TextView
         android:id="@+id/txtCommentContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="16dp"
         android:text="Hello"
-        android:textColor="@color/dark_grey"
-        android:textSize="15sp"
-        app:animDuration="100"
-        app:collapsedLines="3"
-        app:expandType="layout"
-        app:isExpanded="true"
+        style="@style/textColorBlack"
+        android:textSize="13sp"
+        android:maxLines="2"
+        android:maxLength="100"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/txtUpload"
         app:layout_constraintHorizontal_bias="0.023"
         app:layout_constraintStart_toStartOf="@+id/ratingUser"
         app:layout_constraintTop_toBottomOf="@+id/txtUpload"
-        app:layout_constraintVertical_bias="0.0"
-        app:readLessText="Thu gọn"
-        app:readMoreText="Xem thêm">
+        app:layout_constraintVertical_bias="0.0" />
 
-    </io.github.glailton.expandabletextview.ExpandableTextView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

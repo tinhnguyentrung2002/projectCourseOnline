@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    style="@style/backGround">
+
+    <ImageView
+        android:id="@+id/btnCloseDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_close_24"
+        android:layout_gravity="end"
+        style="@style/iconColorGeneral"
+        android:layout_marginBottom="10dp"/>
+    <TextView
+        android:id="@+id/dialogTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Danh sách thành viên"
+        android:textSize="20sp"
+        android:textAllCaps="true"
+        style="@style/textColorBlack"
+        android:layout_marginBottom="10dp"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-medium"/>
+
+
+
+    <TextView
+        android:id="@+id/txtTotalMembers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tổng số thành viên: 0"
+        android:textSize="14sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Người học"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            style="@style/textColorBlack"
+      />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Ngày tham gia"
+            android:textSize="16sp"
+            style="@style/textColorBlack"
+            android:textAlignment="textEnd"
+       />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/textNoneUserList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Không có thành viên nào"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewUserList"
+        android:layout_width="match_parent"
+        android:paddingBottom="15dp"
+        android:layout_height="200dp"/>
+
+</LinearLayout>

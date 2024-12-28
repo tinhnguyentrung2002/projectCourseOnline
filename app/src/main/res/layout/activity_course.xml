@@ -55,656 +55,762 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.core.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:layout_height="match_parent">
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/report_course"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:background="@drawable/course_border"
+                android:padding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.058"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
+                <TextView
+                    android:id="@+id/titleCourse"
+                    style="@style/textColorWhite"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:text="Khoá học lập trình java"
+                    android:textSize="19sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.108"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/report_course"
+                    android:id="@+id/constraintDescription"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/course_border"
-                    android:padding="16dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.058"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/titleCourse">
+
+                    <TextView
+                        android:id="@+id/expand"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:ellipsize="end"
+                        android:justificationMode="inter_word"
+                        android:maxLength="200"
+                        android:maxLines="3"
+                        android:text="Đây là khoá học dành cho các bạn muốn rèn luyện kỹ năng lập trình java."
+                        android:textColor="@color/app_theme_light"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textUpload" />
+
+                    <ImageView
+                        android:id="@+id/imageView15"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginTop="1dp"
+                        android:src="@drawable/people_white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.051" />
+
+                    <TextView
+                        android:id="@+id/textMember"
+                        style="@style/textColorWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="1k"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView15"
+                        app:layout_constraintStart_toEndOf="@+id/imageView15"
+                        app:layout_constraintTop_toTopOf="@+id/imageView15" />
+
+                    <ImageView
+                        android:id="@+id/imageView16"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="45dp"
+                        android:layout_marginTop="13dp"
+                        android:src="@drawable/watch_white"
+                        app:layout_constraintBottom_toBottomOf="@+id/textMember"
+                        app:layout_constraintStart_toEndOf="@+id/textMember"
+                        app:layout_constraintTop_toTopOf="@+id/textMember"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <TextView
+                        android:id="@+id/textTime"
+                        style="@style/textColorWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="10 giờ"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView16"
+                        app:layout_constraintStart_toEndOf="@+id/imageView16"
+                        app:layout_constraintTop_toTopOf="@+id/imageView16"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <ImageView
+                        android:id="@+id/imageView17"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="35dp"
+                        android:layout_marginTop="13dp"
+                        android:src="@drawable/star"
+                        app:layout_constraintBottom_toBottomOf="@+id/textTime"
+                        app:layout_constraintStart_toEndOf="@+id/textTime"
+                        app:layout_constraintTop_toTopOf="@+id/textTime"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <TextView
+                        android:id="@+id/textRate"
+                        style="@style/textColorWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="4.0"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView17"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/imageView17"
+                        app:layout_constraintTop_toTopOf="@+id/imageView17"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/textUpload"
+                        style="@style/textColorWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Ngày đăng: 01/11/2023"
+                        android:textSize="12sp"
+                        android:textStyle="italic"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView15"></TextView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerCourseType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/expand"></androidx.recyclerview.widget.RecyclerView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--                    android:id="@+id/heading1"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_marginTop="20dp"-->
+            <!--                    android:background="?attr/selectableItemBackground"-->
+            <!--                    android:focusable="true"-->
+            <!--                    android:clickable="true"-->
+            <!--                    android:weightSum="10"-->
+            <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                    app:layout_constraintHorizontal_bias="0.0"-->
+            <!--                    app:layout_constraintStart_toStartOf="parent"-->
+            <!--                    app:layout_constraintTop_toBottomOf="@id/report_course">-->
+
+            <!--                    <TextView-->
+            <!--                        android:id="@+id/textView24"-->
+            <!--                        android:layout_width="0dp"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_gravity="center"-->
+            <!--                        android:layout_marginStart="10dp"-->
+            <!--                        android:layout_marginTop="5dp"-->
+            <!--                        android:layout_weight="9"-->
+            <!--                        android:text="Mô tả khoá học"-->
+            <!--                        style="@style/textColorBlack"-->
+            <!--                        android:textSize="23sp"-->
+            <!--                        android:textStyle="bold"-->
+            <!--                        app:layout_constraintStart_toStartOf="parent"-->
+            <!--                        app:layout_constraintTop_toTopOf="parent">-->
+
+            <!--                    </TextView>-->
+
+            <!--                    <ImageView-->
+            <!--                        android:id="@+id/arrow"-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="25dp"-->
+            <!--                        android:layout_gravity="center"-->
+            <!--                        android:layout_marginTop="8dp"-->
+            <!--                        android:layout_marginEnd="4dp"-->
+            <!--                        android:src="@drawable/arrow_down_blue"-->
+            <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                        app:layout_constraintTop_toTopOf="parent"></ImageView>-->
+
+            <!--                    <LinearLayout-->
+            <!--                        android:id="@+id/heading1_child"-->
+            <!--                        android:layout_width="match_parent"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginTop="15dp"-->
+            <!--                        android:layout_marginEnd="10dp"-->
+            <!--                        android:layout_marginStart="10dp"-->
+            <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                        app:layout_constraintEnd_toEndOf="@+id/textView24"-->
+            <!--                        app:layout_constraintStart_toStartOf="@+id/textView24"-->
+            <!--                        app:layout_constraintTop_toBottomOf="@+id/textView24">-->
+
+            <!--                       -->
+            <!--                    </LinearLayout>-->
+
+            <!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/heading2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:weightSum="10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/report_course">
+
+                <TextView
+                    android:id="@+id/textView25"
+                    style="@style/textColorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="9"
+                    android:text="Giảng viên"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:id="@+id/titleCourse"
-                        style="@style/textColorWhite"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:ellipsize="end"
-                        android:maxLines="3"
-                        android:text="Khoá học lập trình java"
-                        android:textSize="26sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.108"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                </TextView>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/constraintDescription"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/titleCourse">
-
-                        <TextView
-                            android:id="@+id/expand"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:ellipsize="end"
-                            android:justificationMode="inter_word"
-                            android:maxLength="200"
-                            android:maxLines="3"
-                            android:text="Đây là khoá học dành cho các bạn muốn rèn luyện kỹ năng lập trình java."
-                            android:textColor="@color/app_theme_light"
-                            android:textSize="16sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textUpload" />
-
-                        <ImageView
-                            android:id="@+id/imageView15"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_marginTop="1dp"
-                            android:src="@drawable/people_white"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.051" />
-
-                        <TextView
-                            android:id="@+id/textMember"
-                            style="@style/textColorWhite"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:text="1k"
-                            android:textSize="14sp"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView15"
-                            app:layout_constraintStart_toEndOf="@+id/imageView15"
-                            app:layout_constraintTop_toTopOf="@+id/imageView15" />
-
-                        <ImageView
-                            android:id="@+id/imageView16"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_marginStart="45dp"
-                            android:layout_marginTop="13dp"
-                            android:src="@drawable/watch_white"
-                            app:layout_constraintBottom_toBottomOf="@+id/textMember"
-                            app:layout_constraintStart_toEndOf="@+id/textMember"
-                            app:layout_constraintTop_toTopOf="@+id/textMember"
-                            app:layout_constraintVertical_bias="1.0" />
-
-                        <TextView
-                            android:id="@+id/textTime"
-                            style="@style/textColorWhite"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
-                            android:text="10 giờ"
-                            android:textSize="14sp"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView16"
-                            app:layout_constraintStart_toEndOf="@+id/imageView16"
-                            app:layout_constraintTop_toTopOf="@+id/imageView16"
-                            app:layout_constraintVertical_bias="1.0" />
-
-                        <ImageView
-                            android:id="@+id/imageView17"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_marginStart="35dp"
-                            android:layout_marginTop="13dp"
-                            android:src="@drawable/star"
-                            app:layout_constraintBottom_toBottomOf="@+id/textTime"
-                            app:layout_constraintStart_toEndOf="@+id/textTime"
-                            app:layout_constraintTop_toTopOf="@+id/textTime"
-                            app:layout_constraintVertical_bias="1.0" />
-
-                        <TextView
-                            android:id="@+id/textRate"
-                            style="@style/textColorWhite"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:text="4.0"
-                            android:textSize="14sp"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView17"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toEndOf="@+id/imageView17"
-                            app:layout_constraintTop_toTopOf="@+id/imageView17"
-                            app:layout_constraintVertical_bias="0.0" />
-
-                        <TextView
-                            android:id="@+id/textUpload"
-                            style="@style/textColorWhite"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="Ngày đăng: 01/11/2023"
-                            android:textStyle="italic"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView15"></TextView>
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recyclerCourseType"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="1dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/expand"></androidx.recyclerview.widget.RecyclerView>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                    android:id="@+id/heading1"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="20dp"-->
-<!--                    android:background="?attr/selectableItemBackground"-->
-<!--                    android:focusable="true"-->
-<!--                    android:clickable="true"-->
-<!--                    android:weightSum="10"-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/arrow1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="25dp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginEnd="4dp"-->
+<!--                    android:src="@drawable/arrow_down_blue"-->
 <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintHorizontal_bias="0.0"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/report_course">-->
+<!--                    app:layout_constraintTop_toTopOf="parent"></ImageView>-->
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/textView24"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:layout_marginStart="10dp"-->
-<!--                        android:layout_marginTop="5dp"-->
-<!--                        android:layout_weight="9"-->
-<!--                        android:text="Mô tả khoá học"-->
-<!--                        style="@style/textColorBlack"-->
-<!--                        android:textSize="23sp"-->
-<!--                        android:textStyle="bold"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent">-->
-
-<!--                    </TextView>-->
-
-<!--                    <ImageView-->
-<!--                        android:id="@+id/arrow"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="25dp"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:layout_marginTop="8dp"-->
-<!--                        android:layout_marginEnd="4dp"-->
-<!--                        android:src="@drawable/arrow_down_blue"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent"></ImageView>-->
-
-<!--                    <LinearLayout-->
-<!--                        android:id="@+id/heading1_child"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="15dp"-->
-<!--                        android:layout_marginEnd="10dp"-->
-<!--                        android:layout_marginStart="10dp"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintEnd_toEndOf="@+id/textView24"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/textView24"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/textView24">-->
-
-<!--                       -->
-<!--                    </LinearLayout>-->
-
-<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/heading2"
+                <LinearLayout
+                    android:id="@+id/heading2_child"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:weightSum="10"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/report_course">
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/textView25"
+                    app:layout_constraintStart_toStartOf="@+id/textView25"
+                    app:layout_constraintTop_toBottomOf="@+id/textView25">
+
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/avatarTeacher"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/user"
+                        app:shapeAppearanceOverlay="@style/circleImageView" />
 
                     <TextView
-                        android:id="@+id/textView25"
+                        android:id="@+id/textTeacher"
+                        style="@style/textColorSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="9"
-                        android:text="Giảng viên"
-                        android:layout_marginStart="10dp"
-                        style="@style/textColorBlack"
-                        android:textSize="23sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                    </TextView>
-
-                    <ImageView
-                        android:id="@+id/arrow1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="4dp"
-                        android:src="@drawable/arrow_down_blue"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"></ImageView>
-
-                    <LinearLayout
-                        android:id="@+id/heading2_child"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/textView25"
-                        app:layout_constraintStart_toStartOf="@+id/textView25"
-                        app:layout_constraintTop_toBottomOf="@+id/textView25">
-
-
-                        <com.google.android.material.imageview.ShapeableImageView
-                            android:id="@+id/avatarTeacher"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            app:shapeAppearanceOverlay="@style/circleImageView"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/pic1" />
-
-                        <TextView
-                            android:id="@+id/textTeacher"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textAllCaps="true"
-                            style="@style/textColorSmall"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginStart="8dp"
-                            android:text="Nguyễn Trung Vũ" />
-                    </LinearLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/heading6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:weightSum="10"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/heading2">
-
-                    <TextView
-                        android:id="@+id/textView30"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="9"
-                        android:text="Trạng thái khoá học"
-                        android:layout_marginStart="10dp"
-                        style="@style/textColorBlack"
-                        android:textSize="23sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                    </TextView>
-
-                    <ImageView
-                        android:id="@+id/arrow6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="4dp"
-                        android:src="@drawable/arrow_down_blue"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"></ImageView>
-
-                    <LinearLayout
-                        android:id="@+id/heading6_child"
-                        android:layout_width="match_parent"
-                        android:layout_height="73dp"
-                        android:layout_marginTop="15dp"
-                        android:visibility="visible"
-                        android:orientation="horizontal"
-                        android:padding="5dp"
-                        style="@style/backGroundState"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:weightSum="2"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/textView30"
-                        app:layout_constraintStart_toStartOf="@+id/textView30"
-                        app:layout_constraintTop_toBottomOf="@+id/textView30">
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_weight="1">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Trạng thái"
-
-                                android:textSize="14sp"
-                                android:textAlignment="center"
-                                android:layout_gravity="center"
-                                style="@style/textColorBlack">
-
-                            </TextView>
-                            <TextView
-                                android:id="@+id/textState"
-                                android:textColor="@android:color/holo_green_dark"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-
-                                android:padding="5dp"
-                                android:textAlignment="center"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:text="Đang học"
-                                android:textStyle="bold"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/heading6" />
-                        </LinearLayout>
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="match_parent"
-                            android:background="#858282" />
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_weight="1">
-                            <TextView
-                                android:id="@+id/textProgress"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Đã hoàn thành: 10%"
-                                android:layout_marginTop="5dp"
-                                android:textSize="14sp"
-                                android:textAlignment="center"
-                                style="@style/textColorBlack">
-                            </TextView>
-                            <ProgressBar
-                                android:id="@+id/progressComplete"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                style="?android:attr/progressBarStyleHorizontal"
-                                android:max="100"
-                                android:padding="10dp"
-                                android:progress="10"
-                                android:progressDrawable="@drawable/progress_bar_rounded">
-                            </ProgressBar>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/heading3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:weightSum="10"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/heading6">
-
-                    <TextView
-                        android:id="@+id/textView28"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="9"
-                        android:text="Học"
-                        android:layout_marginStart="10dp"
-                        style="@style/textColorBlack"
-                        android:textSize="23sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                    </TextView>
-
-                    <ImageView
-                        android:id="@+id/arrow3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="4dp"
-                        android:src="@drawable/arrow_down_blue"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"></ImageView>
-
-                    <LinearLayout
-                        android:id="@+id/heading3_child"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:visibility="gone"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/textView28"
-                        app:layout_constraintStart_toStartOf="@+id/textView28"
-                        app:layout_constraintTop_toBottomOf="@+id/textView28">
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recyclerLearn"
-                            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                            android:nestedScrollingEnabled="false"
-                            android:layout_width="match_parent"
-                            android:paddingTop="6dp"
-                            android:layout_height="match_parent"
-                            android:layoutAnimation="@anim/layout_animation">
-                        </androidx.recyclerview.widget.RecyclerView>
-                    </LinearLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/heading4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:weightSum="10"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/heading3">
-
-                    <TextView
-                        android:id="@+id/textView29"
-                        style="@style/textColorBlack"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="9"
-                        android:text="Đánh giá"
-                        android:textSize="23sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                    </TextView>
-
-                    <ImageView
-                        android:id="@+id/arrow4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="4dp"
-                        android:src="@drawable/arrow_down_blue"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"></ImageView>
-
-                    <LinearLayout
-                        android:id="@+id/heading4_child"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginEnd="10dp"
-                        android:orientation="vertical"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/textView29"
-                        app:layout_constraintStart_toStartOf="@+id/textView29"
-                        app:layout_constraintTop_toBottomOf="@+id/textView29">
-
-                        <TextView
-                            android:id="@+id/txtNone3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Chưa có đánh giá nào"
-                            android:layout_marginBottom="15dp"
-                            style="@style/textColorSmall"
-                            android:visibility="gone"
-                            android:layout_gravity="center"></TextView>
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recyclerReview"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layoutAnimation="@anim/layout_animation"
-                            android:nestedScrollingEnabled="false"
-                            android:paddingTop="6dp"
-                            app:layout_behavior="@string/appbar_scrolling_view_behavior"></androidx.recyclerview.widget.RecyclerView>
-                        <TextView
-                            android:id="@+id/btnSeeAll"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Xem tất cả"
-                            android:layout_marginBottom="15dp"
-                            style="@style/textColorBlue"
-                            android:layout_gravity="center"></TextView>
-                    </LinearLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                    android:id="@+id/constraintLayoutBottom"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="0dp"-->
-<!--                    android:background="@color/app_theme_light"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/heading4">-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/txtPrice"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginBottom="4dp"-->
-<!--                        android:text="200.000đ"-->
-<!--                        android:textAlignment="center"-->
-<!--                        android:textColor="@color/app_theme"-->
-<!--                        android:textSize="17sp"-->
-<!--                        android:textStyle="bold"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintEnd_toEndOf="@+id/textView24"-->
-<!--                        app:layout_constraintHorizontal_bias="0.489"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/textView24"-->
-<!--                        app:layout_constraintTop_toTopOf="@+id/textView24"-->
-<!--                        app:layout_constraintVertical_bias="1.0">-->
-
-<!--                    </TextView>-->
-
-<!--                    <com.google.android.gms.wallet.button.PayButton-->
-<!--                        android:id="@+id/btnJoin"-->
-<!--                        android:layout_width="218dp"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_marginTop="8dp"-->
-<!--                        android:layout_marginBottom="2dp"-->
-<!--                        android:text="Tham gia khoá học"-->
-<!--                        android:textColor="@color/white"-->
-<!--                        android:textStyle="bold"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintHorizontal_bias="0.805"-->
-<!--                        app:layout_constraintStart_toEndOf="@+id/txtPrice"-->
-<!--                        app:layout_constraintTop_toTopOf="parent"-->
-<!--                        app:layout_constraintVertical_bias="0.0" />-->
-
-<!--                    <androidx.appcompat.widget.AppCompatButton-->
-<!--                        android:id="@+id/btnJoin1"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_marginStart="180dp"-->
-<!--                        android:background="@color/app_theme"-->
-<!--                        android:padding="10dp"-->
-<!--                        android:text="Tham gia khoá học"-->
-<!--                        android:textColor="@color/white"-->
-<!--                        android:textStyle="bold"-->
-<!--                        android:visibility="visible"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintHorizontal_bias="0.755"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent"-->
-<!--                        app:layout_constraintVertical_bias="0.0" />-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/textView24"-->
-<!--                        style="@style/textColorBlack"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="0dp"-->
-<!--                        android:layout_marginStart="80dp"-->
-<!--                        android:text="Giá"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textSize="18sp"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
-
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Nguyễn Trung Vũ"
+                        android:textAllCaps="true"
+                        android:textSize="13sp" />
+                </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.core.widget.NestedScrollView>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/heading6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/heading2">
+
+                <TextView
+                    android:id="@+id/textView30"
+                    style="@style/textColorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Trạng thái khoá học"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </TextView>
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/arrow6"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="25dp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginEnd="4dp"-->
+<!--                    android:src="@drawable/arrow_down_blue"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"></ImageView>-->
+
+                <LinearLayout
+                    android:id="@+id/heading6_child"
+                    style="@style/backGroundState"
+                    android:layout_width="match_parent"
+                    android:layout_height="73dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="6dp"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:visibility="visible"
+                    android:weightSum="2"
+                    app:layout_constraintEnd_toEndOf="@+id/textView30"
+                    app:layout_constraintStart_toStartOf="@+id/textView30"
+                    app:layout_constraintTop_toBottomOf="@id/textView30">
+                    <TextView
+                        android:id="@+id/textState"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:padding="6dp"
+                        android:gravity="center"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/blue"
+                        android:textAllCaps="true"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/heading6" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/app_theme" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textProgress"
+                            style="@style/textColorBlack"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:text=""
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            android:textSize="12sp"></TextView>
+
+                        <ProgressBar
+                            android:id="@+id/progressComplete"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:max="100"
+                            android:padding="10dp"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/progress_bar_rounded"></ProgressBar>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/heading_6_child_0"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/heading6_child">
+
+                    <LinearLayout
+                        android:id="@+id/heading6_child_1"
+                        style="@style/backGroundState"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="vertical"
+                        android:visibility="visible"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:id="@+id/textProgress_video"
+                            style="@style/textColorBlack"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:text="Bài giảng"
+                            android:textAlignment="center"
+                            android:textStyle="bold"
+                            android:textSize="12sp">
+                        </TextView>
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp">
+
+                            <com.google.android.material.progressindicator.CircularProgressIndicator
+                                android:id="@+id/video_progress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                app:indicatorColor="@color/purple"
+                                app:indicatorSize="90dp"
+                                app:trackColor="@color/gray"
+                                app:trackCornerRadius="20dp"
+                                app:trackThickness="8dp"
+                                tools:progress="0" />
+
+                            <TextView
+                                android:id="@+id/video_progress_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:textColor="@color/purple"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                tools:text="0%" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/heading6_child_2"
+                        style="@style/backGroundState"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
+                        android:orientation="vertical"
+                        android:visibility="visible"
+                        android:weightSum="2">
+                        <TextView
+                            android:id="@+id/textProgress_ex"
+                            style="@style/textColorBlack"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:text="Bài tập"
+                            android:textAlignment="center"
+                            android:textStyle="bold"
+                            android:textSize="12sp">
+                        </TextView>
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp">
+
+                            <com.google.android.material.progressindicator.CircularProgressIndicator
+                                android:id="@+id/ex_progress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                app:indicatorColor="@color/mint"
+                                app:indicatorSize="90dp"
+                                app:trackColor="@color/gray"
+                                app:trackCornerRadius="20dp"
+                                app:trackThickness="8dp"
+                                tools:progress="0" />
+
+                            <TextView
+                                android:id="@+id/ex_progress_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:textColor="@color/mint"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                tools:text="0%" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/heading3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:weightSum="10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/heading6">
+
+                <TextView
+                    android:id="@+id/textView28"
+                    style="@style/textColorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="9"
+                    android:text="Học"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </TextView>
+
+                <ImageView
+                    android:id="@+id/arrow3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="4dp"
+                    android:src="@drawable/arrow_down_blue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+                <LinearLayout
+                    android:id="@+id/heading3_child"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/textView28"
+                    app:layout_constraintStart_toStartOf="@+id/textView28"
+                    app:layout_constraintTop_toBottomOf="@+id/textView28">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerLearn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layoutAnimation="@anim/layout_animation"
+                        android:nestedScrollingEnabled="false"
+                        android:paddingTop="6dp"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"></androidx.recyclerview.widget.RecyclerView>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/heading4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:weightSum="10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/heading3">
+
+                <TextView
+                    android:id="@+id/textView29"
+                    style="@style/textColorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="9"
+                    android:text="Đánh giá"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </TextView>
+
+                <ImageView
+                    android:id="@+id/arrow4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="4dp"
+                    android:src="@drawable/arrow_down_blue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+                <LinearLayout
+                    android:id="@+id/heading4_child"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="1dp"
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/textView29"
+                    app:layout_constraintStart_toStartOf="@+id/textView29"
+                    app:layout_constraintTop_toBottomOf="@+id/textView29">
+
+                    <TextView
+                        android:id="@+id/txtNone3"
+                        style="@style/textColorSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="15dp"
+                        android:text="Chưa có đánh giá nào"
+                        android:visibility="gone"></TextView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerReview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layoutAnimation="@anim/layout_animation"
+                        android:nestedScrollingEnabled="false"
+                        android:paddingTop="2dp"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"></androidx.recyclerview.widget.RecyclerView>
+
+                    <TextView
+                        android:id="@+id/btnSeeAll"
+                        style="@style/textColorBlue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="15dp"
+                        android:text="Xem tất cả"></TextView>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--                    android:id="@+id/constraintLayoutBottom"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="0dp"-->
+            <!--                    android:background="@color/app_theme_light"-->
+            <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                    app:layout_constraintStart_toStartOf="parent"-->
+            <!--                    app:layout_constraintTop_toBottomOf="@+id/heading4">-->
+
+            <!--                    <TextView-->
+            <!--                        android:id="@+id/txtPrice"-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginBottom="4dp"-->
+            <!--                        android:text="200.000đ"-->
+            <!--                        android:textAlignment="center"-->
+            <!--                        android:textColor="@color/app_theme"-->
+            <!--                        android:textSize="17sp"-->
+            <!--                        android:textStyle="bold"-->
+            <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                        app:layout_constraintEnd_toEndOf="@+id/textView24"-->
+            <!--                        app:layout_constraintHorizontal_bias="0.489"-->
+            <!--                        app:layout_constraintStart_toStartOf="@+id/textView24"-->
+            <!--                        app:layout_constraintTop_toTopOf="@+id/textView24"-->
+            <!--                        app:layout_constraintVertical_bias="1.0">-->
+
+            <!--                    </TextView>-->
+
+            <!--                    <com.google.android.gms.wallet.button.PayButton-->
+            <!--                        android:id="@+id/btnJoin"-->
+            <!--                        android:layout_width="218dp"-->
+            <!--                        android:layout_height="match_parent"-->
+            <!--                        android:layout_marginTop="8dp"-->
+            <!--                        android:layout_marginBottom="2dp"-->
+            <!--                        android:text="Tham gia khoá học"-->
+            <!--                        android:textColor="@color/white"-->
+            <!--                        android:textStyle="bold"-->
+            <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                        app:layout_constraintHorizontal_bias="0.805"-->
+            <!--                        app:layout_constraintStart_toEndOf="@+id/txtPrice"-->
+            <!--                        app:layout_constraintTop_toTopOf="parent"-->
+            <!--                        app:layout_constraintVertical_bias="0.0" />-->
+
+            <!--                    <androidx.appcompat.widget.AppCompatButton-->
+            <!--                        android:id="@+id/btnJoin1"-->
+            <!--                        android:layout_width="0dp"-->
+            <!--                        android:layout_height="match_parent"-->
+            <!--                        android:layout_marginStart="180dp"-->
+            <!--                        android:background="@color/app_theme"-->
+            <!--                        android:padding="10dp"-->
+            <!--                        android:text="Tham gia khoá học"-->
+            <!--                        android:textColor="@color/white"-->
+            <!--                        android:textStyle="bold"-->
+            <!--                        android:visibility="visible"-->
+            <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                        app:layout_constraintHorizontal_bias="0.755"-->
+            <!--                        app:layout_constraintStart_toStartOf="parent"-->
+            <!--                        app:layout_constraintTop_toTopOf="parent"-->
+            <!--                        app:layout_constraintVertical_bias="0.0" />-->
+
+            <!--                    <TextView-->
+            <!--                        android:id="@+id/textView24"-->
+            <!--                        style="@style/textColorBlack"-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="0dp"-->
+            <!--                        android:layout_marginStart="80dp"-->
+            <!--                        android:text="Giá"-->
+            <!--                        android:textColor="@color/black"-->
+            <!--                        android:textSize="18sp"-->
+            <!--                        app:layout_constraintStart_toStartOf="parent"-->
+            <!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

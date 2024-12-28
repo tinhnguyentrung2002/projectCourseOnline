@@ -45,6 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:visibility="gone"
                 android:layout_marginStart="110dp"/>
 
         </LinearLayout>
@@ -54,6 +55,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="55dp"
         android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
         style="@style/backGround">
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -120,7 +122,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5dp"
                                 android:text="1k"
-                                android:textSize="13sp"
+                                android:textSize="12sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toEndOf="@+id/imageMember"
                                 app:layout_constraintTop_toTopOf="@+id/imageMember" />
@@ -142,7 +144,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5dp"
                                 android:text="4.5"
-                                android:textSize="13sp"
+                                android:textSize="12sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toEndOf="@+id/imageRate"
                                 app:layout_constraintTop_toTopOf="@+id/imageRate"
@@ -169,7 +171,7 @@
                             android:layout_height="wrap_content"
                             android:text="Khoá học lập trình"
                             android:textAllCaps="true"
-                            android:textSize="17sp"></TextView>
+                            android:textSize="16sp"></TextView>
 
                         <TextView
                             android:id="@+id/txtDetailPriceP1"
@@ -178,7 +180,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Giá: 100.000đ"
-                            android:textSize="15sp"></TextView>
+                            android:textSize="13sp"></TextView>
 
                         <TextView
                             android:id="@+id/txtDetailDescriptionP1"
@@ -187,10 +189,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:ellipsize="end"
-                            android:maxLength="108"
+                            android:maxLength="100"
                             android:maxLines="3"
                             android:text="Mô tả: Đây là khoá học bổ sung kiến thức về lập trình di động"
-                            android:textSize="15sp" />
+                            android:textSize="13sp" />
 
                         <TextView
                             android:id="@+id/txtDetailTimeP1"
@@ -199,7 +201,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Thời lượng: 10 giờ"
-                            android:textSize="15sp"></TextView>
+                            android:textSize="13sp"></TextView>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -211,6 +213,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="12dp"
                     android:text="Chỉnh sửa thông tin"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/linearP1"></TextView>
@@ -232,6 +235,7 @@
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="4dp"
                     android:src="@drawable/notready"
+                    android:visibility="gone"
                     app:layout_constraintStart_toEndOf="@+id/txtP2"
                     app:layout_constraintTop_toTopOf="parent"></ImageView>
 
@@ -241,7 +245,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Thể loại: "
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"></TextView>
@@ -254,6 +258,7 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="8dp"
                     android:text="Chỉnh sửa"
+                    android:visibility="gone"
                     android:textColor="@color/blue"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -287,6 +292,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="4dp"
                     android:src="@drawable/notready"
+                    android:visibility="gone"
                     app:layout_constraintStart_toEndOf="@+id/txtP3"
                     app:layout_constraintTop_toTopOf="parent"></ImageView>
 
@@ -296,7 +302,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nội dung"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"></TextView>
@@ -309,6 +315,7 @@
                     android:layout_marginTop="6dp"
                     android:layout_marginEnd="8dp"
                     android:text="Chỉnh sửa"
+                    android:visibility="gone"
                     android:textColor="@color/blue"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"></TextView>
@@ -332,7 +339,8 @@
                         android:layout_marginTop="5dp"
                         android:text="Rỗng !! Chọn -chỉnh sửa- để thêm nội dung "
                         android:textAllCaps="true"
-                        android:visibility="gone"></TextView>
+                        android:visibility="gone"
+                        ></TextView>
                 </FrameLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

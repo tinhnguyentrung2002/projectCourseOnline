@@ -5,7 +5,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -274,5 +276,24 @@ public class RateDialog extends Dialog {
         rateImage = (ImageView) findViewById(R.id.ratingImage);
         editComment = (TextInputEditText) findViewById(R.id.editTextComment);
         txtTitleRate = (TextView) findViewById(R.id.txtTitleRate);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (getWindow() != null) {
+            WindowManager.LayoutParams params = getWindow().getAttributes();
+            params.width = WindowManager.LayoutParams.MATCH_PARENT;
+            params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            getWindow().setAttributes(params);
+            getWindow().getAttributes().windowAnimations = vn.zalopay.sdk.R.style.Animation_AppCompat_Dialog;
+        }
+    }
+    @Override
+    public void show() {
+        super.show();
+        View view = getWindow().getDecorView();
+        Animation fadeInAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+        view.startAnimation(fadeInAnimation);
     }
 }

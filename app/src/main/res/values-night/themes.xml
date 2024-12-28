@@ -4,6 +4,7 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/dark_grey</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:fontFamily">@font/roboto</item>
     </style>
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/design_default_color_primary</item>
@@ -11,6 +12,7 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/dark_grey</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:fontFamily">@font/roboto</item>
     </style>
     <style name="AppTheme1" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="colorPrimary">@android:color/holo_blue_bright</item>
@@ -18,6 +20,7 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:fontFamily">@font/roboto</item>
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -26,18 +29,26 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/dark_grey</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:fontFamily">@font/roboto</item>
     </style>
     <style name="Base.Theme.CourseOnline" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/dark_grey</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:fontFamily">@font/roboto</item>
     </style>
     <style name="custom_card_view_style">
+        <item name="strokeColor">@color/blue</item>
+        <item name="strokeWidth">2dp</item>
         <item name="cardBackgroundColor">@color/grey</item>
         <item name="shapeAppearanceOverlay">@style/custom_card_view</item>
     </style>
     <style name="appBarColor">
         <item name="android:background">@color/dark_grey</item>
+    </style>
+    <style name="buttonFilter">
+        <item name="android:background">@drawable/button_filter</item>
+        <item name="android:textColor">@color/white</item>
     </style>
     <style name="bottomBar">
         <item name="android:background">@color/dark_grey</item>
@@ -46,6 +57,9 @@
     </style>
     <style name="backGround2">
         <item name="android:background">@color/grey</item>
+    </style>
+    <style name="backGroundWhiteBlack">
+        <item name="android:background">#1A2E4D</item>
     </style>
     <style name="heading">
         <item name="android:background">@color/grey</item>
@@ -105,6 +119,9 @@
         <item name="contentScrim">@color/dark_grey</item>
         <item name="expandedTitleTextColor">@color/white</item>
     </style>
+    <style name="commentBG">
+        <item name="android:background">@drawable/dialog_bg_night</item>
+    </style>
     <style name="backLogin">
         <item name="backgroundTint">@color/grey</item>
         <item name="tint">@color/white</item>
@@ -119,7 +136,7 @@
         <item name="android:textColor">@color/white</item>
     </style>
     <style name="button">
-        <item name="background">@drawable/btn_login_night</item>
+        <item name="android:background">@drawable/btn_login_night</item>
     </style>
     <style name="custom_card_view" parent="">
         <item name="cornerFamily">rounded</item>

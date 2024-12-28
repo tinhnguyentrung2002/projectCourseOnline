@@ -50,7 +50,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="8dp"
-                        android:text="Settings"
+                        android:text="Cài đặt"
                         style="@style/textColorBlack"
                         android:textSize="22sp"
                         android:textStyle="bold"
@@ -93,21 +93,23 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent">z
 
             <TextView
                 android:id="@+id/txtPersonal"
                 style="@style/textColorSmall"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:text="PERSONAL"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp"
+                android:text="CÁ NHÂN"
                 android:textAllCaps="true"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-            </TextView>
+                app:layout_constraintTop_toTopOf="parent"></TextView>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintAlarm"
                 style="@style/settingBorder"
@@ -144,26 +146,70 @@
                     android:layout_marginStart="10dp"
                     android:text="Đặt lời nhắc"
                     style="@style/textColorBlack"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.482" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintForYou"
+                android:id="@+id/constraintUpdateGrade"
                 style="@style/settingBorder"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintAlarm">
+
+                <ImageView
+                    android:id="@+id/imageView18"
+                    style="@style/iconColorGeneral"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:src="@drawable/baseline_keyboard_arrow_right_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/textView18"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.6" />
+
+                <TextView
+                    android:id="@+id/textView18"
+                    style="@style/textColorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Cập nhật lớp"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.482" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintPaymentHistory"
+                style="@style/settingBorder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintAlarm">
+                app:layout_constraintTop_toBottomOf="@+id/constraintUpdateGrade">
 
                 <ImageView
                     android:id="@+id/imageView14"
@@ -182,12 +228,12 @@
 
                 <TextView
                     android:id="@+id/textView16"
+                    style="@style/textColorBlack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Thể loại"
-                    style="@style/textColorBlack"
-                    android:textSize="18sp"
+                    android:text="Lịch sử thanh toán"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -198,15 +244,16 @@
             <TextView
                 android:id="@+id/txtAccount"
                 style="@style/textColorSmall"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Account"
+                android:text="TÀI KHOẢN"
                 android:textAllCaps="true"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintForYou">
+                app:layout_constraintTop_toBottomOf="@+id/constraintPaymentHistory">
 
             </TextView>
 
@@ -244,7 +291,7 @@
                     android:layout_marginStart="16dp"
                     android:text="Xoá tài khoản"
                     android:textColor="@color/red"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView12"
                     app:layout_constraintTop_toTopOf="parent"
@@ -254,9 +301,10 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLogout"
+                style="@style/settingBorder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/settingBorder"
+                android:layout_marginTop="5dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?selectableItemBackground"
@@ -267,11 +315,11 @@
 
                 <ImageView
                     android:id="@+id/imageView10"
+                    style="@style/iconColorGeneral"
                     android:layout_width="23dp"
                     android:layout_height="25dp"
                     android:layout_marginStart="13dp"
                     android:layout_marginTop="4dp"
-                    style="@style/iconColorGeneral"
                     android:layout_marginBottom="4dp"
                     android:src="@drawable/baseline_logout_24"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -280,12 +328,12 @@
 
                 <TextView
                     android:id="@+id/textView12"
+                    style="@style/textColorBlack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:text="Đăng xuất"
-                    style="@style/textColorBlack"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView10"
                     app:layout_constraintTop_toTopOf="parent"

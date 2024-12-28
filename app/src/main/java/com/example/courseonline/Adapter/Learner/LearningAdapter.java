@@ -2,6 +2,7 @@ package com.example.courseonline.Adapter.Learner;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -36,12 +37,13 @@ import java.util.ArrayList;
 
 public class LearningAdapter extends RecyclerView.Adapter<LearningAdapter.ViewHolder>  {
     ArrayList<CourseDisplayClass> items;
-    Activity context;
+    Context context;
     LearningAdapter.onItemClickListener onItemClickListener;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    public LearningAdapter(ArrayList<CourseDisplayClass> items) {
+    public LearningAdapter(ArrayList<CourseDisplayClass> items, Context context) {
         this.items = items;
+        this.context = context;
     }
     @NonNull
     @Override
@@ -62,7 +64,20 @@ public class LearningAdapter extends RecyclerView.Adapter<LearningAdapter.ViewHo
         db = FirebaseFirestore.getInstance();
         String id = items.get(position).getCourse_id();
         holder.txtTitle.setText(items.get(position).getCourse_title());
-        holder.txtOwner.setText(items.get(position).getCourse_owner());
+        db.collection("Users").document(items.get(position).getCourse_owner_id()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error != null)
+                {
+                    return;
+                }
+                if(value.exists())
+                {
+                    holder.txtOwner.setText((value.getString("user_name")));
+
+                }
+            }
+        });
 
 
         DocumentReference documentReference = db.collection("Courses").document(id);
@@ -86,7 +101,7 @@ public class LearningAdapter extends RecyclerView.Adapter<LearningAdapter.ViewHo
                                         public void onClick(DialogInterface dialog, int which) {
                                             if(mAuth.getCurrentUser() != null)
                                             {
-                                                db.collection("Users").document(mAuth.getCurrentUser().getUid()).collection("cart").whereEqualTo("cart_item_id", id).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                db.collection("Users").document(mAuth.getCurrentUser().getUid()).collection("OwnCourses").whereEqualTo("own_course_item_id", id).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                         if(task.isComplete()){
@@ -112,8 +127,28 @@ public class LearningAdapter extends RecyclerView.Adapter<LearningAdapter.ViewHo
                                                                         }
                                                                     }
                                                                 });
+                                                                db.collection("Users").document(mAuth.getCurrentUser().getUid()).collection("CheckQuiz").whereEqualTo("course_id", id).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                    @Override
+                                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                        if(task.isComplete())
+                                                                        {
+                                                                            if(task.getResult().size() != 0)
+                                                                            {
+                                                                                for(QueryDocumentSnapshot doc : task.getResult())
+                                                                                {
+                                                                                    db.collection("Users").document(mAuth.getCurrentUser().getUid()).collection("CheckQuiz").document(doc.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                        @Override
+                                                                                        public void onComplete(@NonNull Task<Void> task) {
 
-                                                                db.collection("Users").document(mAuth.getCurrentUser().getUid()).collection("cart").document(snapshot.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                        }
+                                                                                    });
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                });
+
+                                                                db.collection("Users").document(mAuth.getCurrentUser().getUid()).collection("OwnCourses").document(snapshot.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                     @Override
                                                                     public void onComplete(@NonNull Task<Void> task) {
                                                                         Toast.makeText(context, "Huỷ thành công", Toast.LENGTH_SHORT).show();
@@ -137,13 +172,13 @@ public class LearningAdapter extends RecyclerView.Adapter<LearningAdapter.ViewHo
 
             }
         });
-        db.collection("Users").document(mAuth.getCurrentUser().getUid()).collection("cart").whereEqualTo("cart_item_id", items.get(position).getCourse_id()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Users").document(mAuth.getCurrentUser().getUid()).collection("OwnCourses").whereEqualTo("own_course_item_id", items.get(position).getCourse_id()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        holder.txtProgress.setText(document.getString("cart_progress") +"%");
-                        holder.progressBar.setProgress((int)Float.parseFloat(document.getString("cart_progress")));
+                        holder.txtProgress.setText(String.valueOf((int)Float.parseFloat(document.getString("own_course_progress"))/2) + "%");
+                        holder.progressBar.setProgress((int)Float.parseFloat(document.getString("own_course_progress"))/2);
                     }
                 } else {
 
@@ -156,11 +191,13 @@ public class LearningAdapter extends RecyclerView.Adapter<LearningAdapter.ViewHo
                 Intent intent = new Intent(context, CourseActivity.class);
                 intent.putExtra("course_key", id);
                 context.startActivity(intent);
-                context.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+//                context.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
     }
-
+    public void release(){
+        context =null;
+    }
     @Override
     public int getItemCount() {
         return items.size();

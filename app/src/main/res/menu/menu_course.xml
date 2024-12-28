@@ -11,7 +11,16 @@
         android:id="@+id/course_rate"
         android:title="Đánh giá khoá học"
         android:tooltipText="Đánh giá"
+        android:icon="@drawable/rating"
+        app:showAsAction="always"
         ></item>
+<!--    <item-->
+<!--        android:id="@+id/course_support"-->
+<!--        android:title="Gửi câu hỏi"-->
+<!--        android:tooltipText="Đánh giá"-->
+<!--        android:icon="@drawable/chat_icon"-->
+<!--        app:showAsAction="always"-->
+<!--        ></item>-->
 <!--    <item-->
 <!--        android:id="@+id/course_mark"-->
 <!--        android:title="Đã hoàn thành"></item>-->

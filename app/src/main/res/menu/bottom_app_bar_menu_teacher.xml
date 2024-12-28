@@ -8,13 +8,13 @@
         android:id="@+id/search_teacher"
         android:title="Tìm kiếm"
         android:icon="@drawable/baseline_manage_search_24"></item>
-    <item
-        android:id="@+id/placeholder"
-        android:title="" />
-    <item
-        android:id="@+id/analytics_teacher"
-        android:title="Phân tích"
-        android:icon="@drawable/baseline_library_books_24"></item>
+<!--    <item-->
+<!--        android:id="@+id/placeholder"-->
+<!--        android:title="" />-->
+<!--    <item-->
+<!--        android:id="@+id/analytics_teacher"-->
+<!--        android:title="Phân tích"-->
+<!--        android:icon="@drawable/baseline_library_books_24"></item>-->
     <item
         android:id="@+id/profile_teacher"
         android:title="Cá nhân"

@@ -17,11 +17,10 @@
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="125dp"
+                android:layout_height="115dp"
                 style="@style/appBarCategory"
                 app:expandedTitleMarginStart="17dp"
-                app:expandedTitleTextAppearance="@style/TextAppearance.Material3.HeadlineLarge"
-
+                app:expandedTitleTextAppearance="@style/TextAppearance.Material3.HeadlineMedium"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:maxLines="3"
                 app:toolbarId="@id/toolbar">
@@ -69,12 +68,12 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerTypeChild"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-
+                        android:layout_marginStart="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -90,12 +89,29 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraintType">
 
+                    <TextView
+                        android:id="@+id/txtNone11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="120dp"
+                        android:layout_marginTop="60dp"
+                        android:layout_marginEnd="120dp"
+                        android:text="Không có khóa học nào"
+                        style="@style/textColorBlack"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </TextView>
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerPopular1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="60dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="45dp"
                         android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -111,7 +127,7 @@
                         android:layout_marginTop="8dp"
                         android:text="Khoá học phổ biến"
                         style="@style/textColorBlack"
-                        android:textSize="25sp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -124,7 +140,7 @@
                         android:layout_marginEnd="8dp"
                         android:text="Xem tất cả"
                         style="@style/textColorBlack"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.966"
                         app:layout_constraintStart_toEndOf="@+id/textView30"
@@ -141,11 +157,29 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
 
+                    <TextView
+                        android:id="@+id/txtNone12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="120dp"
+                        android:layout_marginTop="60dp"
+                        android:layout_marginEnd="120dp"
+                        android:text="Không có khóa học nào"
+                        style="@style/textColorBlack"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </TextView>
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerTopRated2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="60dp"
+                        android:layout_marginTop="45dp"
+                        android:layout_marginStart="5dp"
                         android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -161,7 +195,7 @@
                         android:layout_marginTop="8dp"
                         android:text="Top đánh giá"
                         style="@style/textColorBlack"
-                        android:textSize="25sp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -174,7 +208,7 @@
                         android:layout_marginEnd="8dp"
                         android:text="Xem tất cả"
                         style="@style/textColorBlack"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.966"
                         app:layout_constraintStart_toEndOf="@+id/textView34"
@@ -191,12 +225,29 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
+                    <TextView
+                        android:id="@+id/txtNone13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="120dp"
+                        android:layout_marginTop="60dp"
+                        android:layout_marginEnd="120dp"
+                        android:text="Không có khóa học nào"
+                        style="@style/textColorBlack"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </TextView>
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerFree3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
-                        android:layout_marginTop="80dp"
+                        android:layout_marginTop="45dp"
                         android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -212,7 +263,7 @@
                         android:layout_marginTop="8dp"
                         android:text="Khoá học miễn phí"
                         style="@style/textColorBlack"
-                        android:textSize="25sp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -225,7 +276,7 @@
                         android:layout_marginEnd="8dp"
                         android:text="Xem tất cả"
                         style="@style/textColorBlack"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.966"
                         app:layout_constraintStart_toEndOf="@+id/textView36"

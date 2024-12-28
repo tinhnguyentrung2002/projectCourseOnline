@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +63,7 @@ import java.util.concurrent.Executors;
 
 public class ProfileFragment extends Fragment {
     private FirebaseAuth mAuth;
+//    private LoadingAlert alert;
     private FirebaseUser user;
     private FirebaseFirestore db;
     private StorageReference storageReference;
@@ -71,8 +73,9 @@ public class ProfileFragment extends Fragment {
     private ViewPager2 viewPager2;
     private ViewPage2AdapterProfile viewPage2AdapterProfile;
     private String img = null;
-    private TextView txtProfileName, txtProfileEmail, txtProfileUID, txtAll, txtLearn, txtComplete;
+    private TextView txtProfileName, txtProfileEmail, txtProfileUID, txtAll, txtLearn, txtComplete, txtProfilePoints;
     private ShapeableImageView imgAvatar, imgEdit;
+    private ImageView iconLevel;
     private static final int CAMERA_REQUEST_CODE = 101;
     private static final int STORAGE_REQUEST_CODE = 102;
     private static final int IMAGE_PICK_GALLERY_REQUEST_CODE = 103;
@@ -101,213 +104,339 @@ public class ProfileFragment extends Fragment {
         mapping();
         viewPage2AdapterProfile = new ViewPage2AdapterProfile(getActivity());
         viewPager2.setAdapter(viewPage2AdapterProfile);
-        viewPager2.setOffscreenPageLimit(1);
-        LoadingAlert alert = new LoadingAlert(getActivity());
-        alert.startLoading();
-
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(Looper.getMainLooper());
-
-        executor.execute(new Runnable() {
+        viewPager2.setOffscreenPageLimit(2);
+//        alert = new LoadingAlert(getActivity());
+//        alert.startLoading();
+        user = mAuth.getCurrentUser();
+        tabLayout.getTabAt(0).select();
+        getView().setVisibility(View.GONE);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void run() {
-              //  FragmentManager fm = getActivity().getSupportFragmentManager();
-              //  FragmentTransaction ft = fm.beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager2.setCurrentItem(tab.getPosition());
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
-               // ft.add(R.id.frameLayout, fragment1, "1").commit();
-               // ft.add(R.id.frameLayout, fragment2, "2").commit();
-               // ft.replace(R.id.frameLayout, fragment1, "1").commit();
-                //ft.hide(fragment2).show(fragment1).commit();
+            }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
 
-                user = mAuth.getCurrentUser();
-                tabLayout.getTabAt(0).select();
-                getView().setVisibility(View.GONE);
-                tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                    @Override
-                    public void onTabSelected(TabLayout.Tab tab) {
-                        viewPager2.setCurrentItem(tab.getPosition());
-                    }
-                    @Override
-                    public void onTabUnselected(TabLayout.Tab tab) {
-
-                    }
-                    @Override
-                    public void onTabReselected(TabLayout.Tab tab) {
-
-                    }
-                });
-                //permissions
-                cameraPermissions = new String[]{android.Manifest.permission.CAMERA};
-                //process
-                if(user != null)
-                {
-
-                    DocumentReference documentReference = db.collection("Users").document(user.getUid());
-                    documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                            if(error!=null)
-                            {
-                                return;
-                            }
-                            txtProfileName.setText(value.getString("user_name"));
-                            txtProfileEmail.setText(value.getString("user_email"));
-                            txtProfileUID.setText("UID: " + value.getString("user_uid"));
-                            img = value.getString("user_avatar");
-                            try {
-                                Picasso.get().load(img).resize(100,100).centerCrop().into(imgAvatar);
-                            }catch (Exception e)
-                            {
-                                Picasso.get().load(R.drawable.profile).resize(100,100).centerInside().into(imgAvatar);
-                            }
-                        }
-                    });
-                    Query query = db.collection("Users").document(user.getUid()).collection("cart");
-                    AggregateQuery countQuery = query.count();
-                    countQuery.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                AggregateQuerySnapshot snapshot = task.getResult();
-                                txtAll.setText(String.valueOf(snapshot.getCount()));
-                            } else {
-                                toastMes("Error");
-                            }
-                        }
-                    });
-                    Query query1 = db.collection("Users").document(user.getUid()).collection("cart").whereEqualTo("cart_complete", true);
-                    AggregateQuery countQuery1 = query1.count();
-                    countQuery1.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                AggregateQuerySnapshot snapshot = task.getResult();
-                                txtComplete.setText(String.valueOf(snapshot.getCount()));
-                            } else {
-                                toastMes("Error");
-                            }
-                        }
-                    });
-                    Query query2 = db.collection("Users").document(user.getUid()).collection("cart").whereEqualTo("cart_complete", false);
-                    AggregateQuery countQuery2 = query2.count();
-                    countQuery2.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                AggregateQuerySnapshot snapshot = task.getResult();
-                                txtLearn.setText(String.valueOf(snapshot.getCount()));
-                            } else {
-                                toastMes("Error");
-                            }
-
-                        }
-                    });
-                }
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        //UI Thread work here
-                    }
-                });
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        getView().setVisibility(View.VISIBLE);
-                        imgAvatar.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                showEditAvatar();
-                            }
-                        });
-                        imgEdit.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                showEdit();
-                            }
-                        });
-                        refresh.setOnRefreshListener(() -> {
-                                    handler.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            if(user != null)
-                                            {
-                                                DocumentReference documentReference = db.collection("Users").document(user.getUid());
-                                                documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                                                    @Override
-                                                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                                        if(error!=null)
-                                                        {
-                                                            return;
-                                                        }
-                                                        txtProfileName.setText(value.getString("user_name"));
-                                                        txtProfileEmail.setText(value.getString("user_email"));
-                                                        txtProfileUID.setText("UID: " + value.getString("user_uid"));
-                                                        img = value.getString("user_avatar");
-                                                        try {
-                                                            Picasso.get().load(img).resize(100,100).centerCrop().into(imgAvatar);
-                                                        }catch (Exception e)
-                                                        {
-                                                            Picasso.get().load(R.drawable.profile).centerInside().into(imgAvatar);
-                                                        }
-                                                    }
-                                                });
-                                                Query query = db.collection("Users").document(user.getUid()).collection("cart");
-                                                AggregateQuery countQuery = query.count();
-                                                countQuery.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
-                                                        if (task.isSuccessful()) {
-                                                            AggregateQuerySnapshot snapshot = task.getResult();
-                                                            txtAll.setText(String.valueOf(snapshot.getCount()));
-                                                        } else {
-                                                            toastMes("Error");
-                                                        }
-                                                    }
-                                                });
-                                                Query query1 = db.collection("Users").document(user.getUid()).collection("cart").whereEqualTo("cart_complete", true);
-                                                AggregateQuery countQuery1 = query1.count();
-                                                countQuery1.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
-                                                        if (task.isSuccessful()) {
-                                                            AggregateQuerySnapshot snapshot = task.getResult();
-                                                            txtComplete.setText(String.valueOf(snapshot.getCount()));
-                                                        } else {
-                                                            toastMes("Error");
-                                                        }
-                                                    }
-                                                });
-                                                Query query2 = db.collection("Users").document(user.getUid()).collection("cart").whereEqualTo("cart_complete", false);
-                                                AggregateQuery countQuery2 = query2.count();
-                                                countQuery2.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
-                                                        if (task.isSuccessful()) {
-                                                            AggregateQuerySnapshot snapshot = task.getResult();
-                                                            txtLearn.setText(String.valueOf(snapshot.getCount()));
-                                                        } else {
-                                                            toastMes("Error");
-                                                        }
-
-                                                    }
-                                                });
-                                            }
-
-                                            refresh.setRefreshing(false);
-                                        }
-                                    }, 500);
-                                }
-                        );
-                        alert.closeLoading();
-                    }
-                }, 500);
             }
         });
+        //permissions
+        cameraPermissions = new String[]{android.Manifest.permission.CAMERA};
+        if(user != null)
+        {
+
+            DocumentReference documentReference = db.collection("Users").document(user.getUid());
+            documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if(error!=null)
+                    {
+                        return;
+                    }
+                    if(value != null && value.exists())
+                    {
+                        String userName = value.getString("user_name");
+                        String userEmail = value.getString("user_email");
+                        String userUID = value.getString("user_uid");
+                        long userPoints = value.getLong("user_best_points");
+                        String userLevelString = value.getString("user_level");
+
+                        txtProfileName.setText(userName != null ? userName : "N/A");
+                        txtProfileEmail.setText(userEmail != null ? userEmail : "N/A");
+                        txtProfileUID.setText("UID: " + (userUID != null ? userUID : "N/A"));
+                        txtProfilePoints.setText(String.valueOf(value.getLong("user_points")));
+                        int newLevel = determineLevel(userPoints);
+                        int currentLevel = userLevelString != null ? Integer.parseInt(userLevelString) : 1;
+
+
+                        if (newLevel != currentLevel) {
+                            Map<String, Object> updates = new HashMap<>();
+                            updates.put("user_level", String.valueOf(newLevel));
+                            db.collection("Users").document(mAuth.getUid())
+                                    .update(updates)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                        }
+                                    });
+                        }
+                        switch (value.getString("user_level"))
+                        {
+                            case "1":
+                                iconLevel.setImageResource(R.drawable.level_1);
+                                imgAvatar.setStrokeColorResource(R.color.grey);
+                                break;
+                            case "2":
+                                iconLevel.setImageResource(R.drawable.level_2);
+                                imgAvatar.setStrokeColorResource(R.color.mint);
+                                break;
+                            case "3":
+                                iconLevel.setImageResource(R.drawable.level_3);
+                                imgAvatar.setStrokeColorResource(R.color.blue);
+                                break;
+                            case "4":
+                                iconLevel.setImageResource(R.drawable.level_4);
+                                imgAvatar.setStrokeColorResource(R.color.purple);
+                                break;
+                            case "5":
+                                iconLevel.setImageResource(R.drawable.level_5);
+                                imgAvatar.setStrokeColorResource(R.color.red);
+                                break;
+                            default:
+                                iconLevel.setImageResource(R.drawable.error);
+                                imgAvatar.setStrokeColorResource(R.color.grey);
+                                break;
+                        }
+
+                        img = value.getString("user_avatar");
+                        if(img != "")
+                        {
+                            Picasso.get().load(img).resize(100,100).centerCrop().into(imgAvatar);
+                        }else{
+                            Picasso.get().load(R.drawable.profile).resize(100,100).centerCrop().into(imgAvatar);
+                        }
+
+                    }
+
+                }
+            });
+            Query query = db.collection("Users").document(user.getUid()).collection("OwnCourses");
+            AggregateQuery countQuery = query.count();
+            countQuery.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        AggregateQuerySnapshot snapshot = task.getResult();
+                        txtAll.setText(String.valueOf(snapshot.getCount()));
+                    } else {
+                        toastMes("Error");
+                    }
+                }
+            });
+            Query query1 = db.collection("Users").document(user.getUid()).collection("OwnCourses").whereEqualTo("own_course_complete", true);
+            AggregateQuery countQuery1 = query1.count();
+            countQuery1.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        AggregateQuerySnapshot snapshot = task.getResult();
+                        txtComplete.setText(String.valueOf(snapshot.getCount()));
+                    } else {
+                        toastMes("Error");
+                    }
+                }
+            });
+            Query query2 = db.collection("Users").document(user.getUid()).collection("OwnCourses").whereEqualTo("own_course_complete", false);
+            AggregateQuery countQuery2 = query2.count();
+            countQuery2.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        AggregateQuerySnapshot snapshot = task.getResult();
+                        txtLearn.setText(String.valueOf(snapshot.getCount()));
+                    } else {
+                        toastMes("Error");
+                    }
+
+                }
+            });
+        }
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    //  FragmentManager fm = getActivity().getSupportFragmentManager();
+                    //  FragmentTransaction ft = fm.beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+
+                    // ft.add(R.id.frameLayout, fragment1, "1").commit();
+                    // ft.add(R.id.frameLayout, fragment2, "2").commit();
+                    // ft.replace(R.id.frameLayout, fragment1, "1").commit();
+                    //ft.hide(fragment2).show(fragment1).commit();
+                    //process
+
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            //UI Thread work here
+                            getView().setVisibility(View.VISIBLE);
+                            imgAvatar.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    showEditAvatar();
+                                }
+                            });
+                            imgEdit.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    showEdit();
+                                }
+                            });
+                            refresh.setOnRefreshListener(() -> {
+                                        handler.postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                if(user != null)
+                                                {
+                                                    DocumentReference documentReference = db.collection("Users").document(user.getUid());
+                                                    documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                                        @Override
+                                                        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                                            if(error!=null)
+                                                            {
+                                                                return;
+                                                            }
+                                                            if(value != null && value.exists())
+                                                            {
+                                                                String userName = value.getString("user_name");
+                                                                String userEmail = value.getString("user_email");
+                                                                String userUID = value.getString("user_uid");
+                                                                long userPoints = value.getLong("user_best_points");
+                                                                String userLevelString = value.getString("user_level");
+
+                                                                txtProfileName.setText(userName != null ? userName : "N/A");
+                                                                txtProfileEmail.setText(userEmail != null ? userEmail : "N/A");
+                                                                txtProfileUID.setText("UID: " + (userUID != null ? userUID : "N/A"));
+                                                                txtProfilePoints.setText(String.valueOf(value.getLong("user_points")));
+                                                                int newLevel = determineLevel(userPoints);
+                                                                int currentLevel = userLevelString != null ? Integer.parseInt(userLevelString) : 1;
+
+
+                                                                if (newLevel != currentLevel) {
+                                                                    Map<String, Object> updates = new HashMap<>();
+                                                                    updates.put("user_level", String.valueOf(newLevel));
+                                                                    db.collection("Users").document(mAuth.getUid())
+                                                                            .update(updates)
+                                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                @Override
+                                                                                public void onSuccess(Void aVoid) {
+                                                                                }
+                                                                            })
+                                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                                @Override
+                                                                                public void onFailure(@NonNull Exception e) {
+                                                                                }
+                                                                            });
+                                                                }
+                                                                switch (value.getString("user_level"))
+                                                                {
+                                                                    case "1":
+                                                                        iconLevel.setImageResource(R.drawable.level_1);
+                                                                        imgAvatar.setStrokeColorResource(R.color.grey);
+                                                                        break;
+                                                                    case "2":
+                                                                        iconLevel.setImageResource(R.drawable.level_2);
+                                                                        imgAvatar.setStrokeColorResource(R.color.mint);
+                                                                        break;
+                                                                    case "3":
+                                                                        iconLevel.setImageResource(R.drawable.level_3);
+                                                                        imgAvatar.setStrokeColorResource(R.color.blue);
+                                                                        break;
+                                                                    case "4":
+                                                                        iconLevel.setImageResource(R.drawable.level_4);
+                                                                        imgAvatar.setStrokeColorResource(R.color.purple);
+                                                                        break;
+                                                                    case "5":
+                                                                        iconLevel.setImageResource(R.drawable.level_5);
+                                                                        imgAvatar.setStrokeColorResource(R.color.red);
+                                                                        break;
+                                                                    default:
+                                                                        iconLevel.setImageResource(R.drawable.error);
+                                                                        imgAvatar.setStrokeColorResource(R.color.grey);
+                                                                        break;
+                                                                }
+
+                                                                img = value.getString("user_avatar");
+                                                                if(img != "")
+                                                                {
+                                                                    Picasso.get().load(img).resize(100,100).centerCrop().into(imgAvatar);
+                                                                }else{
+                                                                    Picasso.get().load(R.drawable.profile).resize(100,100).centerCrop().into(imgAvatar);
+                                                                }
+
+                                                            }
+
+                                                        }
+                                                    });
+                                                    Query query = db.collection("Users").document(user.getUid()).collection("OwnCourses");
+                                                    AggregateQuery countQuery = query.count();
+                                                    countQuery.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
+                                                            if (task.isSuccessful()) {
+                                                                AggregateQuerySnapshot snapshot = task.getResult();
+                                                                txtAll.setText(String.valueOf(snapshot.getCount()));
+                                                            } else {
+                                                                toastMes("Error");
+                                                            }
+                                                        }
+                                                    });
+                                                    Query query1 = db.collection("Users").document(user.getUid()).collection("OwnCourses").whereEqualTo("own_course_complete", true);
+                                                    AggregateQuery countQuery1 = query1.count();
+                                                    countQuery1.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
+                                                            if (task.isSuccessful()) {
+                                                                AggregateQuerySnapshot snapshot = task.getResult();
+                                                                txtComplete.setText(String.valueOf(snapshot.getCount()));
+                                                            } else {
+                                                                toastMes("Error");
+                                                            }
+                                                        }
+                                                    });
+                                                    Query query2 = db.collection("Users").document(user.getUid()).collection("OwnCourses").whereEqualTo("own_course_complete", false);
+                                                    AggregateQuery countQuery2 = query2.count();
+                                                    countQuery2.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
+                                                            if (task.isSuccessful()) {
+                                                                AggregateQuerySnapshot snapshot = task.getResult();
+                                                                txtLearn.setText(String.valueOf(snapshot.getCount()));
+                                                            } else {
+                                                                toastMes("Error");
+                                                            }
+
+                                                        }
+                                                    });
+                                                }
+
+                                                refresh.setRefreshing(false);
+                                            }
+                                        }, 500);
+                                    }
+                            );
+                        }
+                    });
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+//                            alert.closeLoading();
+                        }
+                    },100);
+                }
+            });
+
+    }
+    private int determineLevel(long points) {
+        if (points <= 100) return 1;
+        else if (points <= 200) return 2;
+        else if (points <= 300) return 3;
+        else if (points <= 500) return 4;
+        else return 5;
     }
     @Override
     public void onStart() {
         super.onStart();
-        userStatus();
     }
     private void userStatus(){
         FirebaseUser user = mAuth.getCurrentUser();
@@ -318,14 +447,14 @@ public class ProfileFragment extends Fragment {
             getActivity().finish();
         }
     }
-    /*private boolean checkStoragePermission(){
-        boolean result = ContextCompat
-                .checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
-        return result;
-    }*/
-    /*private void requestStoragePermission(){
-        requestPermissions(storagePermissions, STORAGE_REQUEST_CODE);
-    }*/
+//    private boolean checkStoragePermission(){
+//        boolean result = ContextCompat
+//                .checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
+//        return result;
+//    }
+//    private void requestStoragePermission(){
+//        requestPermissions(storagePermissions, STORAGE_REQUEST_CODE);
+//    }
     private boolean checkCameraPermission(){
         boolean result = ContextCompat
                 .checkSelfPermission(getActivity(), Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
@@ -509,6 +638,8 @@ public class ProfileFragment extends Fragment {
         txtProfileName = (TextView) getView().findViewById(R.id.txtProfileName);
         txtProfileEmail = (TextView) getView().findViewById(R.id.txtProfileEmail);
         txtProfileUID = (TextView) getView().findViewById(R.id.txtProfileUID);
+        iconLevel = (ImageView) getView().findViewById(R.id.icon_level);
+        txtProfilePoints = (TextView) getView().findViewById(R.id.user_points);
         txtAll = (TextView) getView().findViewById(R.id.txtAll);
         txtComplete = (TextView) getView().findViewById(R.id.txtComplete);
         txtLearn = (TextView) getView().findViewById(R.id.txtLearn);
@@ -518,4 +649,5 @@ public class ProfileFragment extends Fragment {
         refresh = (SwipeRefreshLayout) getView().findViewById(R.id.refresh1);
         viewPager2 = (ViewPager2) getView().findViewById(R.id.viewPager2Profile);
     }
+
 }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
@@ -14,16 +15,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.courseonline.Adapter.Learner.DocumentAdapter;
+import com.example.courseonline.Adapter.Learner.QuizAdapter;
 import com.example.courseonline.Adapter.Learner.VideoAdapter;
 import com.example.courseonline.Class.LoadingAlert;
 import com.example.courseonline.Domain.DocumentClass;
+import com.example.courseonline.Domain.QuizClass;
 import com.example.courseonline.Domain.VideoClass;
 import com.example.courseonline.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.AggregateQuery;
+import com.google.firebase.firestore.AggregateQuerySnapshot;
+import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -36,11 +45,13 @@ public class LearnActivity extends AppCompatActivity {
     RecyclerView recyclerPlaylist, recyclerDocument, recyclerQuiz;
     private VideoAdapter videoAdapter;
     private DocumentAdapter documentAdapter;
+    private QuizAdapter quizAdapter;
     private ArrayList<VideoClass> arrayVideo = new ArrayList<>();
     private ArrayList<DocumentClass> arrayDocument = new ArrayList<>();
+    private ArrayList<QuizClass> arrayQuiz = new ArrayList<>();
     ImageView imgBack;
     NestedScrollView scrollLayout;
-    TextView textHeading;
+    TextView textHeading, txtHeading, txtHeading1, txtHeading2;
     private FirebaseAuth mAuth;
     private String headingKey, courseKey;
     private FirebaseFirestore db;
@@ -76,6 +87,10 @@ public class LearnActivity extends AppCompatActivity {
                         recyclerDocument.setLayoutManager(new LinearLayoutManager(LearnActivity.this,LinearLayoutManager.VERTICAL,false));
                         recyclerDocument.setHasFixedSize(true);
                         recyclerDocument.setItemViewCacheSize(20);
+                        recyclerQuiz.setLayoutManager(new LinearLayoutManager(LearnActivity.this,LinearLayoutManager.HORIZONTAL,false));
+                        recyclerQuiz.setHasFixedSize(true);
+                        recyclerQuiz.setItemViewCacheSize(20);
+                        recyclerQuiz.setAdapter(quizAdapter);
                         recyclerPlaylist.setAdapter(videoAdapter);
                         recyclerDocument.setAdapter(documentAdapter);
 
@@ -100,13 +115,15 @@ public class LearnActivity extends AppCompatActivity {
     }
     private void loadData(){
 
-        documentAdapter = new DocumentAdapter(arrayDocument);
-        videoAdapter = new VideoAdapter(arrayVideo, courseKey);
+        documentAdapter = new DocumentAdapter(arrayDocument, this);
+        videoAdapter = new VideoAdapter(arrayVideo, courseKey, this);
+        quizAdapter = new QuizAdapter(arrayQuiz, this);
 
         if(mAuth.getCurrentUser() != null)
         {
             if(headingKey != null && courseKey!=null)
             {
+
                 db.collection("Courses").document(courseKey).collection("Heading").document(headingKey).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -118,22 +135,37 @@ public class LearnActivity extends AppCompatActivity {
                         expand.setText(value.getString("heading_description"));
                     }
                 });
-                db.collection("Courses").document(courseKey).collection("Heading").document(headingKey).collection("video").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                db.collection("Courses").document(courseKey).collection("Heading").document(headingKey).collection("video").orderBy("video_upload_date", Query.Direction.ASCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         if(error != null)
                         {
                             return;
                         }
+                        arrayVideo.clear();
                         if(value.size() != 0 ){
-                            arrayVideo.clear();
+                            txtHeading.setVisibility(View.VISIBLE);
+                            recyclerPlaylist.setVisibility(View.VISIBLE);
+                            Query query = db.collection("Courses").document(courseKey).collection("Heading").document(headingKey).collection("video");
+                            AggregateQuery aggregateQuery = query.count();
+                            aggregateQuery.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
+                                    AggregateQuerySnapshot snapshot = task.getResult();
+                                    txtHeading.setText("Danh sách bài giảng ("+snapshot.getCount()+")");
+                                }
+                            });
                             for (QueryDocumentSnapshot doc : value) {
                                 if (doc.toObject(VideoClass.class) != null) {
                                     arrayVideo.add(doc.toObject(VideoClass.class));
                                 }
-                                videoAdapter.notifyDataSetChanged();
                             }
+
+                        }else{
+                            txtHeading.setVisibility(View.GONE);
+                            recyclerPlaylist.setVisibility(View.GONE);
                         }
+                        videoAdapter.notifyDataSetChanged();
 
 
                     }
@@ -145,12 +177,60 @@ public class LearnActivity extends AppCompatActivity {
                         {
                             return;
                         }
+                        arrayDocument.clear();
                         if(value.size() != 0 ){
-                            arrayDocument.clear();
+                            txtHeading1.setVisibility(View.VISIBLE);
+                            recyclerDocument.setVisibility(View.VISIBLE);
+                            Query query = db.collection("Courses").document(courseKey).collection("Heading").document(headingKey).collection("document");
+                            AggregateQuery aggregateQuery = query.count();
+                            aggregateQuery.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
+                                    AggregateQuerySnapshot snapshot = task.getResult();
+                                    txtHeading1.setText("Tài liệu bài giảng ("+snapshot.getCount()+")");
+                                }
+                            });
                             for (QueryDocumentSnapshot doc : value) {
                                arrayDocument.add(doc.toObject(DocumentClass.class));
                             }
-                            documentAdapter.notifyDataSetChanged();}
+
+                        }else {
+                            txtHeading1.setVisibility(View.GONE);
+                            recyclerDocument.setVisibility(View.GONE);
+                        }
+                        documentAdapter.notifyDataSetChanged();
+                    }
+                });
+                db.collection("Courses").document(courseKey).collection("Heading").document(headingKey).collection("quiz").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if(error != null)
+                        {
+                            return;
+                        }
+                        arrayQuiz.clear();
+                        if(value.size() != 0){
+                            txtHeading2.setVisibility(View.VISIBLE);
+                            recyclerQuiz.setVisibility(View.VISIBLE);
+                            Query query = db.collection("Courses").document(courseKey).collection("Heading").document(headingKey).collection("quiz");
+                            AggregateQuery aggregateQuery = query.count();
+                            aggregateQuery.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
+                                    AggregateQuerySnapshot snapshot = task.getResult();
+                                    txtHeading2.setText("Trắc nghiệm củng cố ("+snapshot.getCount()+")");
+                                }
+                            });
+                            for(QueryDocumentSnapshot doc : value)
+                            {
+                                arrayQuiz.add(doc.toObject(QuizClass.class));
+                            }
+
+                        }else  {
+                            txtHeading2.setVisibility(View.GONE);
+                            recyclerQuiz.setVisibility(View.GONE);
+                        }
+                        quizAdapter.notifyDataSetChanged();
                     }
                 });
             }
@@ -165,11 +245,41 @@ public class LearnActivity extends AppCompatActivity {
         textHeading = (TextView) findViewById(R.id.textHeading);
         expand = (TextView) findViewById(R.id.expandDescription);
         imgBack = (ImageView) findViewById(R.id.imgBack);
+        txtHeading = (TextView) findViewById(R.id.textPlaylist);
+        txtHeading1 = (TextView) findViewById(R.id.textHeading1);
+        txtHeading2 = (TextView) findViewById(R.id.textHeading2);
     }
 
     @Override
     public void onBackPressed() {
         finish();
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(documentAdapter != null) documentAdapter.release();
+        if(videoAdapter != null) videoAdapter.release();
+        if(quizAdapter != null) quizAdapter.release();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadData();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        loadData();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        loadData();
     }
 }

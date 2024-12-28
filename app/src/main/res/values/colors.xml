@@ -2,7 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="blue">#1A63C2</color>
     <color name="red">#ff00</color>
     <color name="orange">#FEA602</color>
     <color name="app_theme">#009ddf</color>
@@ -10,7 +9,17 @@
     <color name="edit_text_border">#03A9F4</color>
     <color name="edit_text_background">#f6fbff</color>
     <color name="semi_transparent">#80000000</color>
-
+    <color name="blue">#1A63C2</color>
+    <color name="purple">#663399</color>
+    <color name="green">#007700</color>
+    <color name="dark_green">#006666</color>
+    <color name="dark_red">#993366</color>
     <color name="grey">#aaa</color>
     <color name="dark_grey">#ff424242</color>
+    <color name="gray">#F4F4F4</color>
+    <color name="light_pink">#ADEFD1FF</color>
+    <color name="mint">#3EB489</color>
+    <color name="light_blue">#A7C7E7</color>
+    <color name="gray_edit_text">#f1f2f6</color>
+    <color name="blue_messenger">#0d81f2</color>
 </resources>

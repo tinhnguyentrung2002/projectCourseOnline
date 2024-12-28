@@ -1,6 +1,7 @@
 package com.example.courseonline.Adapter.Learner;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,22 +10,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.courseonline.Activity.Learner.CourseActivity;
 import com.example.courseonline.Domain.CourseDisplayClass;
 import com.example.courseonline.R;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 
 public class AllCourseAdapter extends RecyclerView.Adapter<AllCourseAdapter.ViewHolder> {
     ArrayList<CourseDisplayClass> items;
-    Activity context;
+    Context context;
+    private FirebaseFirestore db;
     AllCourseAdapter.onItemClickListener onItemClickListener;
-    public AllCourseAdapter(ArrayList<CourseDisplayClass> items) {
+    public AllCourseAdapter(ArrayList<CourseDisplayClass> items, Context context) {
         this.items = items;
+        this.context = context;
     }
     @NonNull
     @Override
@@ -41,21 +50,45 @@ public class AllCourseAdapter extends RecyclerView.Adapter<AllCourseAdapter.View
     }
     @Override
     public void onBindViewHolder(@NonNull AllCourseAdapter.ViewHolder holder, int position) {
+        db = FirebaseFirestore.getInstance();
         String id = items.get(position).getCourse_id();
-        Glide.with(holder.itemView.getContext()).load(items.get(position).getCourse_img()).centerInside().into(holder.imgPic);
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(R.drawable.default_image)
+                .error(R.drawable.default_image)
+                .fitCenter();
+
+        Glide.with(holder.itemView.getContext())
+                .load(items.get(position).getCourse_img())
+                .apply(requestOptions)
+                .into(holder.imgPic);
         holder.txtTitle.setText(items.get(position).getCourse_title());
-        holder.txtOwner.setText(items.get(position).getCourse_owner());
+        db.collection("Users").document(items.get(position).getCourse_owner_id()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error != null)
+                {
+                    return;
+                }
+                if(value.exists())
+                {
+                    holder.txtOwner.setText((value.getString("user_name")));
+
+                }
+            }
+        });
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, CourseActivity.class);
                 intent.putExtra("course_key", id);
                 context.startActivity(intent);
-                context.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+//                context.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
     }
-
+    public void release(){
+        context = null;
+    }
     @Override
     public int getItemCount() {
         return items.size();

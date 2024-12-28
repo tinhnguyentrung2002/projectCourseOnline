@@ -3,7 +3,6 @@ package com.example.courseonline.Fragment.Teacher;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -167,7 +166,7 @@ public class DashboardFragment extends Fragment {
         recyclerRankMember.setAdapter(rankCourseAdapter1);
         if(mAuth.getCurrentUser() != null)
         {
-            db.collection("Courses").whereEqualTo("course_owner_id", mAuth.getCurrentUser().getUid()).whereEqualTo("course_state", true).orderBy("course_rate", Query.Direction.DESCENDING).limit(3).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            db.collection("Courses").whereEqualTo("course_owner_id", mAuth.getCurrentUser().getUid()).whereEqualTo("course_type", "course").whereEqualTo("course_state", true).orderBy("course_rate", Query.Direction.DESCENDING).limit(3).addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                     if(error != null){
@@ -186,7 +185,7 @@ public class DashboardFragment extends Fragment {
                     }
                 }
             });
-            db.collection("Courses").whereEqualTo("course_owner_id", mAuth.getCurrentUser().getUid()).whereEqualTo("course_state", true).orderBy("course_member", Query.Direction.DESCENDING).limit(3).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            db.collection("Courses").whereEqualTo("course_owner_id", mAuth.getCurrentUser().getUid()).whereEqualTo("course_type", "course").whereEqualTo("course_state", true).orderBy("course_member", Query.Direction.DESCENDING).limit(3).addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                     if(error != null){
@@ -204,7 +203,7 @@ public class DashboardFragment extends Fragment {
                 }
             });
 
-            Query query = db.collection("Courses").whereEqualTo("course_owner_id", mAuth.getCurrentUser().getUid());
+            Query query = db.collection("Courses").whereEqualTo("course_type", "course").whereEqualTo("course_state", true).whereEqualTo("course_owner_id", mAuth.getCurrentUser().getUid());
             AggregateQuery aggregateQuery = query.aggregate(AggregateField.average("course_rate"));
             aggregateQuery.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
                 @Override
@@ -213,12 +212,11 @@ public class DashboardFragment extends Fragment {
                         AggregateQuerySnapshot snapshot = task.getResult();
                         txtRate.setText(String.format("%.1f",snapshot.get(AggregateField.average("course_rate"))) +"/5");
                     }else{
-                        Log.d("aaaa", "Aggregation failed: ", task.getException());
                     }
                 }
             });
 
-            Query query1 = db.collection("Courses").whereEqualTo("course_owner_id", mAuth.getCurrentUser().getUid());
+            Query query1 = db.collection("Courses").whereEqualTo("course_type", "course").whereEqualTo("course_state", true).whereEqualTo("course_owner_id", mAuth.getCurrentUser().getUid());
             AggregateQuery aggregateQuery1 = query1.aggregate(AggregateField.sum("course_member"));
             aggregateQuery1.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
                 @Override
@@ -227,12 +225,11 @@ public class DashboardFragment extends Fragment {
                         AggregateQuerySnapshot snapshot = task.getResult();
                         txtAllMember.setText(String.valueOf(snapshot.get(AggregateField.sum("course_member"))));
                     }else{
-                        Log.d("bbbb", "Aggregation failed: ", task.getException());
                     }
                 }
             });
 
-            Query query2 = db.collection("Courses").whereEqualTo("course_owner_id", mAuth.getCurrentUser().getUid());
+            Query query2 = db.collection("Courses").whereEqualTo("course_state", true).whereEqualTo("course_owner_id", mAuth.getCurrentUser().getUid());
             AggregateQuery aggregateQuery2 = query2.count();
             aggregateQuery2.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
                 @Override

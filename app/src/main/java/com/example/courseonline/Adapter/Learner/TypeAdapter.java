@@ -2,6 +2,7 @@ package com.example.courseonline.Adapter.Learner;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,15 +28,16 @@ import java.util.ArrayList;
 
 public class TypeAdapter  extends RecyclerView.Adapter<TypeAdapter.ViewHolder>{
     ArrayList<TypeClass> items;
-    Activity context;
+    Context context;
     private int layer;
     private final int limit = 3;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
-    public TypeAdapter(ArrayList<TypeClass> items, int layer) {
+    public TypeAdapter(ArrayList<TypeClass> items, Context context) {
         this.items = items;
-        this.layer = layer;
+//        this.layer = layer;
+        this.context = context;
     }
 
     @NonNull
@@ -50,61 +52,61 @@ public class TypeAdapter  extends RecyclerView.Adapter<TypeAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        if(this.layer == 0)
-        {
-                db.collection("Categories").document(items.get(position).getCategory_id()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                        if(error != null)
-                        {
-                            return;
-                        }
-                        holder.textType.setText(value.getString("category_title"));
-
-                    }
-                });
-            if(!items.get(position).getCategory_id().equals("freeCategory")) {
-                holder.textType.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(context, CategoryActivity.class);
-                        intent.putExtra("course_id", items.get(position).getCourse_id());
-                        intent.putExtra("category_id", items.get(position).getCategory_id());
-                        intent.putExtra("category_title", holder.textType.getText());
-                        context.startActivity(intent);
-                        context.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    }
-                });
-            }
-
-        }else if(layer == 1)
-        {
-            db.collection("Categories").document(items.get(position).getCategory_id()).collection("CategoriesChild").document(items.get(position).getCategory_child_id()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                @Override
-                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                    if(error != null)
-                    {
-                        return;
-                    }
-                    holder.textType.setText(value.getString("category_title"));
-
-                }
-            });
-
-                holder.textType.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(context, CategoryChildActivity.class);
-                        intent.putExtra("course_id", items.get(position).getCourse_id());
-                        intent.putExtra("category_id", items.get(position).getCategory_child_id());
-                        intent.putExtra("category_title", holder.textType.getText());
-                        context.startActivity(intent);
-                        context.overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-                    }
-                });
-
-
-        }else{
+//        if(this.layer == 0)
+//        {
+//                db.collection("Categories").document(items.get(position).getCategory_id()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+//                        if(error != null)
+//                        {
+//                            return;
+//                        }
+//                        holder.textType.setText(value.getString("category_title"));
+//
+//                    }
+//                });
+//            if(!items.get(position).getCategory_id().equals("grade10") || !items.get(position).getCategory_id().equals("grade11") || !items.get(position).getCategory_id().equals("grade12")) {
+//                holder.textType.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Intent intent = new Intent(context, CategoryActivity.class);
+//                        intent.putExtra("course_id", items.get(position).getCourse_id());
+//                        intent.putExtra("category_id", items.get(position).getCategory_id());
+//                        intent.putExtra("category_title", holder.textType.getText());
+//                        context.startActivity(intent);
+//                        context.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//                    }
+//                });
+//            }
+//
+//        }else if(layer == 1)
+//        {
+//            db.collection("Categories").document(items.get(position).getCategory_id()).collection("CategoriesChild").document(items.get(position).getCategory_child_id()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+//                @Override
+//                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+//                    if(error != null)
+//                    {
+//                        return;
+//                    }
+//                    holder.textType.setText(value.getString("category_title"));
+//
+//                }
+//            });
+//
+//                holder.textType.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Intent intent = new Intent(context, CategoryChildActivity.class);
+//                        intent.putExtra("course_id", items.get(position).getCourse_id());
+//                        intent.putExtra("category_id", items.get(position).getCategory_child_id());
+//                        intent.putExtra("category_title", holder.textType.getText());
+//                        context.startActivity(intent);
+//                        context.overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+//                    }
+//                });
+//
+//
+//        }else{
             if(items.get(position).getCategory_child_id().equals(""))
             {
                 db.collection("Categories").document(items.get(position).getCategory_id()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -118,7 +120,7 @@ public class TypeAdapter  extends RecyclerView.Adapter<TypeAdapter.ViewHolder>{
 
                     }
                 });
-                if(!items.get(position).getCategory_id().equals("freeCategory"))
+                if(!items.get(position).getCategory_id().equals("grade10") && !items.get(position).getCategory_id().equals("grade11") && !items.get(position).getCategory_id().equals("grade12"))
                 {
                     holder.textType.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -128,7 +130,7 @@ public class TypeAdapter  extends RecyclerView.Adapter<TypeAdapter.ViewHolder>{
                             intent.putExtra("category_id", items.get(position).getCategory_id());
                             intent.putExtra("category_title", holder.textType.getText());
                             context.startActivity(intent);
-                            context.overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+//                            context.overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                         }
                     });
                 }
@@ -153,14 +155,37 @@ public class TypeAdapter  extends RecyclerView.Adapter<TypeAdapter.ViewHolder>{
                         intent.putExtra("category_child_id", items.get(position).getCategory_child_id());
                         intent.putExtra("category_title", holder.textType.getText());
                         context.startActivity(intent);
-                        context.overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+//                        context.overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     }
                 });
             }
 
         }
-    }
+ //   }
+ private void setupClickListener(ViewHolder holder, int position) {
+     holder.textType.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+             Intent intent;
+             if (items.get(position).getCategory_child_id().isEmpty()) {
+                 intent = new Intent(context, CategoryActivity.class);
+                 intent.putExtra("course_id", items.get(position).getCourse_id());
+                 intent.putExtra("category_id", items.get(position).getCategory_id());
+             } else {
+                 intent = new Intent(context, CategoryChildActivity.class);
+                 intent.putExtra("course_id", items.get(position).getCourse_id());
+                 intent.putExtra("category_child_id", items.get(position).getCategory_child_id());
+             }
+             intent.putExtra("category_title", holder.textType.getText());
+             context.startActivity(intent);
+//             context.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+         }
+     });
+ }
 
+    public void release(){
+         context =null;
+     }
     @Override
     public int getItemCount() {
         if(items.size() > limit){

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearUser"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:weightSum="3"
+    android:background="?android:attr/selectableItemBackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Hình ảnh đại diện của người dùng -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgUser_class"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_weight="0.01"
+        android:layout_marginEnd="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:shapeAppearanceOverlay="@style/circleImageView"
+        app:strokeColor="@color/mint"
+        app:strokeWidth="1dp" />
+
+    <!-- Tên người dùng và cấp bậc -->
+    <LinearLayout
+        android:id="@+id/userNameAndLevel_class"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.5"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/txtUserName_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="14sp"
+            android:layout_marginStart="10dp" />
+
+        <ImageView
+            android:id="@+id/class_user_level"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/level_1" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/userListJoinDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/textColorSmall"
+        android:text=""
+        android:textSize="12sp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="10dp" />
+
+
+</LinearLayout>

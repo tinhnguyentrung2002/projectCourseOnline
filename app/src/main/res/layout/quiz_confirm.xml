@@ -1,0 +1,61 @@
+<!-- res/layout/dialog_quiz_confirm.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    style="@style/backGround"
+    android:elevation="8dp">
+
+    <TextView
+        android:id="@+id/text_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bạn muốn làm bài trắc nghiệm này?"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        style="@style/textColorBlack" />
+
+    <TextView
+        android:id="@+id/text_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tên bài trắc nghiệm: XYZ"
+        android:textSize="14sp"
+        style="@style/textColorSmall"
+        android:layout_marginTop="8dp" />
+    <TextView
+        android:id="@+id/text_message2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thời gian: 5 phút"
+        android:textSize="14sp"
+        style="@style/textColorSmall"
+        android:layout_marginTop="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hủy"
+            style="@style/button"
+            android:background="@android:color/transparent"
+            android:layout_marginEnd="8dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bắt đầu"
+            android:textColor="@android:color/white"
+            style="@style/button"
+            android:padding="8dp" />
+    </LinearLayout>
+</LinearLayout>

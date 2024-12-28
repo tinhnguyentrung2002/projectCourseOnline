@@ -2,6 +2,7 @@ package com.example.courseonline.Adapter.Learner;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -12,10 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.courseonline.Activity.Learner.CourseActivity;
 import com.example.courseonline.Domain.CourseDisplayClass;
 import com.example.courseonline.R;
@@ -25,20 +28,23 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 
 
 public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.ViewHolder>  {
     ArrayList<CourseDisplayClass> items;
-    Activity context;
+    Context context;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private Toast toast;
     FavouriteAdapter.onItemClickListener onItemClickListener;
-    public FavouriteAdapter(ArrayList<CourseDisplayClass> items) {
+    public FavouriteAdapter(ArrayList<CourseDisplayClass> items, Context context) {
         this.items = items;
+        this.context = context;
     }
     @NonNull
     @Override
@@ -59,9 +65,30 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
         mAuth = FirebaseAuth.getInstance();
         String uid = mAuth.getCurrentUser().getUid();
         String id = items.get(position).getCourse_id();
-        Glide.with(holder.itemView.getContext()).load(items.get(position).getCourse_img()).centerInside().into(holder.imgPic);
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(R.drawable.default_image)
+                .error(R.drawable.default_image)
+                .fitCenter();
+
+        Glide.with(holder.itemView.getContext())
+                .load(items.get(position).getCourse_img())
+                .apply(requestOptions)
+                .into(holder.imgPic);
         holder.txtTitle.setText(items.get(position).getCourse_title());
-        holder.txtOwner.setText(items.get(position).getCourse_owner());
+        db.collection("Users").document(items.get(position).getCourse_owner_id()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error != null)
+                {
+                    return;
+                }
+                if(value.exists())
+                {
+                    holder.txtOwner.setText((value.getString("user_name")));
+
+                }
+            }
+        });
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,11 +134,13 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
                 Intent intent = new Intent(context, CourseActivity.class);
                 intent.putExtra("course_key", id);
                 context.startActivity(intent);
-                context.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+//                context.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
     }
-
+    public void release(){
+        context =null;
+    }
     @Override
     public int getItemCount() {
         return items.size();

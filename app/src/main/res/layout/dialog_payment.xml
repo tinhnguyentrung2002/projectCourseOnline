@@ -2,75 +2,154 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/constraintLayoutBottom"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/app_theme_light"
-  >
+    android:padding="16dp">
 
     <TextView
-        android:id="@+id/txtPrice"
+        android:id="@+id/textViewTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Thông tin thanh toán"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/textViewPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
         android:text="200.000đ"
-        android:textAlignment="center"
-        android:textColor="@color/app_theme"
-        android:textSize="17sp"
+        android:textColor="@color/blue"
+        android:textSize="24sp"
+        android:layout_marginTop="5dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textView24"
-        app:layout_constraintHorizontal_bias="0.489"
-        app:layout_constraintStart_toStartOf="@+id/textView24"
-        app:layout_constraintTop_toTopOf="@+id/textView24"
-        app:layout_constraintVertical_bias="1.0">
-
-    </TextView>
-
-    <com.google.android.gms.wallet.button.PayButton
-        android:id="@+id/btnJoin"
-        android:layout_width="218dp"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="2dp"
-        android:text="Tham gia khoá học"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.805"
-        app:layout_constraintStart_toEndOf="@+id/txtPrice"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnJoin1"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="180dp"
-        android:background="@color/app_theme"
-        android:padding="10dp"
-        android:text="Tham gia khoá học"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.755"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_marginBottom="16dp"/>
 
     <TextView
-        android:id="@+id/textView24"
-        style="@style/textColorBlack"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="80dp"
-        android:text="Giá"
+        android:id="@+id/textViewDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Chọn phương thức thanh toán của bạn:"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/textViewPrice"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="8dp"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnJoin1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/buttonFilter"
+        android:padding="10dp"
+        android:text="Tham gia khoá học"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/blue"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/textViewDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <LinearLayout
+        android:id="@+id/payMethod"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/btnJoin1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.gms.wallet.button.PayButton
+            android:id="@+id/btnJoin"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center"
+            android:text="Tham gia khoá học"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+        <LinearLayout
+            android:id="@+id/btnJoinZaloPay"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:foreground="?android:attr/selectableItemBackground"
+            style="@style/buttonFilter"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/textZalo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thanh toán bằng ZaloPay"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:layout_marginEnd="8dp"/>
+            <ImageView
+                android:id="@+id/zaloIcon"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/zalo_icon"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/btnJoinByPoints"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_gravity="center"
+            style="@style/buttonFilter"
+            android:layout_marginTop="10dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:padding="8dp">
+        <TextView
+            android:id="@+id/pointsPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="400"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:layout_marginEnd="4dp"/>
+            <ImageView
+                android:id="@+id/pointsIcon"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/points_icon"
+
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/transparent"
+        android:text="Hủy"
+        android:textColor="@color/blue"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/payMethod" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

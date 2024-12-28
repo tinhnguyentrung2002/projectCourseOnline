@@ -29,8 +29,9 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
     private static final String KEY_UID = "user_id";
     private static final String KEY_VID = "video_id";
 
-    public DocumentAdapter(ArrayList<DocumentClass> items) {
+    public DocumentAdapter(ArrayList<DocumentClass> items, Context context) {
         this.items = items;
+        this.context = context;
     }
 
     @NonNull
@@ -74,8 +75,9 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
         toast = Toast.makeText(context, mes,Toast.LENGTH_SHORT);
         toast.show();
     }
-
-
+    public void release(){
+        context =null;
+    }
     @Override
     public int getItemCount() {
         return items.size();

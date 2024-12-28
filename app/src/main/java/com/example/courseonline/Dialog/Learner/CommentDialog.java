@@ -50,20 +50,20 @@ public class CommentDialog extends BottomSheetDialogFragment {
     public DocumentSnapshot lastVisible;
     private ProgressBar progressLoad;
     private String course_id;
-    private TextView txtAvgRate, txtTotalComment, txtNone4;
+    private TextView txtAvgRate, txtTotalComment, txtNoneComment;
     private RatingBar ratingAvgRate;
     private ProgressBar progress, progress1, progress2, progress3, progress4;
     private AppCompatButton btn1, btn2, btn3, btn4, btn5, btnAll;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private RecyclerView  recyclerMyComment;
-    private ArrayList<CommentClass> arrayComment;
+    private ArrayList<CommentClass> userComment, otherComments, arrayComment;
     private CommentAdapter commentAdapter;
     private LinearLayout layoutComment;
     public CommentDialog(String course_id) {
         this.course_id = course_id;
     }
-    private boolean isFilter = false;
+    private int clickedID;
     public ExecutorService executor;
     public Handler handler;
 
@@ -75,7 +75,7 @@ public class CommentDialog extends BottomSheetDialogFragment {
         BottomSheetDialog bottomSheetDialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
         bottomSheetDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_display_comment, null);
-        
+
         bottomSheetDialog.setContentView(view);
         BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -86,10 +86,10 @@ public class CommentDialog extends BottomSheetDialogFragment {
         layoutComment.setMinimumHeight(Resources.getSystem().getDisplayMetrics().heightPixels);
         txtAvgRate = (TextView) bottomSheetDialog.findViewById(R.id.textAVGRate);
         txtTotalComment = (TextView) bottomSheetDialog.findViewById(R.id.txtTotalComment);
-        txtNone4 = (TextView) bottomSheetDialog.findViewById(R.id.txtNone4);
+        txtNoneComment = (TextView) bottomSheetDialog.findViewById(R.id.txtNoneComment);
         recyclerMyComment = (RecyclerView) bottomSheetDialog.findViewById(R.id.recyclerMyComment);
         ratingAvgRate = (RatingBar) bottomSheetDialog.findViewById(R.id.ratingAVGRate);
-        progressLoad = (ProgressBar) bottomSheetDialog.findViewById(R.id.loadMore);
+//        progressLoad = (ProgressBar) bottomSheetDialog.findViewById(R.id.loadMore);
         progress = (ProgressBar) bottomSheetDialog.findViewById(R.id.progress);
         progress1 = (ProgressBar) bottomSheetDialog.findViewById(R.id.progress1);
         progress2 = (ProgressBar) bottomSheetDialog.findViewById(R.id.progress2);
@@ -107,84 +107,110 @@ public class CommentDialog extends BottomSheetDialogFragment {
         recyclerMyComment.setItemViewCacheSize(20);
 
         arrayComment = new ArrayList<>();
-        commentAdapter = new CommentAdapter(arrayComment);
+        userComment = new ArrayList<>();
+        otherComments = new ArrayList<>();
+        commentAdapter = new CommentAdapter(arrayComment,getContext());
 
         recyclerMyComment.setAdapter(commentAdapter);
 
         loadData();
-        btnAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadData();
-                btn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                btn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                btn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                btn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                btn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//        btnAll.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                loadData();
+//                btn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                btn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                btn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                btn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                btn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//
+//            }
+//        });
+//
+//        btn1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                btn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_enable, null));
+//                btn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                btn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                btn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                btn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                filter(1);
+//            }
+//        });
+//        btn2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                btn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_enable, null));
+//                btn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                btn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                btn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                btn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                filter(2);
+//            }
+//        });
+//        btn3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                btn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_enable, null));
+//                btn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                btn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                btn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                btn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                filter(3);
+//            }
+//        });
+//        btn4.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                btn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_enable, null));
+//                btn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                btn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                btn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                btn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                filter(4);
+//            }
+//        });
+//        btn5.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                btn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_enable, null));
+//                btn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                btn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                btn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                btn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+//                filter(5);
+//            }
+//        });
+        btnAll.setOnClickListener(this::onClick);
+        btn1.setOnClickListener(this::onClick);
+        btn2.setOnClickListener(this::onClick);
+        btn3.setOnClickListener(this::onClick);
+        btn4.setOnClickListener(this::onClick);
+        btn5.setOnClickListener(this::onClick);
 
-            }
-        });
-
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_enable, null));
-                btn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                btn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                btn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                btn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                filter(1);
-            }
-        });
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_enable, null));
-                btn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                btn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                btn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                btn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                filter(2);
-            }
-        });
-        btn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_enable, null));
-                btn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                btn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                btn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                btn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                filter(3);
-            }
-        });
-        btn4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_enable, null));
-                btn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                btn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                btn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                btn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                filter(4);
-            }
-        });
-        btn5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_enable, null));
-                btn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                btn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                btn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                btn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
-                filter(5);
-            }
-        });
 
         return bottomSheetDialog;
     }
+    public void onClick(View view){
+        btn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+        btn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+        btn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+        btn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+        btn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+        btnAll.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_disable, null));
+
+        AppCompatButton clickedBtn = (AppCompatButton) view;
+        clickedBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_button_enable, null));
+        if(clickedBtn.getId() == btn1.getId()) filter(1);
+        if(clickedBtn.getId() == btn2.getId()) filter(2);
+        if(clickedBtn.getId() == btn3.getId()) filter(3);
+        if(clickedBtn.getId() == btn4.getId()) filter(4);
+        if(clickedBtn.getId() == btn5.getId()) filter(5);
+        if(clickedBtn.getId() == btnAll.getId()) loadData();
+    }
     private void loadData(){
-        txtNone4.setVisibility(View.GONE);
+//        recyclerMyComment.clearOnScrollListeners();
         if(mAuth.getCurrentUser() != null)
         {
             db.collection("Courses").document(course_id).collection("Comment").orderBy("comment_upload_time", Query.Direction.DESCENDING).whereEqualTo("user_id", mAuth.getCurrentUser().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -193,89 +219,91 @@ public class CommentDialog extends BottomSheetDialogFragment {
                     if (error != null) {
                         return;
                     }
-                    arrayComment.clear();
-                    for (QueryDocumentSnapshot doc : value)
+                    userComment.clear();
+                    if(value.size() != 0)
                     {
-                        arrayComment.add(doc.toObject(CommentClass.class));
+                        for (QueryDocumentSnapshot doc : value)
+                        {
+                            userComment.add(doc.toObject(CommentClass.class));
 
-                    }
-                    commentAdapter.notifyDataSetChanged();
-                    db.collection("Courses").document(course_id).collection("Comment").orderBy("comment_upload_time", Query.Direction.DESCENDING).whereNotEqualTo("user_id", mAuth.getCurrentUser().getUid()).limit(5).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                            if (error != null) {
-                                return;
-                            }
-
-                            //arrayComment.clear();
-                            if (value.size() != 0) {
-
-                                for (QueryDocumentSnapshot doc : value) {
-                                    arrayComment.add(doc.toObject(CommentClass.class));
-                                }
-                                commentAdapter.notifyDataSetChanged();
-                            }
-                            lastVisible = value.getDocuments().get(value.size()-1);
-                            recyclerMyComment.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                                @Override
-                                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                                    super.onScrollStateChanged(recyclerView, newState);
-                                    if(recyclerView.canScrollVertically(1))
-                                    {
-                                        txtNone4.setVisibility(View.VISIBLE);
-                                    }
-                                    if(!recyclerView.canScrollVertically(1))
-                                    {
-                                        executor.execute(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                handler.post(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        progressLoad.setVisibility(View.VISIBLE);
-
-                                                    }
-                                                });
-                                                handler.postDelayed(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        progressLoad.setVisibility(View.GONE);
-                                                        db.collection("Courses").document(course_id).collection("Comment").orderBy("comment_upload_time", Query.Direction.DESCENDING).whereNotEqualTo("user_id", mAuth.getCurrentUser().getUid()).startAfter(lastVisible).limit(5).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                                                            @Override
-                                                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                                                                if (error != null) {
-                                                                    return;
-                                                                }
-                                                                //arrayComment.clear();
-                                                                if (value.size() != 0) {
-                                                                    for (QueryDocumentSnapshot doc : value) {
-                                                                        if(!doc.getString("user_id").equals(lastVisible.getString("user_id")))
-                                                                            arrayComment.add(doc.toObject(CommentClass.class));
-
-                                                                    }
-                                                                    lastVisible = value.getDocuments().get(value.size()-1);
-                                                                    commentAdapter.notifyDataSetChanged();
-
-                                                                }
-                                                            }
-                                                        });
-                                                    }
-                                                },1000);
-                                            }
-                                        });
-
-
-                                    }
-                                }
-
-                                @Override
-                                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                                    super.onScrolled(recyclerView, dx, dy);
-                                }
-                            });
                         }
-                    });
+                    }
+                    loadComment();
+                }
+            });
+            db.collection("Courses").document(course_id).collection("Comment").orderBy("comment_upload_time", Query.Direction.DESCENDING).whereNotEqualTo("user_id", mAuth.getCurrentUser().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if (error != null) {
+                        return;
+                    }
 
+                    otherComments.clear();
+                    if (value.size() != 0) {
+                        for (QueryDocumentSnapshot doc : value) {
+                            otherComments.add(doc.toObject(CommentClass.class));
+                        }
+                            lastVisible = value.getDocuments().get(value.size()-1);
+                    }
+                    loadComment();
+
+//                            recyclerMyComment.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//                                @Override
+//                                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                                    super.onScrollStateChanged(recyclerView, newState);
+////                                    if(recyclerView.canScrollVertically(1))
+////                                    {
+////                                        txtNone4.setVisibility(View.VISIBLE);
+////                                    }
+//                                    if(!recyclerView.canScrollVertically(1))
+//                                    {
+//                                        executor.execute(new Runnable() {
+//                                            @Override
+//                                            public void run() {
+//                                                handler.post(new Runnable() {
+//                                                    @Override
+//                                                    public void run() {
+//                                                        progressLoad.setVisibility(View.VISIBLE);
+//
+//                                                    }
+//                                                });
+//                                                handler.postDelayed(new Runnable() {
+//                                                    @Override
+//                                                    public void run() {
+//                                                        progressLoad.setVisibility(View.GONE);
+//                                                        db.collection("Courses").document(course_id).collection("Comment").orderBy("comment_upload_time", Query.Direction.DESCENDING).whereNotEqualTo("user_id", mAuth.getCurrentUser().getUid()).startAfter(lastVisible).limit(5).addSnapshotListener(new EventListener<QuerySnapshot>() {
+//                                                            @Override
+//                                                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//                                                                if (error != null) {
+//                                                                    return;
+//                                                                }
+//                                                                //arrayComment.clear();
+//                                                                if (value.size() != 0) {
+//                                                                    for (QueryDocumentSnapshot doc : value) {
+//                                                                        if(!doc.getString("user_id").equals(lastVisible.getString("user_id")))
+//                                                                            arrayComment.add(doc.toObject(CommentClass.class));
+//
+//                                                                    }
+//                                                                    lastVisible = value.getDocuments().get(value.size()-1);
+//                                                                    commentAdapter.notifyDataSetChanged();
+//
+//                                                                }
+//                                                            }
+//                                                        });
+//                                                    }
+//                                                },1000);
+//                                            }
+//                                        });
+//
+//
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                                    super.onScrolled(recyclerView, dx, dy);
+//                                }
+//                            });
                 }
             });
 
@@ -364,99 +392,117 @@ public class CommentDialog extends BottomSheetDialogFragment {
             });
         }
     }
+
     private void filter(int star)
     {
-        txtNone4.setVisibility(View.GONE);
-        arrayComment.clear();
-        commentAdapter.notifyDataSetChanged();
+//        txtNone4.setVisibility(View.GONE);
+
+//        recyclerMyComment.clearOnScrollListeners();
         db.collection("Courses").document(course_id).collection("Comment").orderBy("comment_upload_time", Query.Direction.DESCENDING).whereEqualTo("user_id", mAuth.getCurrentUser().getUid()).whereEqualTo("comment_rate", star).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error != null) {
                     return;
                 }
-                arrayComment.clear();
-                for (QueryDocumentSnapshot doc : value)
+                userComment.clear();
+                if(value != null)
                 {
-                    arrayComment.add(doc.toObject(CommentClass.class));
-                    commentAdapter.notifyDataSetChanged();
-                }
-                db.collection("Courses").document(course_id).collection("Comment").orderBy("comment_upload_time", Query.Direction.DESCENDING).whereNotEqualTo("user_id", mAuth.getCurrentUser().getUid()).whereEqualTo("comment_rate", star).limit(5).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        if (error != null) {
-                            return;
-                        }
-                        //arrayComment.clear();
-                        if (value.size() != 0) {
-                            for (QueryDocumentSnapshot doc : value) {
-                                arrayComment.add(doc.toObject(CommentClass.class));
-                            }
-                            commentAdapter.notifyDataSetChanged();
-                        }
-                        lastVisible = value.getDocuments().get(value.size()-1);
-                        recyclerMyComment.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                            @Override
-                            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                                super.onScrollStateChanged(recyclerView, newState);
-                                if(recyclerView.canScrollVertically(1))
-                                {
-                                    txtNone4.setVisibility(View.VISIBLE);
-                                }
-                                if(!recyclerView.canScrollVertically(1))
-                                {
-                                    executor.execute(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            handler.post(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    progressLoad.setVisibility(View.VISIBLE);
-
-                                                }
-                                            });
-                                            handler.postDelayed(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    progressLoad.setVisibility(View.GONE);
-                                                    db.collection("Courses").document(course_id).collection("Comment").orderBy("comment_upload_time", Query.Direction.DESCENDING).whereNotEqualTo("user_id", mAuth.getCurrentUser().getUid()).whereEqualTo("comment_rate", star).startAfter(lastVisible).limit(5).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                                                        @Override
-                                                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                                                            if (error != null) {
-                                                                return;
-                                                            }
-                                                            //arrayComment.clear();
-                                                            if (value.size() != 0) {
-                                                                for (QueryDocumentSnapshot doc : value) {
-                                                                    if(!doc.getString("user_id").equals(lastVisible.getString("user_id")))
-                                                                        arrayComment.add(doc.toObject(CommentClass.class));
-
-                                                                }
-                                                                lastVisible = value.getDocuments().get(value.size()-1);
-                                                                commentAdapter.notifyDataSetChanged();
-
-                                                            }
-                                                        }
-                                                    });
-                                                }
-                                            },1000);
-                                        }
-                                    });
-
-
-                                }
-                            }
-
-                            @Override
-                            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                                super.onScrolled(recyclerView, dx, dy);
-                            }
-                        });
-
+                    for (QueryDocumentSnapshot doc : value)
+                    {
+                        userComment.add(doc.toObject(CommentClass.class));
                     }
-                });
+                }
+                loadComment();
+
             }
         });
+        db.collection("Courses").document(course_id).collection("Comment").orderBy("comment_upload_time", Query.Direction.DESCENDING).whereNotEqualTo("user_id", mAuth.getCurrentUser().getUid()).whereEqualTo("comment_rate", star).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    return;
+                }
+                otherComments.clear();
+                if (value.size() != 0) {
+                    for (QueryDocumentSnapshot doc : value) {
+                        otherComments.add(doc.toObject(CommentClass.class));
+                    }
+//                            lastVisible = value.getDocuments().get(value.size()-1);
+                }
+                loadComment();
+
+//                        recyclerMyComment.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//                            @Override
+//                            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                                super.onScrollStateChanged(recyclerView, newState);
+////                                if(recyclerView.canScrollVertically(1))
+////                                {
+////                                    txtNone4.setVisibility(View.VISIBLE);
+////                                }
+//                                if(!recyclerView.canScrollVertically(1))
+//                                {
+//                                    executor.execute(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+//                                            handler.post(new Runnable() {
+//                                                @Override
+//                                                public void run() {
+//                                                    progressLoad.setVisibility(View.VISIBLE);
+//
+//                                                }
+//                                            });
+//                                            handler.postDelayed(new Runnable() {
+//                                                @Override
+//                                                public void run() {
+//                                                    progressLoad.setVisibility(View.GONE);
+//                                                    db.collection("Courses").document(course_id).collection("Comment").orderBy("comment_upload_time", Query.Direction.DESCENDING).whereNotEqualTo("user_id", mAuth.getCurrentUser().getUid()).whereEqualTo("comment_rate", star).startAfter(lastVisible).limit(5).addSnapshotListener(new EventListener<QuerySnapshot>() {
+//                                                        @Override
+//                                                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//                                                            if (error != null) {
+//                                                                return;
+//                                                            }
+//                                                            //arrayComment.clear();
+//                                                            if (value.size() != 0) {
+//                                                                for (QueryDocumentSnapshot doc : value) {
+//                                                                    if(!doc.getString("user_id").equals(lastVisible.getString("user_id")))
+//                                                                        arrayComment.add(doc.toObject(CommentClass.class));
+//
+//                                                                }
+//                                                                lastVisible = value.getDocuments().get(value.size()-1);
+//                                                                commentAdapter.notifyDataSetChanged();
+//
+//                                                            }
+//                                                        }
+//                                                    });
+//                                                }
+//                                            },1000);
+//                                        }
+//                                    });
+//
+//
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                                super.onScrolled(recyclerView, dx, dy);
+//                            }
+//                        });
+
+            }
+        });
+    }
+    private void loadComment(){
+        arrayComment.clear();
+        arrayComment.addAll(userComment);
+        arrayComment.addAll(otherComments);
+        if(arrayComment.size() != 0 )
+        {
+            txtNoneComment.setVisibility(View.GONE);
+        }else{
+            txtNoneComment.setVisibility(View.VISIBLE);
+        }
+        commentAdapter.notifyDataSetChanged();
     }
     public String changeValue(Number number) {
         char[] suffix = {' ', 'K', 'M', 'B', 'T', 'P', 'E'};
@@ -470,5 +516,9 @@ public class CommentDialog extends BottomSheetDialogFragment {
         }
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(commentAdapter != null ) commentAdapter.release();
+    }
 }

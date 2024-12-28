@@ -1,6 +1,7 @@
 package com.example.courseonline.Adapter.Learner;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,14 +27,15 @@ import java.util.ArrayList;
 
 public class HeadingAdapter extends RecyclerView.Adapter<HeadingAdapter.ViewHolder> {
     ArrayList<HeadingClass> items;
-    Activity context;
+    Context context;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private Toast toast;
-    HeadingAdapter.onItemClickListener onItemClickListener;
+//    HeadingAdapter.onItemClickListener onItemClickListener;
 
-    public HeadingAdapter(ArrayList<HeadingClass> items) {
+    public HeadingAdapter(ArrayList<HeadingClass> items, Context context) {
         this.items = items;
+        this.context = context;
     }
 
     @NonNull
@@ -51,33 +53,33 @@ public class HeadingAdapter extends RecyclerView.Adapter<HeadingAdapter.ViewHold
         String uid = mAuth.getCurrentUser().getUid();
         String headingID = items.get(position).getHeading_id();
         String courseID = items.get(position).getCourse_id();
-        db.collection("Users").document(uid).collection("cart").whereEqualTo("cart_item_id", courseID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Users").document(uid).collection("OwnCourses").whereEqualTo("own_course_item_id", courseID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                        if(task.getResult().size() != 0)
-                        {
-                            holder.imgLock.setImageResource(R.drawable.baseline_keyboard_arrow_right_24);
-                            holder.constraintHeading.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    Intent intent = new Intent(context, LearnActivity.class);
-                                    intent.putExtra("heading_key", headingID);
-                                    intent.putExtra("course_key", courseID);
-                                    context.startActivity(intent);
-                                    context.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                                }
-                            });
+                    if(task.getResult().size() != 0)
+                    {
+                        holder.imgLock.setImageResource(R.drawable.baseline_keyboard_arrow_right_24);
+                        holder.constraintHeading.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(context, LearnActivity.class);
+                                intent.putExtra("heading_key", headingID);
+                                intent.putExtra("course_key", courseID);
+                                context.startActivity(intent);
+//                                context.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                            }
+                        });
 
-                        }
-                        else{
-                            holder.imgLock.setImageResource(R.drawable.baseline_lock_24);
-                            holder.constraintHeading.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    toastMes("Vui lòng mua khoá học trước !");
-                                }
-                            });}
+                    }
+                    else{
+                        holder.imgLock.setImageResource(R.drawable.baseline_lock_24);
+                        holder.constraintHeading.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                toastMes("Vui lòng mua khoá học trước !");
+                            }
+                        });}
 
 
                 }
@@ -87,12 +89,15 @@ public class HeadingAdapter extends RecyclerView.Adapter<HeadingAdapter.ViewHold
         holder.txtHeading.setText(items.get(position).getHeading_title());
 
     }
-    public interface onItemClickListener {
-        void onClick(String str);
+    public void release(){
+        context =null;
     }
-    public void setClickItemListener(HeadingAdapter.onItemClickListener onItem) {
-        this.onItemClickListener = onItem;
-    }
+//    public interface onItemClickListener {
+//        void onClick(String str);
+//    }
+//    public void setClickItemListener(HeadingAdapter.onItemClickListener onItem) {
+//        this.onItemClickListener = onItem;
+//    }
 
     @Override
     public int getItemCount() {

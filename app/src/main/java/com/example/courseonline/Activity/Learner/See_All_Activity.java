@@ -14,7 +14,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.courseonline.Adapter.Learner.CourseDisplayVeriticalAdapter;
+import com.example.courseonline.Adapter.Learner.CourseDisplayVerticalAdapter;
 import com.example.courseonline.Domain.CourseDisplayClass;
 import com.example.courseonline.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,17 +27,17 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class See_All_Activity extends AppCompatActivity implements CourseDisplayVeriticalAdapter.onItemClickListener{
+public class See_All_Activity extends AppCompatActivity{
 
     private RecyclerView recyclerList;
-    private TextView txtToolbar;
+    private TextView txtToolbar, txtNone15;
     private GridView gridCategory;
     private ArrayAdapter<String> arrayAdapter;
     private ArrayList<String> arrayList, array, arrayListId;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private AppCompatImageButton btnBack;
-    private CourseDisplayVeriticalAdapter adapterRecycleViewVertical;
+    private CourseDisplayVerticalAdapter adapterRecycleViewVertical;
     ArrayList<CourseDisplayClass> arrayCourse = new ArrayList<>();
     private int load;
     private String type, id;
@@ -61,54 +61,66 @@ public class See_All_Activity extends AppCompatActivity implements CourseDisplay
                 gridCategory.setVisibility(View.VISIBLE);
                 arrayList = getIntent().getStringArrayListExtra("category_title");
                 arrayListId =getIntent().getStringArrayListExtra("category_id");
-                arrayAdapter = new ArrayAdapter<String>(See_All_Activity.this, android.R.layout.simple_list_item_1, arrayList);
-                gridCategory.setAdapter(arrayAdapter);
-                arrayAdapter.notifyDataSetChanged();
-                gridCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Intent intent = new Intent(See_All_Activity.this, CategoryActivity.class);
-                        intent.putExtra("category_title", arrayList.get(i).toString());
-                        intent.putExtra("category_id", arrayListId.get(i).toString());
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-                    }
-                });
+                if(arrayList.size() !=0 &&   arrayListId.size() != 0)
+                {
+                    txtNone15.setVisibility(View.GONE);
+                    arrayAdapter = new ArrayAdapter<String>(See_All_Activity.this, android.R.layout.simple_list_item_1, arrayList);
+                    gridCategory.setAdapter(arrayAdapter);
+                    arrayAdapter.notifyDataSetChanged();
+                    gridCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            Intent intent = new Intent(See_All_Activity.this, CategoryActivity.class);
+                            intent.putExtra("category_title", arrayList.get(i).toString());
+                            intent.putExtra("category_id", arrayListId.get(i).toString());
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                        }
+                    });
+                }else{
+                    txtNone15.setText("Không có kết quả nào");
+                    txtNone15.setVisibility(View.VISIBLE);
+                }
                 txtToolbar.setText("Tất cả thể loại");
                 break;
             case 1:
                 txtToolbar.setText("Khoá học phổ biến");
                 recyclerList.setVisibility(View.VISIBLE);
                 recyclerList.setLayoutManager(new LinearLayoutManager(See_All_Activity.this,LinearLayoutManager.VERTICAL,false));
-                adapterRecycleViewVertical = new CourseDisplayVeriticalAdapter(arrayCourse);
-                adapterRecycleViewVertical.setClickItemListener(this::onClick);
+                adapterRecycleViewVertical = new CourseDisplayVerticalAdapter(arrayCourse, this);
                 recyclerList.setAdapter(adapterRecycleViewVertical);
                 if(mAuth.getCurrentUser() != null && type == null)
                 {
-
-                    db.collection("Courses").whereEqualTo("course_state", true).orderBy("course_member", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    db.collection("Courses").whereEqualTo("course_type","course").whereEqualTo("course_state", true).orderBy("course_member", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                             if(error != null)
                             {
+                           
                                 return;
                             }
                             arrayCourse.clear();
-                            for (QueryDocumentSnapshot doc : value) {
-                                if (doc.toObject(CourseDisplayClass.class) != null) {
+                            if(value.size() != 0)
+                            {
+                                txtNone15.setVisibility(View.GONE);
+                                for (QueryDocumentSnapshot doc : value) {
                                     arrayCourse.add(doc.toObject(CourseDisplayClass.class));
                                 }
-                                adapterRecycleViewVertical.notifyDataSetChanged();
+                            }else{
+                                txtNone15.setText("không có khóa học nào");
+                                txtNone15.setVisibility(View.VISIBLE);
                             }
+                            adapterRecycleViewVertical.notifyDataSetChanged();
 
                         }
                     });
 
                 }else {
-                    db.collection("Courses").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    db.collection("Courses").whereEqualTo("course_type","course").addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                             if (error != null) {
+                           
                                 return;
                             }
                             for (QueryDocumentSnapshot doc : value) {
@@ -129,21 +141,27 @@ public class See_All_Activity extends AppCompatActivity implements CourseDisplay
                                             if(array.size() != 0)
                                             {
 
-                                                db.collection("Courses").whereEqualTo("course_state", true).whereIn("course_id", array).orderBy("course_member").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                                db.collection("Courses").whereEqualTo("course_type","course").whereEqualTo("course_state", true).whereIn("course_id", array).orderBy("course_member").addSnapshotListener(new EventListener<QuerySnapshot>() {
                                                     @Override
                                                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                                                         if(error != null)
                                                         {
+                                                       
                                                             return;
                                                         }
 
                                                         arrayCourse.clear();
-                                                        for (QueryDocumentSnapshot doc : value) {
-                                                            if (doc.toObject(CourseDisplayClass.class) != null) {
+                                                        if(value.size() != 0)
+                                                        {
+                                                            txtNone15.setVisibility(View.GONE);
+                                                            for (QueryDocumentSnapshot doc : value) {
                                                                 arrayCourse.add(doc.toObject(CourseDisplayClass.class));
                                                             }
-                                                            adapterRecycleViewVertical.notifyDataSetChanged();
+                                                        }else{
+                                                            txtNone15.setText("không có khóa học nào");
+                                                            txtNone15.setVisibility(View.VISIBLE);
                                                         }
+                                                        adapterRecycleViewVertical.notifyDataSetChanged();
                                                     }
                                                 });
                                             }
@@ -157,37 +175,80 @@ public class See_All_Activity extends AppCompatActivity implements CourseDisplay
 
                 }
                 break;
-            case 3:
-                txtToolbar.setText("Top đánh giá");
+            case 2:
+                txtToolbar.setText("Khóa học mới nhất");
                 recyclerList.setVisibility(View.VISIBLE);
                 recyclerList.setLayoutManager(new LinearLayoutManager(See_All_Activity.this,LinearLayoutManager.VERTICAL,false));
-                adapterRecycleViewVertical = new CourseDisplayVeriticalAdapter(arrayCourse);
-                adapterRecycleViewVertical.setClickItemListener(this::onClick);
+                adapterRecycleViewVertical = new CourseDisplayVerticalAdapter(arrayCourse, this);
+//                adapterRecycleViewVertical.setClickItemListener(this::onClick);
                 recyclerList.setAdapter(adapterRecycleViewVertical);
                 if(mAuth.getCurrentUser() != null && type == null)
                 {
-                    recyclerList.setVisibility(View.VISIBLE);
-                    db.collection("Courses").whereEqualTo("course_state", true).orderBy("course_rate",Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+                    db.collection("Courses").whereEqualTo("course_type","course").whereEqualTo("course_state", true).orderBy("course_upload", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                             if(error != null)
                             {
+                           
                                 return;
                             }
                             arrayCourse.clear();
-                            for (QueryDocumentSnapshot doc : value) {
-                                if (doc.toObject(CourseDisplayClass.class) != null) {
+                            if(value.size() != 0)
+                            {
+                                txtNone15.setVisibility(View.GONE);
+                                for (QueryDocumentSnapshot doc : value) {
                                     arrayCourse.add(doc.toObject(CourseDisplayClass.class));
                                 }
-                                adapterRecycleViewVertical.notifyDataSetChanged();
+                            }else{
+                                txtNone15.setText("không có khóa học nào");
+                                txtNone15.setVisibility(View.VISIBLE);
                             }
+                            adapterRecycleViewVertical.notifyDataSetChanged();
+
+                        }
+                    });
+
+                }
+                break;
+            case 3:
+                txtToolbar.setText("Top đánh giá");
+                recyclerList.setVisibility(View.VISIBLE);
+                recyclerList.setLayoutManager(new LinearLayoutManager(See_All_Activity.this,LinearLayoutManager.VERTICAL,false));
+                adapterRecycleViewVertical = new CourseDisplayVerticalAdapter(arrayCourse, this);
+//                adapterRecycleViewVertical.setClickItemListener(this::onClick);
+                recyclerList.setAdapter(adapterRecycleViewVertical);
+                if(mAuth.getCurrentUser() != null && type == null)
+                {
+                    recyclerList.setVisibility(View.VISIBLE);
+                    db.collection("Courses").whereEqualTo("course_type","course").whereEqualTo("course_state", true).orderBy("course_rate",Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            if(error != null)
+                            {
+                           
+                                return;
+                            }
+                            arrayCourse.clear();
+                            if(value.size() != 0)
+                            {
+                                txtNone15.setVisibility(View.GONE);
+                                for (QueryDocumentSnapshot doc : value) {
+                                    arrayCourse.add(doc.toObject(CourseDisplayClass.class));
+                                }
+                            }else{
+                                txtNone15.setText("không có khóa học nào");
+                                txtNone15.setVisibility(View.VISIBLE);
+                            }
+                            adapterRecycleViewVertical.notifyDataSetChanged();
                         }
                     });
                 }else {
-                    db.collection("Courses").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    db.collection("Courses").whereEqualTo("course_type","course").addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                             if (error != null) {
+                           
                                 return;
                             }
                             for (QueryDocumentSnapshot doc : value) {
@@ -196,6 +257,7 @@ public class See_All_Activity extends AppCompatActivity implements CourseDisplay
                                         @Override
                                         public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                                             if (error != null) {
+                                           
                                                 return;
                                             }
                                             for (QueryDocumentSnapshot doc : value) {
@@ -210,15 +272,21 @@ public class See_All_Activity extends AppCompatActivity implements CourseDisplay
                                                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                                                         if(error != null)
                                                         {
+                                                       
                                                             return;
                                                         }
                                                         arrayCourse.clear();
-                                                        for (QueryDocumentSnapshot doc : value) {
-                                                            if (doc.toObject(CourseDisplayClass.class) != null) {
+                                                        if(value.size() != 0)
+                                                        {
+                                                            txtNone15.setVisibility(View.GONE);
+                                                            for (QueryDocumentSnapshot doc : value) {
                                                                 arrayCourse.add(doc.toObject(CourseDisplayClass.class));
                                                             }
-                                                            adapterRecycleViewVertical.notifyDataSetChanged();
+                                                        }else{
+                                                            txtNone15.setText("không có khóa học nào");
+                                                            txtNone15.setVisibility(View.VISIBLE);
                                                         }
+                                                        adapterRecycleViewVertical.notifyDataSetChanged();
                                                     }
                                                 });
                                             }
@@ -236,33 +304,39 @@ public class See_All_Activity extends AppCompatActivity implements CourseDisplay
                 txtToolbar.setText("Khoá học miễn phí");
                 recyclerList.setVisibility(View.VISIBLE);
                 recyclerList.setLayoutManager(new LinearLayoutManager(See_All_Activity.this,LinearLayoutManager.VERTICAL,false));
-                adapterRecycleViewVertical = new CourseDisplayVeriticalAdapter(arrayCourse);
-                adapterRecycleViewVertical.setClickItemListener(this::onClick);
+                adapterRecycleViewVertical = new CourseDisplayVerticalAdapter(arrayCourse, this);
                 recyclerList.setAdapter(adapterRecycleViewVertical);
                 if(mAuth.getCurrentUser() != null && type == null)
                 {
                     recyclerList.setVisibility(View.VISIBLE);
-                    db.collection("Courses").whereEqualTo("course_state", true).whereEqualTo("course_price", 0).orderBy("course_member",Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    db.collection("Courses").whereEqualTo("course_type","course").whereEqualTo("course_state", true).whereEqualTo("course_price", 0).orderBy("course_member",Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                             if(error != null)
                             {
+                           
                                 return;
                             }
                             arrayCourse.clear();
-                            for (QueryDocumentSnapshot doc : value) {
-                                if (doc.toObject(CourseDisplayClass.class) != null) {
+                            if(value.size() != 0)
+                            {
+                                txtNone15.setVisibility(View.GONE);
+                                for (QueryDocumentSnapshot doc : value) {
                                     arrayCourse.add(doc.toObject(CourseDisplayClass.class));
                                 }
-                                adapterRecycleViewVertical.notifyDataSetChanged();
+                            }else{
+                                txtNone15.setText("không có khóa học nào");
+                                txtNone15.setVisibility(View.VISIBLE);
                             }
+                            adapterRecycleViewVertical.notifyDataSetChanged();
                         }
                     });
                 }else{
-                    db.collection("Courses").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    db.collection("Courses").whereEqualTo("course_type","course").addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                             if (error != null) {
+                           
                                 return;
                             }
                             for (QueryDocumentSnapshot doc : value) {
@@ -271,6 +345,7 @@ public class See_All_Activity extends AppCompatActivity implements CourseDisplay
                                         @Override
                                         public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                                             if (error != null) {
+                                           
                                                 return;
                                             }
                                             for (QueryDocumentSnapshot doc : value) {
@@ -285,15 +360,21 @@ public class See_All_Activity extends AppCompatActivity implements CourseDisplay
                                                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                                                         if(error != null)
                                                         {
+                                                       
                                                             return;
                                                         }
                                                         arrayCourse.clear();
-                                                        for (QueryDocumentSnapshot doc : value) {
-                                                            if (doc.toObject(CourseDisplayClass.class) != null) {
+                                                        if(value.size() != 0)
+                                                        {
+                                                            txtNone15.setVisibility(View.GONE);
+                                                            for (QueryDocumentSnapshot doc : value) {
                                                                 arrayCourse.add(doc.toObject(CourseDisplayClass.class));
                                                             }
-                                                            adapterRecycleViewVertical.notifyDataSetChanged();
+                                                        }else{
+                                                            txtNone15.setText("không có khóa học nào");
+                                                            txtNone15.setVisibility(View.VISIBLE);
                                                         }
+                                                        adapterRecycleViewVertical.notifyDataSetChanged();
                                                     }
                                                 });
                                             }
@@ -319,13 +400,13 @@ public class See_All_Activity extends AppCompatActivity implements CourseDisplay
         recyclerList = (RecyclerView) findViewById(R.id.recyclerList);
         gridCategory = (GridView) findViewById(R.id.gridCategory);
         txtToolbar = (TextView) findViewById(R.id.txtToolbar);
+        txtNone15 = (TextView) findViewById(R.id.txtNone15);
         btnBack = (AppCompatImageButton) findViewById(R.id.btnBack);
     }
-    @Override
-    public void onClick(String str) {
-        Intent intent = new Intent(See_All_Activity.this,CourseActivity.class);
-        intent.putExtra("course_key", str);
-        startActivity(intent);
-    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(adapterRecycleViewVertical!= null) adapterRecycleViewVertical.release();
+    }
 }

@@ -59,18 +59,59 @@
                         android:id="@+id/imgTeacher"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
                         android:padding="5dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/profile"
-                        app:shapeAppearanceOverlay="@style/circleImageView"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.936"
-                        app:layout_constraintStart_toEndOf="@+id/txtToolbar"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.551">
+                        app:layout_constraintVertical_bias="0.551"
+                        app:shapeAppearanceOverlay="@style/circleImageView">
+
                     </com.google.android.material.imageview.ShapeableImageView>
+
+                    <FrameLayout
+                        android:id="@+id/imgGroup"
+                        android:layout_width="50dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="170dp"
+                        android:layout_marginEnd="60dp"
+                        android:clickable="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/txtToolbar"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/btnQuestionBoxTeacher"
+                            style="@style/iconColorAppbar"
+                            android:layout_width="50dp"
+                            android:layout_height="35dp"
+                            android:backgroundTint="@color/app_theme"
+                            android:clickable="true"
+                            android:contentDescription="Hòm thư"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/mailbox"
+                            android:tint="@color/white"
+                            android:tooltipText="Hòm thư"
+                            tools:ignore="ImageContrastCheck" />
+
+                        <TextView
+                            android:id="@+id/unreadCountDashboardTeacher"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top|end|center_horizontal"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:background="@drawable/circle_background"
+                            android:text="1"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+                    </FrameLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
@@ -99,7 +140,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
         android:layout_width="0dp"
-        android:layout_height="95dp"
+        android:layout_height="wrap_content"
         style="@style/backGround"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -122,13 +163,13 @@
                 app:menu="@menu/bottom_app_bar_menu_teacher" />
         </com.google.android.material.bottomappbar.BottomAppBar>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:backgroundTint="@color/white"
-            android:src="@drawable/baseline_add_24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_anchor="@id/bottomAppBar" />
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/fab"-->
+<!--            android:backgroundTint="@color/white"-->
+<!--            android:src="@drawable/baseline_add_24"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_anchor="@id/bottomAppBar" />-->
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 

@@ -5,15 +5,20 @@ import android.app.AlertDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
+import android.os.Handler;
 
 import com.example.courseonline.R;
+
 
 public class LoadingAlert {
     private Activity activity;
     private AlertDialog alertDialog;
+    private Handler handler;
+    private Runnable dismissRunnable;
     public LoadingAlert(Activity myActivity)
     {
         activity = myActivity;
+        handler = new Handler();
     }
     public void startLoading(){
             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -25,8 +30,18 @@ public class LoadingAlert {
             alertDialog.show();
             alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+        dismissRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (alertDialog.isShowing()) {
+                    alertDialog.dismiss();
+                }
+            }
+        };
+        handler.postDelayed(dismissRunnable, 4000);
+
     }
     public void closeLoading(){
-        alertDialog.dismiss();
+        alertDialog.dismiss(); handler.removeCallbacks(dismissRunnable);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.courseonline.Activity.Teacher;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -146,7 +147,7 @@ public class DetailCourseTeacherActivity extends AppCompatActivity {
         recyclerP2.setLayoutManager(new LinearLayoutManager(DetailCourseTeacherActivity.this,LinearLayoutManager.HORIZONTAL,false));
         recyclerP2.setHasFixedSize(true);
         recyclerP2.setItemViewCacheSize(20);
-        adapter = new TypeAdapter(arrayList, 2);
+        adapter = new TypeAdapter(arrayList, this);
         recyclerP2.setAdapter(adapter);
         db.collection("Courses").document(key_id).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
@@ -206,6 +207,7 @@ public class DetailCourseTeacherActivity extends AppCompatActivity {
             }
         });
         db.collection("Courses").document(key_id).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @SuppressLint("SuspiciousIndentation")
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(error != null) {
@@ -364,6 +366,7 @@ public class DetailCourseTeacherActivity extends AppCompatActivity {
             final LayoutInflater inflater = LayoutInflater.from(context);
             final View view = inflater.inflate(R.layout.layout_profile_node, null, false);
             TextView tvValue = (TextView) view.findViewById(R.id.node_value);
+            tvValue.setTextSize(14);
             ImageView imageView = (ImageView) view.findViewById(R.id.imageNode);
             switch (value.icon)
             {
@@ -396,5 +399,11 @@ public class DetailCourseTeacherActivity extends AppCompatActivity {
         overridePendingTransition(0,0);
         startActivity(getIntent());
         overridePendingTransition(0,0);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(adapter != null) adapter.release();
     }
 }

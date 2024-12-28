@@ -6,14 +6,18 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:fontFamily">@font/roboto</item>
     </style>
+
     <style name="AppTheme1" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="colorPrimary">@android:color/holo_blue_bright</item>
         <item name="colorPrimaryDark">@android:color/holo_blue_bright</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:fontFamily">@font/roboto</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -21,106 +25,147 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:fontFamily">@font/roboto</item>
     </style>
+
     <style name="Base.Theme.CourseOnline" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:fontFamily">@font/roboto</item>
     </style>
+
     <style name="textColorSmall">
         <item name="android:textColor">@color/grey</item>
     </style>
+
     <style name="Theme.CourseOnline" parent="Base.Theme.CourseOnline">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:fontFamily">@font/roboto</item>
     </style>
+
     <style name="custom_card_view_style">
+        <item name="strokeColor">@color/app_theme_light</item>
+        <item name="strokeWidth">2dp</item>
         <item name="cardBackgroundColor">@color/white</item>
         <item name="shapeAppearanceOverlay">@style/custom_card_view</item>
     </style>
+
     <style name="backGround">
         <item name="android:background">@color/white</item>
     </style>
+    <style name="backGroundWhiteBlack">
+        <item name="android:background">@color/mint</item>
+    </style>
+
     <style name="backGround2">
         <item name="android:background">@color/white</item>
     </style>
     <style name="textColorBlack">
         <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="textColorBlue">
         <item name="android:textColor">@color/blue</item>
     </style>
+
     <style name="backGroundChild">
         <item name="android:background">@color/white</item>
     </style>
+
     <style name="textColorAppBlue">
         <item name="android:textColor">@color/blue</item>
     </style>
+
     <style name="appBarTextColor">
         <item name="titleTextColor">@color/black</item>
     </style>
+
     <style name="appBarCategory">
         <item name="android:background">@color/white</item>
         <item name="collapsedTitleTextColor">@color/black</item>
         <item name="contentScrim">#F4F3F3</item>
         <item name="expandedTitleTextColor">@color/black</item>
     </style>
+
     <style name="videoBackground">
         <item name="android:background">@drawable/video_bg</item>
     </style>
+
+    <style name="buttonFilter">
+        <item name="android:background">@drawable/button_filter</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="WindowAnimationTransition">
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
+
     <style name="bottomBar">
         <item name="android:background">@color/white</item>
         <item name="itemIconTint">@color/blue</item>
         <item name="itemTextColor">@color/blue</item>
     </style>
+
     <style name="iconColorAppbar">
         <item name="android:backgroundTint">@color/white</item>
         <item name="tint">@color/grey</item>
     </style>
+
     <style name="iconColorGeneral">
         <item name="android:backgroundTint">@color/white</item>
         <item name="tint">@color/black</item>
     </style>
+
     <style name="appBarColor">
         <item name="android:background">@color/white</item>
+    </style>
+    <style name="commentBG">
+        <item name="android:background">@drawable/dialog_bg</item>
     </style>
     <style name="textColorWhite">
         <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="tabLayout">
         <item name="android:background">@color/white</item>
         <item name="tabSelectedTextColor">@color/blue</item>
-        <item name="tabIconTint">@color/app_theme</item>
+        <item name="tabIconTint">@color/blue</item>
         <item name="tabIndicatorColor">@color/blue</item>
     </style>
+
     <style name="heading">
-        <item name="android:background">@color/app_theme</item>
+        <item name="android:background">@color/blue</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="backLogin">
         <item name="backgroundTint">@color/app_theme_light</item>
         <item name="tint">@color/app_theme</item>
     </style>
+
     <style name="button">
         <item name="android:background">@drawable/btn_login</item>
     </style>
+
     <style name="Scrim">
         <item name="contentScrim">@color/white</item>
     </style>
+
     <style name="settingBorder">
         <item name="android:background">@drawable/setting_border</item>
     </style>
+
     <style name="appBarCourse">
         <item name="android:background">#50000000</item>
         <item name="collapsedTitleTextColor">@color/white</item>
         <item name="contentScrim">#50000000</item>
         <item name="expandedTitleTextColor">@color/white</item>
     </style>
+
     <style name="custom_card_view" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopRight">48dp</item>
@@ -128,30 +173,37 @@
         <item name="cornerSizeBottomLeft">0dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
     </style>
+
     <style name="circleImageView" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+
     <style name="roundedImageView" parent="">
         <item name="cornerSize">12%</item>
         <item name="color">@color/white</item>
     </style>
+
     <style name="Toolbar_Course" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
         <item name="colorOnPrimary">@color/white</item>
     </style>
+
     <style name="ratingBar" parent="Widget.AppCompat.RatingBar">
         //k chọn
         <item name="colorControlNormal">#4D000000</item>
         //chọn
-        <item name="colorControlActivated">@android:color/holo_blue_bright</item>
+        <item name="colorControlActivated">@color/app_theme</item>
 
     </style>
+
     <style name="backGroundState" parent="">
         <item name="android:background">@drawable/bg_state</item>
     </style>
+
     <style name="backGroundComment" parent="">
         <item name="android:background">@drawable/comment_bg</item>
     </style>
+
     <style name="boxBackgroundColor">
         <item name="boxBackgroundColor">@color/white</item>
     </style>

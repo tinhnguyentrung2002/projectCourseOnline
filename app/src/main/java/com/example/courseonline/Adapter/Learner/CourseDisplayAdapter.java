@@ -2,6 +2,7 @@ package com.example.courseonline.Adapter.Learner;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.courseonline.Activity.Learner.CourseActivity;
 import com.example.courseonline.Domain.CourseDisplayClass;
 import com.example.courseonline.Domain.TypeClass;
 import com.example.courseonline.R;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -27,18 +30,23 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Locale;
 
 public class CourseDisplayAdapter extends RecyclerView.Adapter<CourseDisplayAdapter.ViewHolder> {
 
     ArrayList<CourseDisplayClass> items;
-    Activity context;
+    Context context;
     private final int limit = 10;
     private FirebaseFirestore db;
     RecyclerView.RecycledViewPool viewPool;
     onItemClickListener onItemClickListener;
-    public CourseDisplayAdapter(ArrayList<CourseDisplayClass> items) {
+    public CourseDisplayAdapter(ArrayList<CourseDisplayClass> items, Context context) {
         this.items = items;
+        this.context = context;
         viewPool = new RecyclerView.RecycledViewPool();
 
     }
@@ -58,27 +66,22 @@ public class CourseDisplayAdapter extends RecyclerView.Adapter<CourseDisplayAdap
         db = FirebaseFirestore.getInstance();
         String id = items.get(position).getCourse_id();
         ArrayList<TypeClass> arrayTypeClass = new ArrayList<>();
-        TypeAdapter typeAdapter = new TypeAdapter(arrayTypeClass, 0);
+        TypeAdapter typeAdapter = new TypeAdapter(arrayTypeClass, context);
 
         db.collection("Courses").document(id).collection("Type").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(error != null)
                 {
-
                     return;
                 }
                 arrayTypeClass.clear();
                 for (QueryDocumentSnapshot doc : value) {
                     if (doc.toObject(TypeClass.class) != null) {
-                        if(doc.getString("category_child_id").equals(""))
-                        {
-                            arrayTypeClass.add(doc.toObject(TypeClass.class));
-                        }
-
+                        arrayTypeClass.add(doc.toObject(TypeClass.class));
                     }
-                    typeAdapter.notifyDataSetChanged();
                 }
+                typeAdapter.notifyDataSetChanged();
             }
         });
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
@@ -86,17 +89,41 @@ public class CourseDisplayAdapter extends RecyclerView.Adapter<CourseDisplayAdap
         holder.recyclerView.setHasFixedSize(true);
         holder.recyclerView.setItemViewCacheSize(20);
         holder.recyclerView.setRecycledViewPool(viewPool);
-        try {
-            Glide.with(holder.itemView.getContext()).load(items.get(position).getCourse_img()).centerInside().into(holder.imgPic);
+        RequestOptions options = new RequestOptions()
+                .placeholder(R.drawable.default_image)
+                .error(R.drawable.default_image)
+                .centerInside();
 
-        }catch (Exception e)
-        {
-            Glide.with(holder.itemView.getContext()).load(R.mipmap.logo2_new_foreground).centerInside().into(holder.imgPic);
-        }
+        Glide.with(holder.itemView.getContext())
+                .load(items.get(position).getCourse_img())
+                .apply(options)
+                .into(holder.imgPic);
         holder.txtTitle.setText(items.get(position).getCourse_title());
-        holder.txtOwner.setText(items.get(position).getCourse_owner());
+        holder.txtTitle.setSelected(true);
+        db.collection("Users").document(items.get(position).getCourse_owner_id()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error != null)
+                {
+                    return;
+                }
+                if(value.exists())
+                {
+                    holder.txtOwner.setText((value.getString("user_name")));
+
+                }
+            }
+        });
+
+
         holder.txtPeople.setText(changeValue(items.get(position).getCourse_member()));
         holder.txtRate.setText(String.valueOf(items.get(position).getCourse_rate()));
+        if(items.get(position).getCourse_price() != 0)
+        {
+            holder.txtPrice.setText(changeCurrency(items.get(position).getCourse_price()));
+        }else{
+            holder.txtPrice.setText("Miễn phí");
+        }
         holder.txtTime.setText(items.get(position).getCourse_total_time() + " giờ");
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,9 +131,11 @@ public class CourseDisplayAdapter extends RecyclerView.Adapter<CourseDisplayAdap
                 Intent intent = new Intent(context, CourseActivity.class);
                 intent.putExtra("course_key", id);
                 context.startActivity(intent);
-                context.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+//                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
+
         });
+
     }
     public String changeValue(Number number) {
         char[] suffix = {' ', 'K', 'M', 'B', 'T', 'P', 'E'};
@@ -129,13 +158,17 @@ public class CourseDisplayAdapter extends RecyclerView.Adapter<CourseDisplayAdap
             return items.size();
         }
     }
+    public void release(){
+        context = null;
+    }
+
     public void setClickItemListener(CourseDisplayAdapter.onItemClickListener onItem) {
         this.onItemClickListener = onItem;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView txtTitle, txtOwner, txtPeople, txtRate, txtTime;
-        ImageView imgPic, imageView14;
+        TextView txtTitle, txtOwner, txtPeople, txtRate, txtTime, txtPrice;
+        ImageView imgPic;
         CardView cardView;
         RecyclerView recyclerView;
 
@@ -148,8 +181,18 @@ public class CourseDisplayAdapter extends RecyclerView.Adapter<CourseDisplayAdap
             txtTime = itemView.findViewById(R.id.txtTime);
             txtPeople = itemView.findViewById(R.id.txtPeople);
             txtRate = itemView.findViewById(R.id.txtRate);
+            txtPrice = itemView.findViewById(R.id.txtCoursePrice);
             imgPic = itemView.findViewById(R.id.imgPic);
             cardView = itemView.findViewById(R.id.main_container);
         }
+    }
+    private String changeCurrency(double value){
+        Locale locale = new Locale("vi", "VN");
+        Currency currency = Currency.getInstance("VND");
+        DecimalFormatSymbols df = DecimalFormatSymbols.getInstance(locale);
+        df.setCurrency(currency);
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
+        numberFormat.setCurrency(currency);
+        return numberFormat.format(value);
     }
 }

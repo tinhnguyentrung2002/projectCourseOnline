@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/dark_green"
+    android:padding="16dp"
+    android:gravity="center"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        style="@style/backGroundComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <LinearLayout
+            android:id="@+id/historyQuizBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="end"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:visibility="gone"
+            android:layout_marginBottom="20dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/baseline_history_24"
+                app:tint="@color/black" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:text=" Lịch sử"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/score_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="Kết quả bài làm" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:padding="15dp">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/score_progress_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                app:indicatorColor="@color/orange"
+                app:indicatorSize="90dp"
+                app:trackColor="@color/gray"
+                app:trackCornerRadius="20dp"
+                app:trackThickness="8dp"
+                tools:progress="60" />
+
+            <TextView
+                android:id="@+id/score_progress_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="50%" />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:weightSum="3">
+        <LinearLayout
+            style="@style/backGroundComment"
+            android:layout_width="110dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="12dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:text="Đúng" />
+
+            <TextView
+                android:id="@+id/correct_answer_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
+                android:textColor="@color/green"
+                android:textSize="16sp"
+                android:textAlignment="center"
+                tools:text="5" />
+        </LinearLayout>
+        <LinearLayout
+            style="@style/backGroundComment"
+            android:layout_width="110dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginEnd="15dp"
+            android:padding="12dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:text="Sai" />
+
+            <TextView
+                android:id="@+id/wrong_answer_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
+                android:textColor="@color/red"
+                android:textSize="16sp"
+                android:textAlignment="center"
+                tools:text="5" />
+        </LinearLayout>
+        <LinearLayout
+            style="@style/backGroundComment"
+            android:layout_width="110dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="12dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:text="Bỏ qua" />
+
+            <TextView
+                android:id="@+id/skip_answer_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textAlignment="center"
+                tools:text="5" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        style="@style/backGroundComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical"
+        android:padding="12dp">
+        <TextView
+            android:id="@+id/best_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:text="Điểm cao nhất: " />
+
+        <TextView
+            android:id="@+id/score_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:layout_marginTop="8dp"
+            android:textStyle="bold"
+            tools:text="Tổng: 5 câu" />
+
+        <TextView
+            android:id="@+id/time_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:text="Thời gian: 10 phút" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearButtonAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_showAnswer"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/bg_state"
+            android:backgroundTint="@color/orange"
+            android:drawableStart="@drawable/baseline_remove_red_eye_24"
+            android:drawablePadding="-15dp"
+            android:drawableTint="@color/white"
+            android:padding="10dp"
+            android:text="Xem đáp án"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_finishAnswer"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_state"
+            android:backgroundTint="@color/orange"
+            android:drawableStart="@drawable/baseline_home_24"
+            android:drawablePadding="-25dp"
+            android:drawableTint="@color/white"
+            android:padding="10dp"
+            android:text="Trở về"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+</LinearLayout>

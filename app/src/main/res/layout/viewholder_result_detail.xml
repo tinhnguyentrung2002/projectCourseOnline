@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+            android:id="@+id/txtChapterName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.8"
+            android:text="Chương 1: Giới thiệu"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:maxLines="2"
+            android:ellipsize="end"
+            style="@style/textColorBlack"
+            android:layout_marginEnd="8dp"/>
+
+    <TextView
+            android:id="@+id/txtVideoProgress_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="start|center_vertical"
+            android:text="Video bài giảng: "
+            android:layout_marginStart="10dp"
+            android:textSize="14sp"
+            style="@style/textColorBlack"
+            android:layout_marginEnd="8dp"/>
+    <TextView
+        android:id="@+id/txtQuizProgress_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bài tập: "
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:textSize="14sp"
+        style="@style/textColorBlack"
+        android:layout_marginEnd="8dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerQuizList_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:clipToPadding="false"
+        android:nestedScrollingEnabled="false"/>
+
+</LinearLayout>

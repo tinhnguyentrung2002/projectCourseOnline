@@ -32,7 +32,7 @@
                     android:layout_marginBottom="10dp"
                     android:text="Tham gia khoá học ngay nào"
                     style="@style/textColorBlack"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +43,7 @@
                     android:id="@+id/constraintLayout2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView26">
@@ -52,11 +52,11 @@
                         android:id="@+id/recyclerCategories"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="45dp"
-                        android:orientation="horizontal"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="40dp"
                         android:focusableInTouchMode="true"
                         android:nestedScrollingEnabled="true"
+                        android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -65,13 +65,13 @@
 
                     <TextView
                         android:id="@+id/textView28"
+                        style="@style/textColorBlack"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="8dp"
                         android:text="Thể loại"
-                        style="@style/textColorBlack"
-                        android:textSize="25sp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -84,13 +84,9 @@
                         android:layout_alignParentTop="true"
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="12dp"
-                        android:layout_marginEnd="3dp"
+                        android:layout_marginEnd="5dp"
                         android:text="Xem tất cả"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.966"
-                        app:layout_constraintStart_toEndOf="@+id/textView28"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textSize="16sp" />
 
 
                 </RelativeLayout>
@@ -109,8 +105,8 @@
                         android:id="@+id/recyclerPopular"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="60dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="40dp"
                         android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -120,13 +116,13 @@
 
                     <TextView
                         android:id="@+id/textView30"
+                        style="@style/textColorBlack"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
+                        android:layout_marginStart="11dp"
                         android:layout_marginTop="8dp"
                         android:text="Khoá học phổ biến"
-                        style="@style/textColorBlack"
-                        android:textSize="25sp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -139,20 +135,17 @@
                         android:layout_alignParentTop="true"
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="12dp"
-                        android:layout_marginEnd="3dp"
+                        android:layout_marginEnd="5dp"
                         style="@style/textColorBlack"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.966"
-                        app:layout_constraintStart_toEndOf="@+id/textView30"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textSize="16sp"
+                   />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/constraintLayout4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -162,8 +155,8 @@
                         android:id="@+id/recyclerSpecial"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="60dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="40dp"
                         android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -173,32 +166,28 @@
 
                     <TextView
                         android:id="@+id/textView32"
+                        style="@style/textColorBlack"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="8dp"
                         android:text="Mới nhất"
-                        style="@style/textColorBlack"
-                        android:textSize="25sp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+               />
 
                     <TextView
                         android:id="@+id/txtForYou"
+                        style="@style/textColorBlack"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Xem tất cả"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="12dp"
-                        android:layout_marginEnd="3dp"
-                        style="@style/textColorBlack"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.966"
-                        app:layout_constraintStart_toEndOf="@+id/textView32"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_marginEnd="5dp"
+                        android:text="Xem tất cả"
+                        android:textSize="16sp"
+                    />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -206,6 +195,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
+
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -215,8 +205,9 @@
                         android:id="@+id/recyclerTopRated"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="60dp"
+                        android:layout_marginTop="40dp"
                         android:orientation="horizontal"
+                        android:layout_marginStart="5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -225,16 +216,14 @@
 
                     <TextView
                         android:id="@+id/textView34"
+                        style="@style/textColorBlack"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="8dp"
                         android:text="Top đánh giá"
-                        style="@style/textColorBlack"
-                        android:textSize="25sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txtTopRate"
@@ -244,13 +233,10 @@
                         android:layout_alignParentTop="true"
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="12dp"
-                        android:layout_marginEnd="3dp"
+                        android:layout_marginEnd="5dp"
                         style="@style/textColorBlack"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.966"
-                        app:layout_constraintStart_toEndOf="@+id/textView34"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textSize="16sp"
+                     />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -258,6 +244,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
+                    android:layout_marginBottom="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -267,8 +255,8 @@
                         android:id="@+id/recyclerFree"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="80dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="70dp"
                         android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -278,35 +266,28 @@
 
                     <TextView
                         android:id="@+id/textView36"
-                        android:layout_width="275dp"
+                        style="@style/textColorBlack"
+                        android:layout_width="280dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="8dp"
                         android:text="Bắt đầu lộ trình với các khoá học miễn phí"
-                        style="@style/textColorBlack"
-                        android:textSize="25sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txtFree"
+                        style="@style/textColorBlack"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="12dp"
-                        android:layout_marginEnd="3dp"
+                        android:layout_marginEnd="5dp"
                         android:text="Xem tất cả"
-                        style="@style/textColorBlack"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.966"
-                        app:layout_constraintStart_toEndOf="@+id/textView36"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textSize="16sp" />
                 </RelativeLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

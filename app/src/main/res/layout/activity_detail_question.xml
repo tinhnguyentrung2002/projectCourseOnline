@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:emojicon="http://schemas.android.com/tools"
+    android:id="@+id/mainMessageLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/backGroundWhiteBlack">
+    <FrameLayout
+        android:id="@+id/gallery_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+    <LinearLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#80000000"
+        android:translationZ="1dp"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/btnBackMessage"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:tint="@color/white"
+            android:src="@drawable/baseline_arrow_back_ios_new_24" />
+
+        <TextView
+            android:id="@+id/textViewSubjectMessage"
+            android:textColor="@color/white"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxLength="27"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="Tên "
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/messageSearchIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:tint="@color/white"
+            android:src="@drawable/search_icon" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/searchBoxMessage"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@id/headerLayout"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        style="@style/backGroundWhiteBlack"
+        android:visibility="gone"
+        android:background="#807095C3"
+        android:translationZ="1dp"
+        android:weightSum="3">
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/editTextSearchMessage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            app:queryHint="Tìm kiếm..."
+            app:iconifiedByDefault="false"
+            android:layout_marginRight="10dp"
+            android:textColorHint="@color/white"
+            android:backgroundTint="@android:color/transparent"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/btnCloseSearchMessage"
+            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_weight="1"
+            android:text="Ẩn"
+            android:textStyle="bold"
+            android:textSize="14sp"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/textViewEmptyMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trống"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewMessages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        app:stackFromEnd="true"
+        android:layout_below="@id/headerLayout"
+        android:layout_marginBottom="16dp"
+        android:nestedScrollingEnabled="false"
+        android:layout_above="@+id/recyclerViewAttachImageMessage" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAttachImageMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_edit_text"
+        android:visibility="visible"
+        android:layout_above="@id/messageInputLayout" />
+    <LinearLayout
+        android:id="@+id/messageInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray_edit_text"
+        android:padding="8dp">
+        <ImageButton
+            android:id="@+id/buttonSmile"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@android:color/transparent"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="Biểu tượng cảm xúc"
+            android:src="@drawable/smiley" />
+
+        <hani.momanii.supernova_emoji_library.Helper.EmojiconEditText
+            android:id="@+id/editTextMessage"
+            style="@style/textColorSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            android:hint="Nhập tin nhắn..."
+            android:padding="8dp"
+            android:backgroundTint="@android:color/transparent"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            android:textSize="17sp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <ImageButton
+                android:id="@+id/buttonAttachFile"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="12dp"
+                android:src="@drawable/attach_icon"
+                app:tint="@color/black"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:foreground="?attr/selectableItemBackground"
+                android:background="@drawable/background_transparent_corner"
+                android:scaleType="fitXY" />
+
+            <ImageButton
+                android:id="@+id/buttonImage"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="4dp"
+                android:src="@drawable/icon_image"
+                android:foreground="?attr/selectableItemBackground"
+                app:tint="@color/black"
+                android:background="@drawable/background_transparent_corner"
+                android:scaleType="fitXY" />
+        </LinearLayout>
+
+
+        <ImageButton
+            android:id="@+id/buttonSend"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="4dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:src="@drawable/send_icon"
+            android:background="@drawable/background_transparent_corner"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            app:tint="@color/edit_text_border" />
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabScrollToBottomMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="140dp"
+        android:layout_marginRight="10dp"
+        android:foreground="?attr/selectableItemBackground"
+        app:srcCompat="@drawable/baseline_keyboard_arrow_down_24"
+        android:visibility="visible" />
+
+</RelativeLayout>

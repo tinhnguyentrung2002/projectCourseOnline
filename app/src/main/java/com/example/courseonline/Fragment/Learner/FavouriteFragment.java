@@ -52,7 +52,10 @@ public class FavouriteFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mapping();
-        loadData();
+        if (savedInstanceState == null) {
+            // Activity is being created for the first time
+            loadData();
+        }
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemViewCacheSize(20);
@@ -68,7 +71,7 @@ public class FavouriteFragment extends Fragment{
     }
     private void loadData(){
         recyclerView.setVisibility(View.VISIBLE);
-        adapterRecycleView = new FavouriteAdapter(arrayFavourite);
+        adapterRecycleView = new FavouriteAdapter(arrayFavourite, getContext());
         if(mAuth.getCurrentUser() != null) {
             db.collection("Users").document(mAuth.getCurrentUser().getUid()).collection("Favourites").addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
@@ -100,8 +103,9 @@ public class FavouriteFragment extends Fragment{
                                     if (doc.toObject(CourseDisplayClass.class) != null) {
                                         arrayFavourite.add(doc.toObject(CourseDisplayClass.class));
                                     }
-                                    adapterRecycleView.notifyDataSetChanged();
+
                                 }
+                                adapterRecycleView.notifyDataSetChanged();
 
                             }
                         });
@@ -154,5 +158,11 @@ public class FavouriteFragment extends Fragment{
             recyclerView.setPadding(10,0,0,0);
             recyclerView.setAdapter(adapterRecycleView);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(adapterRecycleView != null) adapterRecycleView.release();
     }
 }

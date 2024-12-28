@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/messageLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_marginTop="10dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgUserMessage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/profile"
+        android:layout_marginLeft="2dp"
+        android:padding="1dp"
+        android:layout_gravity="bottom"
+        app:shapeAppearanceOverlay="@style/circleImageView"
+        app:strokeColor="@color/mint"
+        app:strokeWidth="1dp" />
+    <LinearLayout
+        android:id="@+id/bubbleLayout"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:gravity="start"
+        android:background="@drawable/round_back_white_10">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingVertical="1dp"
+            android:gravity="start">
+
+            <LinearLayout
+                android:id="@+id/userInfoMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="13dp">
+                <TextView
+                    android:id="@+id/txtUserNameMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/blue"
+                    android:textSize="14sp" />
+                <ImageView
+                    android:id="@+id/message_user_level"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginStart="5dp" />
+            </LinearLayout>
+            <GridLayout
+                android:id="@+id/imageGridMessage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="2dp">
+            </GridLayout>
+            <TextView
+                android:id="@+id/messageBubble"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_marginLeft="22dp"
+                android:layout_marginTop="2dp"
+                android:text="Hello, this is a message!"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/messageTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="10:30 AM"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:layout_marginBottom="2dp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -10,8 +10,12 @@
         android:icon="@drawable/baseline_manage_search_24"></item>
     <item
         android:id="@+id/tab_learning"
-        android:title="Đang học"
+        android:title="Khóa học"
         android:icon="@drawable/baseline_library_books_24"></item>
+    <item
+        android:id="@+id/tab_leaderboard"
+        android:title="Xếp hạng"
+        android:icon="@drawable/leaderboard"></item>
     <item
         android:id="@+id/tab_person"
         android:title="Cá nhân"

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cardViewQuiz"
+    android:layout_width="250dp"
+    android:layout_height="145dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="20dp"
+    android:elevation="10dp"
+    android:clickable="true"
+    android:outlineSpotShadowColor="@color/black"
+    app:cardBackgroundColor="@color/dark_green"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="6dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/quiz_best_score_text"
+        tools:text="70%"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        android:textStyle="bold"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="3dp"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:padding="4dp">
+            <TextView
+                android:layout_width="162dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/quiz_title_text"
+                tools:text="Trắc nghiệm chương 1 "
+                android:textColor="@color/white"
+                android:maxLength="50"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:layout_marginTop="5dp"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="150dp"
+                android:maxLength="50"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:layout_height="wrap_content"
+                android:id="@+id/quiz_subtitle_text"
+                android:layout_marginTop="7dp"
+                android:textColor="@color/grey"
+                android:textSize="12sp"
+                tools:text="All about Android OS "/>
+            <TextView
+                android:layout_width="150dp"
+                android:maxLength="60"
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:layout_height="wrap_content"
+                android:id="@+id/quiz_require_text"
+                android:layout_marginTop="7dp"
+                android:textColor="@color/grey"
+                android:textSize="12sp"
+                tools:text="Yêu cầu: 50%"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/icon_timer"
+                app:tint="@color/white" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/quiz_time_text"
+                tools:text="20 min"
+                android:textColor="@color/grey"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:progress="70"
+        app:indicatorColor="@color/mint"
+></com.google.android.material.progressindicator.LinearProgressIndicator>
+    <ImageView
+        android:id="@+id/imgCheckRequire"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="bottom|end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/checked" />
+
+</androidx.cardview.widget.CardView>
