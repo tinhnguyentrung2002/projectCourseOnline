@@ -51,3 +51,11 @@
 -	Quản lý hóa đơn: Quản trị viên xem được tất cả hóa đơn thanh toán của người dùng khi họ hoàn tất thanh toán khóa học.
 -	Quản lý khóa học/lớp học: Quản trị viên được phép khóa/mở khóa khóa học của giáo viên.
 -	Duyệt/Ẩn khóa học, lớp học: Quản trị viên sẽ duyệt những khóa học của những giáo viên trước khi đưa khóa học lên ứng dụng cũng như có thể gỡ những khóa học không phù hợp tiêu chuẩn khỏi ứng dụng.
+##### Dưới đây là link source code website quản trị của giáo viên và quản trị viên:
+
+##### Video demo - Click vào link ảnh phía dưới:
+***
+- Phút 0: Demo ứng dụng
+- Phút 10.55 : Demo website quản lý
+***
+[![Xem demo](https://img.youtube.com/vi/FGceJd4UqW0/maxresdefault.jpg)](https://www.youtube.com/watch?v=FGceJd4UqW0)
