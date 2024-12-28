@@ -1,22 +1,24 @@
 ### HỆ THỐNG QUẢN LÝ KHÓA HỌC TRỰC TUYẾN CHO CÁC TRƯỜNG THPT
 ##### Giới Thiệu
 ***
-    - Hệ thống quản lý khóa học trực tuyến được xây dựng nhằm phục vụ nhu cầu học tập của học sinh THPT trong thời đại số. Với mục tiêu phát triển một nền tảng học trực tuyến dễ sử dụng, giúp học sinh và giáo viên có thể học tập và giảng dạy thuận tiện thông qua điện thoại di động và website.
+- Hệ thống quản lý khóa học trực tuyến được xây dựng nhằm phục vụ nhu cầu học tập của học sinh THPT trong thời đại số. Với mục tiêu phát triển một nền tảng học trực tuyến dễ sử dụng, giúp học sinh và giáo viên có thể học tập và giảng dạy thuận tiện thông qua điện thoại di động và website.
     
-    - Ứng dụng di động học trực tuyến được phát triển trên nền tảng Android, sử dụng Java và Firebase. Website quản lý khóa học được phát triển để hỗ trợ giáo viên và quản trị viên trong việc quản lý các khóa học, lớp học, người dùng và các hoạt động thanh toán.
+- Ứng dụng di động học trực tuyến được phát triển trên nền tảng Android, sử dụng Java và Firebase. Website quản lý khóa học được phát triển để hỗ trợ giáo viên và quản trị viên trong việc quản lý các khóa học, lớp học, người dùng và các hoạt động thanh toán.
 ![image](https://firebasestorage.googleapis.com/v0/b/courseonline-6050b.appspot.com/o/Home.jpg?alt=media&token=d77c8b6a-2815-4e25-87a5-30c7f1c43832)
 ##### Nghiệp vụ chung: 
 ***
-    - Học Sinh: Sau khi đăng nhập, học sinh có thể tìm kiếm khóa học, tham gia lớp học, xem bài giảng, và làm bài tập.
-    - Giáo Viên: Giáo viên có thể tạo khóa học, quản lý lớp học, xem báo cáo thống kê.
-    - Quản Trị Viên: Quản trị viên có quyền quản lý người dùng, khóa học, và các hóa đơn thanh toán.
+- Học Sinh: Sau khi đăng nhập, học sinh có thể tìm kiếm khóa học, tham gia lớp học, xem bài giảng, và làm bài tập.
+- Giáo Viên: Giáo viên có thể tạo khóa học, quản lý lớp học, xem báo cáo thống kê.
+- Quản Trị Viên: Quản trị viên có quyền quản lý người dùng, khóa học, và các hóa đơn thanh toán.
 ##### Công nghệ sử dụng: 
 - Android Studio
 - Java
 - Firebase
 ##### Sơ đồ Usecase tổng quát: 
+***
 ![image](https://firebasestorage.googleapis.com/v0/b/courseonline-6050b.appspot.com/o/Usecase.png?alt=media&token=38309341-053b-4a1c-a0e1-2e6aa3c7d0ab)
 ##### Lược đồ cơ sở dữ liệu: 
+***
 ![image](https://firebasestorage.googleapis.com/v0/b/courseonline-6050b.appspot.com/o/LuocDoCSDL.png?alt=media&token=113aca07-1467-43e9-99ea-24a83641d368)
 ##### Chức năng chung:
 ***
