@@ -1,99 +1,47 @@
-# Mô tả cơ sở dữ liệu (Firebase)
+Hệ Thống Quản Lý Khóa Học Trực Tuyến cho Trường THPT
+Giới Thiệu
+Hệ thống quản lý khóa học trực tuyến được xây dựng nhằm phục vụ nhu cầu học tập của học sinh THPT trong thời đại số. Với mục tiêu phát triển một nền tảng học trực tuyến dễ sử dụng, giúp học sinh và giáo viên có thể học tập và giảng dạy thuận tiện thông qua điện thoại di động và website.
 
-### Bảng 1: Bảng dữ liệu thể loại
+Ứng dụng di động học trực tuyến được phát triển trên nền tảng Android, sử dụng Java và Firebase. Website quản lý khóa học được phát triển để hỗ trợ giáo viên và quản trị viên trong việc quản lý các khóa học, lớp học, người dùng và các hoạt động thanh toán.
 
-| STT | Tên trường      | Kiểu dữ liệu | Mô tả                                |
-|-----|-----------------|--------------|--------------------------------------|
-| 1   | Category_id     | String       | Id của thể loại                      |
-| 2   | Category_layer  | int          | Phân loại thể loại (cha)            |
-| 3   | Category_order  | int          | Thứ tự sắp xếp các thể loại trong danh mục |
-| 4   | Category_title  | String       | Tiêu đề các thể loại trong danh mục |
+Chức Năng Chính
+Chức Năng Học Sinh:
+Đăng nhập/Đăng ký: Tạo tài khoản để đăng nhập vào hệ thống và quản lý thông tin cá nhân.
+Tìm kiếm và tham gia khóa học: Học sinh có thể tìm kiếm các khóa học và tham gia thông qua mã ghi danh hoặc thanh toán trực tuyến.
+Thanh toán và xem lịch sử thanh toán: Cung cấp các phương thức thanh toán như ZaloPay, Google Pay, và điểm tích lũy.
+Chi tiết khóa học/lớp học: Xem thông tin chi tiết về khóa học/lớp học, tiến độ bài giảng, bài tập, và các tài nguyên học tập.
+Đánh giá khóa học: Sau khi hoàn thành khóa học, học sinh có thể đánh giá và để lại phản hồi về khóa học.
+Nhóm thảo luận: Tham gia các nhóm thảo luận trong lớp học để trao đổi với bạn bè và giáo viên.
+Chức Năng Giáo Viên:
+Quản lý khóa học và lớp học: Giáo viên có thể tạo và quản lý các khóa học/lớp học của mình.
+Thống kê và báo cáo: Theo dõi các chỉ số về học sinh, lớp học, và lợi nhuận từ các khóa học.
+Sao chép lớp học: Tạo ra các bản sao của lớp học để tổ chức các khóa học tiếp theo.
+Chức Năng Quản Trị Viên:
+Quản lý người dùng: Quản lý tài khoản người dùng, thêm mới hoặc cấm người dùng vi phạm.
+Quản lý khóa học/lớp học: Duyệt, khóa/mở khóa các khóa học và lớp học của giáo viên.
+Quản lý hóa đơn: Xem và quản lý các hóa đơn thanh toán của học sinh.
+Quản lý xếp hạng và danh mục môn học: Quản lý bảng xếp hạng và các danh mục môn học trong hệ thống.
+Công Nghệ Sử Dụng
+Ứng Dụng Di Động (Android): Android Studio, Java
+Website Quản Lý: HTML, CSS, JavaScript, PHP (hoặc các công nghệ phù hợp nếu cần)
+Backend: Firebase (cho cả ứng dụng Android và website)
+Thanh Toán: ZaloPay, Google Pay
+Cài Đặt và Chạy Ứng Dụng
+Cài Đặt Ứng Dụng Android:
 
-### Bảng 2: Bảng dữ liệu thể loại con (categorieschild)
+Tải Android Studio và cấu hình môi trường phát triển.
+Mở dự án trong Android Studio.
+Chạy ứng dụng trên thiết bị Android hoặc trình giả lập.
+Cài Đặt Website Quản Lý:
 
-| STT | Tên trường      | Kiểu dữ liệu | Mô tả                                |
-|-----|-----------------|--------------|--------------------------------------|
-| 1   | Category_id     | String       | Id của thể loại                      |
-| 2   | Category_layer  | int          | Phân loại thể loại (con)            |
-| 3   | Category_order  | int          | Thứ tự sắp xếp các thể loại trong danh mục |
-| 4   | Category_title  | String       | Tiêu đề các thể loại trong danh mục |
+Cài đặt và cấu hình máy chủ (ví dụ: Apache hoặc Nginx).
+Cài đặt PHP và MySQL (nếu sử dụng).
+Cấu hình Firebase và kết nối với website.
+Hướng Dẫn Sử Dụng
+Học Sinh: Sau khi đăng nhập, học sinh có thể tìm kiếm khóa học, tham gia lớp học, xem bài giảng, và làm bài tập.
+Giáo Viên: Giáo viên có thể tạo khóa học, quản lý lớp học, xem báo cáo thống kê.
+Quản Trị Viên: Quản trị viên có quyền quản lý người dùng, khóa học, và các hóa đơn thanh toán.
+Link GitHub
+Dưới đây là phần source code của website quản trị của giáo viên và quản trị viên:
 
-### Bảng 3: Bảng dữ liệu khóa học
-
-| STT | Tên trường          | Kiểu dữ liệu | Mô tả                                          |
-|-----|---------------------|--------------|------------------------------------------------|
-| 1   | Course_id           | String       | ID khoá học                                    |
-| 2   | Heading_id          | String       | ID chương trong khoá học                       |
-| 3   | Heading_title       | String       | Tên chương trong khoá học                      |
-| 4   | Heading_description | String       | Mô tả chương trong khoá học                    |
-| 5   | Heading_order       | Number       | Thứ tự sắp xếp các chương trong khoá học      |
-
-### Bảng 4: Bảng dữ liệu chương trong khóa học
-
-| STT | Tên trường       | Kiểu dữ liệu | Mô tả                  |
-|-----|------------------|--------------|------------------------|
-| 1   | Course_id        | String       | ID khoá học            |
-| 2   | Category_id      | String       | ID thể loại cha       |
-| 3   | Category_child_id| String       | ID thể loại con       |
-
-### Bảng 5: Bảng dữ liệu phân loại khóa học
-
-| STT | Tên trường      | Kiểu dữ liệu | Mô tả                       |
-|-----|-----------------|--------------|-----------------------------|
-| 1   | Course_id       | String       | ID khoá học                 |
-| 2   | Comment_id      | String       | ID bình luận                |
-| 3   | Comment_content | String       | Nội dung bình luận          |
-| 4   | Comment_like    | int          | Lượt thích bình luận        |
-| 5   | Comment_rate    | Int          | Đánh giá bình luận          |
-| 6   | Comment_upload_time | Date     | Thời gian bình luận         |
-| 7   | User_id         | String       | ID người bình luận          |
-| 8   | User_avatar     | String       | Ảnh đại diện người bình luận|
-| 9   | User_name       | String       | Tên người bình luận         |
-
-### Bảng 6: Bảng dữ liệu bình luận trong khóa học
-
-| STT | Tên trường      | Kiểu dữ liệu | Mô tả             |
-|-----|-----------------|--------------|-------------------|
-| 1   | Video_id        | String       | ID video          |
-| 2   | Video_Title     | String       | Tiêu đề video     |
-| 3   | Video_url       | String       | Link video        |
-
-### Bảng 7: Bảng dữ liệu video khóa học
-
-| STT | Tên trường      | Kiểu dữ liệu | Mô tả             |
-|-----|-----------------|--------------|-------------------|
-| 1   | Document_title  | String       | Tiêu đề tài liệu  |
-| 2   | Document_url    | String       | Link tài liệu     |
-
-### Bảng 8: Bảng dữ liệu tài liệu khóa học
-
-| STT | Tên trường      | Kiểu dữ liệu | Mô tả                   |
-|-----|-----------------|--------------|-------------------------|
-| 1   | User_uid        | String       | Id người dùng           |
-| 2   | User_name       | String       | Tên người dùng          |
-| 3   | User_job        | String       | Công việc hiện tại người dùng |
-| 4   | User_email      | String       | Email người dùng        |
-| 5   | User_avatar     | String       | Avatar người dùng       |
-| 6   | User_permission | String       | Quyền người dùng       |
-
-### Bảng 9: Bảng dữ liệu người dùng
-
-| STT | Tên trường      | Kiểu dữ liệu | Mô tả             |
-|-----|-----------------|--------------|-------------------|
-| 1   | User_uid        | String       | Id người dùng     |
-| 2   | Video_id        | String       | Id video khoá học |
-
-### Bảng 10: Bảng dữ liệu Checkvideo người dùng
-
-| STT | Tên trường      | Kiểu dữ liệu | Mô tả             |
-|-----|-----------------|--------------|-------------------|
-| 1   | Course_id       | String       | Id khoá học       |
-| 2   | Comment_id      | String       | Id bình luận      |
-
-### Bảng 11: Bảng dữ liệu Checklike người dùng
-
-# Demo sản phẩm (Video)
-Click ảnh để di chuyển tới video: 
-
-[![appDemo](https://img.youtube.com/vi/pesfm5-z4FI/0.jpg)](https://www.youtube.com/watch?v=pesfm5-z4FI)
-
+GitHub Repository
