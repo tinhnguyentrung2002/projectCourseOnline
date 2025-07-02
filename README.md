@@ -9,7 +9,7 @@
 
 ##### Nghiệp vụ chung: 
 ***
-- Học Sinh: Sau khi đăng nhập, học sinh có thể tìm kiếm khóa học, tham gia lớp học, xem bài giảng, và làm bài tập
+- Học Sinh: Sau khi đăng nhập, học sinh có thể tìm kiếm khóa học, tham gia lớp học, xem bài giảng, và làm bài tập.
 - Giáo Viên: Giáo viên có thể tạo khóa học, quản lý lớp học, xem báo cáo thống kê.
 - Quản Trị Viên: Quản trị viên có quyền quản lý người dùng, khóa học, và các hóa đơn thanh toán.
 ##### Công nghệ sử dụng: 
